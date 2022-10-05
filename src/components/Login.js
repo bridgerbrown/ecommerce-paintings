@@ -6,8 +6,7 @@ class Login extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            username: "",
-            password: ""
+            username: ""
         }
     }
 
@@ -15,12 +14,11 @@ class Login extends Component {
 
     login = (e) => {
         e.preventDefault()
-
-        const { username, password } = this.state
-        if (!username || !password) {
+        const { username } = this.state
+        if (!username) {
             return this.setState({ error: "Fill all fields!" })
         }
-        this.props.context.login(username, password)
+        this.props.context.login(username)
             .then((loggedIn) => {
                 if (!loggedIn) {
                     this.setState({ error: "Invalid Credentials" })
@@ -49,16 +47,7 @@ class Login extends Component {
                                         name="username"
                                         onChange={this.handleChange}
                                     />
-                                </div>
-                                <div className="field">
-                                    <label className="label">Password: </label>
-                                    <input
-                                        className="input"
-                                        type="password"
-                                        name="password"
-                                        onChange={this.handleChange}
-                                    />
-                                </div>                            
+                                </div>                        
                             {this.state.error && (
                                 <div className="has-text-danger">{this.state.error}</div>
                             )}
