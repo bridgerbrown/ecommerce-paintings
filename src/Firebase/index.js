@@ -14,16 +14,17 @@ export const auth = getAuth()
 export const paintingsRef = collection(db, 'paintings')
 
 // real time collection data
-export const getPaintings = () => {
-    let paintings = []
-    onSnapshot(paintingsRef, (snapshot) => {
-        snapshot.docs.forEach((doc) => {
-          paintings.push({ ...doc.data(), id: doc.id })
-        })
-        console.log(paintings)
-        return paintings
-      })
-}
+
+let paintings = []
+onSnapshot(paintingsRef, (snapshot) => {
+    snapshot.docs.forEach((doc) => {
+      paintings.push({ ...doc.data(), id: doc.id })
+    })
+    console.log(paintings)
+    return paintings
+  })
+
+export const paintingData = paintings
 
 // user sign in anonymously
 export const signInUser = signInAnonymously(auth)

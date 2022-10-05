@@ -7,7 +7,7 @@ import Cart from './components/Cart';
 import Login from './components/Login';
 import ProductList from './components/ProductList';
 import Context from "./Context"
-import { getPaintings, signInUser } from './Firebase';
+import { paintingData, signInUser } from './Firebase';
 
 export default class App extends Component {
   constructor(props) {
@@ -24,7 +24,7 @@ export default class App extends Component {
     let user = {}
     let cart = {}
 
-    const products = getPaintings()
+    const products = paintingData
 
     this.setState({ user, products: products, cart })
   }
