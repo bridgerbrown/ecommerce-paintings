@@ -56,18 +56,19 @@ export default class App extends Component {
   }
 
   addToCart = cartItem => {
-    let cart = this.state.cart
-    if (cart[cartItem.id]) {
-      cart[cartItem.id].amount += cartItem.amount
+    let cart = this.state.cart;
+    if (cart[cartItem.title]) {
+      cart[cartItem.title].amount += cartItem.amount;
     } else {
-      cart[cartItem.id] = cartItem
+      cart[cartItem.title] = cartItem;
     }
-    if (cart[cartItem.id].amount > cart[cartItem.id].product.stock) {
-      cart[cartItem.id].amount = cart[cartItem.id].product.stock
+    if (cart[cartItem.title].amount > cart[cartItem.title].product.stock) {
+      cart[cartItem.title].amount = cart[cartItem.title].product.stock;
     }
-    localStorage.setItem("cart", JSON.stringify(cart))
-    this.setState({ cart })
-  }
+    localStorage.setItem("cart", JSON.stringify(cart));
+    this.setState({ cart });
+  };
+
 
   removeFromCart = cartItemId => {
     let cart = this.state.cart
@@ -91,8 +92,8 @@ export default class App extends Component {
     const cart = this.state.cart
 
     const products = this.state.products.map(p => {
-      if (cart[p.name]) {
-        p.stock = p.stock - cart[p.name].amount
+      if (cart[p.title]) {
+        p.stock = p.stock - cart[p.title].amount
 
         axios.put(
           `http://localhost:3001/products/${p.id}`,

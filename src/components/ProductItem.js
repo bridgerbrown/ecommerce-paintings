@@ -7,23 +7,23 @@ const ProductItem = props => {
             <div className="box">
                 <div className="media">
                     <div className="media-left">
-                        <figure className="image is-64x64">
+                        <figure className="image">
                             <img 
-                                src="https://bulma.io/images/placeholders/128x128.png"
+                                src={product.img}
                                 alt={product.shortDesc}
                             />
                         </figure>
                     </div>
                     <div className="media-content">
                         <b style={{ textTransform: "capitalize"}}>
-                            {product.name}{" "}
-                            <span className="tag is-primary">${product.price}</span>
+                            {product.title}{" "}
                         </b>
-                        <div>{product.shortDesc}</div>
+                        <h2>{product.artist}</h2>
+                        <span className="tag is-primary">{product.price}</span>
                         {product.stock > 0 ? (
-                            <small>{product.stock + " Avaliable"}</small>
+                        <small>{product.stock + " Available"}</small>
                         ) : (
-                            <small className="has-text-danger">Out of Stock</small>
+                        <small className="has-text-danger">Out Of Stock</small>
                         )}
                         <div className="is-clearfix">
                             <button
@@ -37,6 +37,11 @@ const ProductItem = props => {
                                 }
                             >
                                 Add to Cart
+                            </button>
+                            <button
+                                className="button is-small is-outlined is-primary is-pulled-left"
+                            >
+                                More Info
                             </button>
                         </div>
                     </div>
