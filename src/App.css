@@ -1,42 +1,132 @@
-.App {
-  text-align: center;
+* {
+  margin: 0;
+  padding: 0;
+  font-family: 'EB Garamond', serif;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
+/* --------------------Navbar--------------------- */
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.navbar {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  padding-top: 1.25rem;
+  padding-bottom: 1.25rem;
+  background-color: brown;
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.navbar-brand b {
+  font-family: 'Parisienne', cursive;
+  font-size: 2em;
+  padding: 0 1.25rem;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.navbar-menu {
+  display: flex;
+  padding: 0 0.25rem;
 }
 
-.image {
-  width: 200px
+.navbar-item {
+  display: flex;
+  list-style: none;
+  justify-content: center;
+  margin-right: 1rem;
+  color: white;
+  text-decoration: none;
+  font-size: 1.2em;
+  text-transform: none;
+}
+
+.active-nav {
+  color: white;
+  border-bottom: 1px solid white;
+}
+
+/* --------------------Pages--------------------- */
+
+.title-container {
+  display: flex;
+  justify-content: center;
+  background-color: rgba(211, 211, 211, 0.431);
+}
+
+.page-title {
+  padding: 3rem 0;
+  font-size: 1.75em;
+}
+
+/* --------------------Products--------------------- */
+
+
+.painting-image img {
+  max-width: 25rem;
+  border: 25px outset brown;
+}
+
+.painting-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.painting-container {
+  margin: 2rem auto;
+  padding-bottom: 3rem;
+  border-bottom: 1px lightgray solid;
+}
+
+.painting-title {
+  font-size: 1.5em;
+  font-style: italic;
+  font-weight: 800;
+}
+
+.painting-artist {
+  font-size: 1.1em;
+  font-weight: 500;
+}
+
+.painting-title,
+.painting-artist,
+.painting-price {
+  margin-bottom: 0.2rem;
+}
+
+.painting-text {
+  margin-top: 0.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.painting-buttons {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+button {
+  padding: 0.7rem 0.5rem;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+button:active {
+  opacity: 0.8;
+}
+
+.painting-buttons button {
+  margin: 0;
+}
+
+.add-to-cart {
+  background-color: rgb(255, 72, 72);
+  color: white;
+}
+
+.more-info {
+  background-color: rgb(170, 170, 170);
+  color: white;
 }

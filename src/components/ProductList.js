@@ -8,13 +8,13 @@ const ProductList = props => {
     return(
         <>
             <div className="hero is-primary">
-                <div className="hero-body container">
-                    <h4 className="title">Our Products</h4>
+                <div className="title-container">
+                    <h4 className="page-title">Our Products</h4>
                 </div>
             </div>
             <br />
             <div className="container">
-                <div className="column columns is-multiline">
+                <div className="painting-list">
                     {products && products.length ? (
                         products.map((product, index) => (
                             <ProductItem

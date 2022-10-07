@@ -7,7 +7,6 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^0.27.2",
-    "bulma": "^0.9.4",
     "firebase": "^9.10.0",
     "jwt-decode": "^3.1.2",
     "node-polyfill-webpack-plugin": "^2.0.1",

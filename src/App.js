@@ -1,6 +1,6 @@
 import './App.css';
 import React, { Component } from 'react';
-import { Route, Routes, Link, BrowserRouter as Router } from "react-router-dom"
+import { Route, Routes, NavLink, BrowserRouter as Router } from "react-router-dom"
 import axios from 'axios'
 import AddProduct from './components/AddProduct';
 import Cart from './components/Cart';
@@ -127,7 +127,7 @@ render() {
           aria-label='main navigation'
         >
         <div className='navbar-brand'>
-          <b className='navbar-item is-size-4'>ecommerce</b>
+          <b>eCommerce Paintings</b>
           <label
             role='button'
             class='navbar-burger burger'
@@ -147,10 +147,12 @@ render() {
             <div className={`navbar-menu ${
               this.state.showMenu ? "is-active" : ""
               }`}>
-              <Link to="/products" className='navbar-item'>
+              <NavLink to="/products" className={({ isActive }) => 
+                      (isActive ? "active-nav navbar-item" : "navbar-item")}>
                 Products
-              </Link>
-              <Link to="/cart" className='navbar-item'>
+              </NavLink>
+              <NavLink to="/cart" className={({ isActive }) => 
+                      (isActive ? "active-nav navbar-item" : "navbar-item")}>
                 Cart
                 <span
                   className='tag is-primary'
@@ -158,15 +160,17 @@ render() {
                 >
                   { Object.keys(this.state.cart).length }
                 </span>
-              </Link>
+              </NavLink>
               {!this.state.user ? (
-                <Link to="/login" className='navbar-item'>
+                <NavLink to="/login" className={({ isActive }) => 
+                      (isActive ? "active-nav navbar-item" : "navbar-item")}>
                   Login
-                </Link>
+                </NavLink>
               ) : (
-                <Link to="/" onClick={this.logout} className="navbar-item">
+                <NavLink to="/" onClick={this.logout} className={({ isActive }) => 
+                      (isActive ? "active-nav navbar-item" : "navbar-item")}>
                   Logout
-                </Link>
+                </NavLink>
               )}
             </div>
           </nav>
