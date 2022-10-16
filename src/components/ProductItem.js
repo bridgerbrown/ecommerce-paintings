@@ -12,7 +12,7 @@ const ProductItem = props => {
                     />
                 </figure>
             </div>
-            <div className="painting-content">
+            <div className="painting E-content">
                 <div className="painting-text">
                     <h1 className="painting-title">
                         {product.title}
@@ -30,9 +30,7 @@ const ProductItem = props => {
                         className="add-to-cart"
                         onClick={() => 
                             props.addToCart({
-                                id: product.name,
-                                product,
-                                amount: 1
+                                id: product.id
                             })
                         }
                     >

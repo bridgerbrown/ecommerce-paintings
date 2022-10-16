@@ -24,7 +24,21 @@ onSnapshot(paintingsRef, (snapshot) => {
     return paintings
   })
 
-export const paintingData = paintings
+export const paintingsData = paintings
 
-// user sign in anonymously
 export const signInUser = signInAnonymously(auth)
+
+
+export const updateProducts = (db, products) => {
+  let listPromises = products.map((prod, index) => {
+    return updateProduct(db, prod);
+  });
+
+  return Promise.all(listPromises);
+};
+
+export const updateProduct = (db, item) => {
+  return db.collection("paintings").doc(item.id).update({
+    stock: item.stock,
+  });
+};

@@ -1,13 +1,12 @@
 import './App.css';
 import React, { Component } from 'react';
 import { Route, Routes, NavLink, BrowserRouter as Router } from "react-router-dom"
-import axios from 'axios'
 import AddProduct from './components/AddProduct';
 import Cart from './components/Cart';
 import Login from './components/Login';
 import ProductList from './components/ProductList';
 import Context from "./Context"
-import { paintingData, signInUser } from './Firebase';
+import { signInUser, db, updateProducts, paintingsData } from './Firebase';
 
 export default class App extends Component {
   constructor(props) {
@@ -23,8 +22,7 @@ export default class App extends Component {
   async componentDidMount() {
     let user = {}
     let cart = {}
-
-    const products = paintingData
+    let products = paintingsData
 
     this.setState({ user, products: products, cart })
   }
@@ -55,53 +53,86 @@ export default class App extends Component {
     this.setState({ user: null })
   }
 
-  addToCart = cartItem => {
-    let cart = this.state.cart;
-    if (cart[cartItem.title]) {
-      cart[cartItem.title].amount += cartItem.amount;
-    } else {
-      cart[cartItem.title] = cartItem;
-    }
-    if (cart[cartItem.title].amount > cart[cartItem.title].product.stock) {
-      cart[cartItem.title].amount = cart[cartItem.title].product.stock;
-    }
-    localStorage.setItem("cart", JSON.stringify(cart));
-    this.setState({ cart });
+  addToCart = (product) => {
+    setTimeout(() => {
+      let newCart = []
+      let newStockProducts = []
+  
+      let indexProd = this.state.products.findIndex((prod) => {
+        return prod.id === product.id
+      })
+  
+      if (this.state.products[indexProd].stock > 0) {
+        let indexCart = this.state.cart.findIndex((item) => {
+          return item.id === product.id
+        })
+  
+        if (indexCart === -1) {
+          this.setState({
+            cart: this.state.cart.concat([{
+              id: product.id,
+              name: product.name,
+              quantity: 1,
+              totalValue: product.price
+            },
+          ]),
+          })
+        } else {
+          newCart = this.state.cart
+  
+          newCart[indexCart].quantity = newCart[indexCart].quantity + 1
+          newCart[indexCart].totalValue = newCart[indexCart].totalValue + product.price
+  
+          this.setState({
+            cart: newCart
+          })
+        }
+  
+        newStockProducts = this.state.products
+        newStockProducts[indexProd].stock--
+        this.setState({ products: newStockProducts })
+      }
+    }, 100)
   };
 
 
-  removeFromCart = cartItemId => {
-    let cart = this.state.cart
-    delete cart[cartItemId]
-    localStorage.setItem("cart", JSON.stringify(cart))
-    this.setState({ cart })
+  removeFromCart = (id, quantity) => {
+    setTimeout(() => {
+      let newCart = this.state.cart
+
+      this.setState({ cart: newCart.filter((item) => item.id !== id)})
+      
+      let indexProd = this.state.products.findIndex((prod) => {
+        return prod.id === id
+      })
+
+      let updatedProducts = this.state.products
+
+      updatedProducts[indexProd].stock = 
+        updatedProducts[indexProd].stock + parseInt(quantity)
+
+      this.setState({ products: updatedProducts })
+    }, 100)
   }
 
   clearCart = () => {
     let cart = {}
-    localStorage.removeItem("cart")
     this.setState({ cart })
   }
 
   checkout = () => {
-    if (!this.state.user) {
-      this.routerRef.current.history.push("/login")
-      return
-    }
-
     const cart = this.state.cart
+    const products = this.state.products
 
-    const products = this.state.products.map(p => {
-      if (cart[p.title]) {
-        p.stock = p.stock - cart[p.title].amount
-
-        axios.put(
-          `http://localhost:3001/products/${p.id}`,
-          { ...p },
-        )
-      }
-      return p
-    })
+    if (cart.length !== 0) {
+      updateProducts(db, products)
+        .then(() => {
+          console.log("Items Ordered")
+          this.setState({ cart: [] })
+          alert("Order Placed!")
+        })
+        .catch((error) => console.error(`Items not updated`, error))
+    }
 
     this.setState({ products })
     this.clearCart()
@@ -116,7 +147,7 @@ render() {
       addToCart: this.addToCart,
       login: this.login,
       clearCart: this.clearCart,
-      checkout: this.checkout
+      checkout: this.checkout,
     }}
   >
     <Router ref={this.routerRef}>
