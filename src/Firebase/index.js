@@ -1,19 +1,11 @@
-import { getAuth, signInAnonymously } from 'firebase/auth'
+import { getAuth, signInAnonymously, onAuthStateChanged } from 'firebase/auth'
 import { initializeApp } from "firebase/app";
 import { getFirestore, collection, onSnapshot } from "firebase/firestore";
 import { firebaseConfig } from "./firebase.config"
-  
-// init Firebase
+
 const app = initializeApp(firebaseConfig);
-
-// init services
 export const db = getFirestore(app);
-export const auth = getAuth()
-
-// get paintings
 export const paintingsRef = collection(db, 'paintings')
-
-// real time collection data
 
 let paintings = []
 onSnapshot(paintingsRef, (snapshot) => {
@@ -26,8 +18,8 @@ onSnapshot(paintingsRef, (snapshot) => {
 
 export const paintingsData = paintings
 
-export const signInUser = signInAnonymously(auth)
-
+const auth = getAuth()
+  export const signInUser = signInAnonymously(auth)
 
 export const updateProducts = (db, products) => {
   let listPromises = products.map((prod, index) => {

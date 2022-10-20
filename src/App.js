@@ -6,7 +6,8 @@ import Cart from './components/Cart';
 import Login from './components/Login';
 import ProductList from './components/ProductList';
 import Context from "./Context"
-import { signInUser, db, updateProducts, paintingsData } from './Firebase';
+import { signInUser, paintingsData, auth } from './Firebase';
+import { onAuthStateChanged } from 'firebase/auth';
 
 export default class App extends Component {
   constructor(props) {
@@ -20,9 +21,16 @@ export default class App extends Component {
   }
 
   async componentDidMount() {
-    let user = {}
+    let user = signInUser
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const uid = user.uid;
+        
+      } else {
+      }
+    });
     let cart = {}
-    let products = paintingsData
+    const products = paintingsData
 
     this.setState({ user, products: products, cart })
   }
@@ -53,90 +61,40 @@ export default class App extends Component {
     this.setState({ user: null })
   }
 
-  addToCart = (product) => {
-    setTimeout(() => {
-      let newCart = []
-      let newStockProducts = []
-  
-      let indexProd = this.state.products.findIndex((prod) => {
-        return prod.id === product.id
-      })
-  
-      if (this.state.products[indexProd].stock > 0) {
-        let indexCart = this.state.cart.findIndex((item) => {
-          return item.id === product.id
-        })
-  
-        if (indexCart === -1) {
-          this.setState({
-            cart: this.state.cart.concat([{
-              id: product.id,
-              name: product.name,
-              quantity: 1,
-              totalValue: product.price
-            },
-          ]),
-          })
-        } else {
-          newCart = this.state.cart
-  
-          newCart[indexCart].quantity = newCart[indexCart].quantity + 1
-          newCart[indexCart].totalValue = newCart[indexCart].totalValue + product.price
-  
-          this.setState({
-            cart: newCart
-          })
-        }
-  
-        newStockProducts = this.state.products
-        newStockProducts[indexProd].stock--
-        this.setState({ products: newStockProducts })
+  addToCart = cartItem => {
+      let cart = this.state.cart;
+      if (cart[cartItem.id]) {
+        cart[cartItem.id].amount += cartItem.amount;
+      } else {
+        cart[cartItem.id] = cartItem;
       }
-    }, 100)
-  };
+      if (cart[cartItem.id].amount > cart[cartItem.id].product.stock) {
+        cart[cartItem.id].amount = cart[cartItem.id].product.stock;
+      }
+      localStorage.setItem("cart", JSON.stringify(cart));
+      this.setState({ cart });
+    }
 
-
-  removeFromCart = (id, quantity) => {
-    setTimeout(() => {
-      let newCart = this.state.cart
-
-      this.setState({ cart: newCart.filter((item) => item.id !== id)})
-      
-      let indexProd = this.state.products.findIndex((prod) => {
-        return prod.id === id
-      })
-
-      let updatedProducts = this.state.products
-
-      updatedProducts[indexProd].stock = 
-        updatedProducts[indexProd].stock + parseInt(quantity)
-
-      this.setState({ products: updatedProducts })
-    }, 100)
+  removeFromCart = cartItemId => {
+    let cart = this.state.cart;
+    delete cart[cartItemId];
+    localStorage.setItem("cart", JSON.stringify(cart));
+    this.setState({ cart });
   }
 
   clearCart = () => {
-    let cart = {}
-    this.setState({ cart })
+    let cart = {};
+    localStorage.removeItem("cart");
+    this.setState({ cart });
   }
 
   checkout = () => {
-    const cart = this.state.cart
-    const products = this.state.products
-
-    if (cart.length !== 0) {
-      updateProducts(db, products)
-        .then(() => {
-          console.log("Items Ordered")
-          this.setState({ cart: [] })
-          alert("Order Placed!")
-        })
-        .catch((error) => console.error(`Items not updated`, error))
+    if (!this.state.user) {
+      this.routerRef.current.history.push("/login");
+      return;
     }
-
-    this.setState({ products })
-    this.clearCart()
-  }
+    this.clearCart();
+  };
 
 render() {
   return (
