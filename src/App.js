@@ -6,7 +6,7 @@ import Cart from './components/Cart';
 import Login from './components/Login';
 import ProductList from './components/ProductList';
 import Context from "./Context"
-import { signInUser, paintingsData, auth } from './Firebase';
+import { signInUser, paintingsData, auth, updateProducts, db } from './Firebase';
 import { onAuthStateChanged } from 'firebase/auth';
 
 export default class App extends Component {
@@ -14,7 +14,7 @@ export default class App extends Component {
     super(props)
     this.state = {
       user: null,
-      cart: {},
+      cart: [],
       products: []
     }
     this.routerRef = React.createRef()
@@ -22,14 +22,8 @@ export default class App extends Component {
 
   async componentDidMount() {
     let user = signInUser
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        const uid = user.uid;
-        
-      } else {
-      }
-    });
-    let cart = {}
+    let cart = []
+
     const products = paintingsData
 
     this.setState({ user, products: products, cart })
@@ -61,40 +55,98 @@ export default class App extends Component {
     this.setState({ user: null })
   }
 
-  addToCart = cartItem => {
-      let cart = this.state.cart;
-      if (cart[cartItem.id]) {
-        cart[cartItem.id].amount += cartItem.amount;
-      } else {
-        cart[cartItem.id] = cartItem;
-      }
-      if (cart[cartItem.id].amount > cart[cartItem.id].product.stock) {
-        cart[cartItem.id].amount = cart[cartItem.id].product.stock;
-      }
-      localStorage.setItem("cart", JSON.stringify(cart));
-      this.setState({ cart });
-    }
+   addToCart =  (product) => {
+    setTimeout(() => {
+      let newCart = [];
+      let updatedProducts = [];
 
-  removeFromCart = cartItemId => {
-    let cart = this.state.cart;
-    delete cart[cartItemId];
-    localStorage.setItem("cart", JSON.stringify(cart));
-    this.setState({ cart });
-  }
+      /* Check Stock */
+      let indexProd = this.state.products.findIndex((prod) => {
+        return prod.id === product.id;
+      });
+
+      if (this.state.products[indexProd].stock > 0) {
+        let indexCart = this.state.cart.findIndex((item) => {
+          return item.id === product.id;
+        });
+
+        /* Add product to cart */
+        if (indexCart === -1) {
+          /*New item */
+          this.setState({
+            cart: this.state.cart.concat([
+              {
+                id: product.id,
+                name: product.name,
+                quantity: 1,
+                totalValue: product.price,
+              },
+            ]),
+          });
+        } else {
+          /* Existing item */
+          newCart = this.state.cart;
+
+          newCart[indexCart].quantity = newCart[indexCart].quantity + 1;
+          newCart[indexCart].totalValue =
+            newCart[indexCart].totalValue + product.price;
+
+          this.setState({
+            cart: newCart,
+          });
+        }
+
+        /* Update Stock */
+        updatedProducts = this.state.products;
+
+        updatedProducts[indexProd].stock--;
+
+        this.setState({ products: updatedProducts });
+      }
+    }, 100);
+  };
+
+  removeFromCart = (id, quantity) => {
+    setTimeout(() => {
+      let newCart = this.state.cart;
+
+      /* Delete item */
+      this.setState({ cart: newCart.filter((item) => item.id !== id) });
+
+      let indexProd = this.state.products.findIndex((prod) => {
+        return prod.id === id;
+      });
+
+      let updatedProducts = this.state.products;
+
+      updatedProducts[indexProd].stock =
+        updatedProducts[indexProd].stock + parseInt(quantity);
+
+      this.setState({ products: updatedProducts });
+    }, 100);
+  };
 
   clearCart = () => {
     let cart = {};
     localStorage.removeItem("cart");
     this.setState({ cart });
-  }
+  };
 
   checkout = () => {
-    if (!this.state.user) {
-      this.routerRef.current.history.push("/login");
-      return;
+    const cart = this.state.cart;
+    const products = this.state.products;
+
+    if (cart.length !== 0) {
+      updateProducts(db, products)
+        .then(() => {
+          console.log("Successful items update");
+          this.setState({ cart: [] });
+          alert("Cart Ordered!!!");
+        })
+        .catch((error) => console.error(`Any item was not updated`, error));
     }
-    this.clearCart();
   };
+
 
 render() {
   return (
@@ -104,7 +156,6 @@ render() {
       removeFromCart: this.removeFromCart,
       addToCart: this.addToCart,
       login: this.login,
-      clearCart: this.clearCart,
       checkout: this.checkout,
     }}
   >

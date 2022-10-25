@@ -18,7 +18,7 @@ onSnapshot(paintingsRef, (snapshot) => {
 
 export const paintingsData = paintings
 
-const auth = getAuth()
+export const auth = getAuth()
   export const signInUser = signInAnonymously(auth)
 
 export const updateProducts = (db, products) => {
