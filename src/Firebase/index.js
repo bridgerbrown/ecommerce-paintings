@@ -1,6 +1,6 @@
 import { getAuth, signInAnonymously, onAuthStateChanged } from 'firebase/auth'
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, onSnapshot } from "firebase/firestore";
+import { getFirestore, collection, onSnapshot, updateDoc, doc, setDoc } from "firebase/firestore";
 import { firebaseConfig } from "./firebase.config"
 
 const app = initializeApp(firebaseConfig);
@@ -21,16 +21,9 @@ export const paintingsData = paintings
 export const auth = getAuth()
   export const signInUser = signInAnonymously(auth)
 
-export const updateProducts = (db, products) => {
-  let listPromises = products.map((prod, index) => {
-    return updateProduct(db, prod);
-  });
-
-  return Promise.all(listPromises);
-};
-
-export const updateProduct = (db, item) => {
-  return db.collection("paintings").doc(item.id).update({
-    stock: item.stock,
-  });
-};
+export const updateItem = (item) => {
+  const itemRef = doc(db, "paintings", item)
+  updateDoc(itemRef, {
+    stock: item.stock
+  })
+}

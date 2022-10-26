@@ -6,7 +6,7 @@ import Cart from './components/Cart';
 import Login from './components/Login';
 import ProductList from './components/ProductList';
 import Context from "./Context"
-import { signInUser, paintingsData, auth, updateProducts, db } from './Firebase';
+import { signInUser, paintingsData, auth, updateProducts, db, updateItem } from './Firebase';
 import { onAuthStateChanged } from 'firebase/auth';
 
 export default class App extends Component {
@@ -85,6 +85,7 @@ export default class App extends Component {
                 artist: product.artist,
                 quantity: 1,
                 totalValue: product.price,
+                price: product.price
               },
             ]),
           });
@@ -131,24 +132,14 @@ export default class App extends Component {
     }, 100);
   };
 
-  clearCart = () => {
-    let cart = {};
-    localStorage.removeItem("cart");
-    this.setState({ cart });
-  };
-
   checkout = () => {
     const cart = this.state.cart;
-    const products = this.state.products;
+    const products = this.state.products
 
     if (cart.length !== 0) {
-      updateProducts(db, products)
-        .then(() => {
           console.log("Successful items update");
           this.setState({ cart: [] });
           alert("Cart Ordered!!!");
-        })
-        .catch((error) => console.error(`Any item was not updated`, error));
     }
   };
 

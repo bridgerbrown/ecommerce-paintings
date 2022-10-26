@@ -39,7 +39,8 @@ const ProductItem = props => {
                                 artist: product.artist,
                                 quantity: 1,
                                 totalValue: product.price,
-                                stock: product.stock
+                                stock: product.stock,
+                                price: product.price
                             })
                         }
                     >
