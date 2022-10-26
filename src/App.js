@@ -55,7 +55,7 @@ export default class App extends Component {
     this.setState({ user: null })
   }
 
-   addToCart =  (product) => {
+   addToCart = (product) => {
     setTimeout(() => {
       let newCart = [];
       let updatedProducts = [];
@@ -77,7 +77,12 @@ export default class App extends Component {
             cart: this.state.cart.concat([
               {
                 id: product.id,
-                name: product.name,
+                title: product.title,
+                img: product.img,
+                link: product.link,
+                description: product.description,
+                medium: product.medium,
+                artist: product.artist,
                 quantity: 1,
                 totalValue: product.price,
               },

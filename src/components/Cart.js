@@ -4,49 +4,40 @@ import CartItem from "./CartItem"
 
 const Cart = props => {
    const { cart } = props.context
-   const cartKeys = Object.keys(cart || {})
+   console.log(cart)
    return(
     <>
-        <div className="hero is-primary">
-            <div className="hero-body container">
-                <h4 className="title">My Cart</h4>
-            </div>
+        <div className="title-container">
+            <h4 className="page-title">Cart</h4>
         </div>
         <br />
         <div className="container">
-            {cartKeys.length ? (
-                <div className="column columns is-multiline">
-                    {cartKeys.map(key => (
+            <div className="painting-list">
+            {cart && cart.length ? (
+                cart.map((product, index) => (
                         <CartItem
-                            cartKey={key}
-                            key={key}
-                            cartItem={cart[key]}
+                            product={product}
+                            key={index}
                             removeFromCart={props.context.removeFromCart}
                         />
-                    ))}
-                    <div className="column is-12 is-clearfix">
-                        <br />
-                        <div className="is-pulled-right">
-                            <button
-                                onClick={props.context.clearCart}
-                                className="button is-warning"
-                            >
-                                Clear cart
-                            </button>{" "}
-                            <button
-                                className="button is-success"
-                                onClick={props.context.checkout}
-                            >
-                                Checkout
-                            </button>
-                        </div>
-                    </div>
-                </div>
+                    ))
             ) : (
                 <div className="column">
                     <div className="title has-text-grey-light">No item in cart!</div>
                 </div>
             )}
+            <div className="column is-12 is-clearfix">
+                <br />
+                <div className="is-pulled-right">
+                    <button
+                        className="button is-success"
+                        onClick={props.context.checkout}
+                    >
+                        Checkout
+                    </button>
+                </div>
+            </div>
+            </div>
         </div>
     </>
    ) 

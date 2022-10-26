@@ -30,7 +30,16 @@ const ProductItem = props => {
                         className="add-to-cart"
                         onClick={() => 
                             props.addToCart({
-                                id: product.id
+                                id: product.id,
+                                title: product.title,
+                                img: product.img,
+                                link: product.link,
+                                description: product.description,
+                                medium: product.medium,
+                                artist: product.artist,
+                                quantity: 1,
+                                totalValue: product.price,
+                                stock: product.stock
                             })
                         }
                     >

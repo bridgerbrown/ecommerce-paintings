@@ -1,38 +1,54 @@
 import React from "react";
 
 const CartItem = props => {
-  const { cartItem, cartKey } = props;
-
-  const { product, amount } = cartItem;
+  const { product } = props
   return (
-    <div className="column is-half">
-      <div className="box">
-        <div className="media">
-          <div className="media-left">
-            <figure className="image is-64x64">
-              <img
-                src={product.img}
-                alt={product.title}
+    <div className="painting-container">
+      <div className="painting-image">
+          <figure className="image">
+              <img 
+                  src={product.img}
+                  alt={product.shortDesc}
               />
-            </figure>
-          </div>
-          <div className="media-content">
-            <b style={{ textTransform: "capitalize" }}>
-              {product.title}{" "}
-            </b>
-            <h2>{product.artist}</h2>
-            <span className="tag is-primary">{product.price}</span>
-            <small>{`${amount} in cart`}</small>
-          </div>
-          <div
-            className="media-right"
-            onClick={() => props.removeFromCart(cartKey)}
-          >
-            <span className="delete is-large"></span>
-          </div>
-        </div>
+          </figure>
       </div>
-    </div>
+      <div className="painting E-content">
+          <div className="painting-text">
+              <h1 className="painting-title">
+                  {product.title}
+              </h1>
+              <h2 className="painting-artist">{product.artist}</h2>
+              <span className="painting-price">{product.price}</span>
+              <small>{`${product.quantity} in cart`}</small>
+          </div>
+          <div className="painting-buttons">
+              <button
+                  className="add-to-cart"
+                  onClick={() => 
+                      props.addToCart({
+                          id: product.id,
+                          title: product.title,
+                          img: product.img,
+                          link: product.link,
+                          description: product.description,
+                          medium: product.medium,
+                          artist: product.artist,
+                          quantity: 1,
+                          totalValue: product.price,
+                          stock: product.stock
+                      })
+                  }
+              >
+                  Add to Cart
+              </button>
+              <button
+                  className="more-info"
+              >
+                  More Info
+              </button>
+          </div>
+      </div>
+  </div>
   );
 };
 
