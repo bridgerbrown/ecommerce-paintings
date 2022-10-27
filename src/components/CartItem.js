@@ -34,7 +34,6 @@ const CartItem = props => {
                                 medium: product.medium,
                                 artist: product.artist,
                                 quantity: 1,
-                                totalValue: product.price,
                                 stock: product.stock,
                                 price: product.price
                             })

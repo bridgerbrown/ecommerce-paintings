@@ -15,7 +15,9 @@ export default class App extends Component {
     this.state = {
       user: null,
       cart: [],
-      products: []
+      products: [],
+      total: 0,
+      numberOfItems: 0
     }
     this.routerRef = React.createRef()
   }
@@ -23,10 +25,12 @@ export default class App extends Component {
   async componentDidMount() {
     let user = signInUser
     let cart = []
+    let total = 0
+    let numberOfItems = 0
 
     const products = paintingsData
 
-    this.setState({ user, products: products, cart })
+    this.setState({ user, products: products, cart, total, numberOfItems })
   }
 
   login = async (username) => {
@@ -65,6 +69,9 @@ export default class App extends Component {
         return prod.id === product.id;
       });
 
+      let correctNumber = product.price.replace(/,/g,'').replace(/\$/g,'')
+      let newTotal = Number(this.state.total) + Number(correctNumber)
+
       if (this.state.products[indexProd].stock > 0) {
         let indexCart = this.state.cart.findIndex((item) => {
           return item.id === product.id;
@@ -84,21 +91,19 @@ export default class App extends Component {
                 medium: product.medium,
                 artist: product.artist,
                 quantity: 1,
-                totalValue: product.price,
                 price: product.price
               },
             ]),
+            total: newTotal
           });
         } else {
           /* Existing item */
           newCart = this.state.cart;
-
           newCart[indexCart].quantity = newCart[indexCart].quantity + 1;
-          newCart[indexCart].totalValue =
-            newCart[indexCart].totalValue + product.price;
 
           this.setState({
             cart: newCart,
+            total: newTotal
           });
         }
 
@@ -107,7 +112,7 @@ export default class App extends Component {
 
         updatedProducts[indexProd].stock--;
 
-        this.setState({ products: updatedProducts });
+        this.setState({ products: updatedProducts, total: newTotal, numberOfItems: this.state.numberOfItems + 1 });
       }
     }, 100);
   };

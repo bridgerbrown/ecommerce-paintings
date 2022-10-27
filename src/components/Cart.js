@@ -4,6 +4,24 @@ import CartItem from "./CartItem"
 
 const Cart = props => {
    const { cart } = props.context
+
+   function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+
+    function multipleItemCheck() {
+        if (props.context.numberOfItems) {
+            if (props.context.numberOfItems === 1) {
+                return " item"
+            } else {
+                return " items"
+            }
+        } else {
+            return 0
+        }
+    }
+
+
    console.log(cart)
    return(
     <>
@@ -13,6 +31,10 @@ const Cart = props => {
     <div className="cart-container">
         <div className="cartitems">
             <div className="cartitem-list">
+                <div className="cart-categories">
+                    <p>Product</p>
+                    <p className="category-price">Price</p>
+                </div>
             {cart && cart.length ? (
                 cart.map((product, index) => (
                         <CartItem
@@ -29,6 +51,7 @@ const Cart = props => {
             </div>
         </div>
         <div className="total-container">
+            <h3>Total ({props.context.numberOfItems + multipleItemCheck()}): ${numberWithCommas(props.context.total)}</h3>
             <button
                 className="button"
                 onClick={props.context.checkout}

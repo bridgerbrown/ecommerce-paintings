@@ -154,6 +154,18 @@ button:active {
   margin-top: 2rem;
 }
 
+.cart-categories {
+  display: flex;
+  width: 95%;
+  padding-bottom: 0.5rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid lightgray;
+}
+
+.category-price {
+  margin-left: 90.5%;
+}
+
 .total-container {
   width: 20%;
   background-color: rgba(236, 236, 236, 0.956);;
@@ -193,7 +205,6 @@ button:active {
   padding: 1.5rem 0.5rem;
   margin-bottom: 2rem;
   height: 12rem;
-  background-color: rgba(236, 236, 236, 0.956);
   border-bottom: 1px lightgray solid;
 }
 
