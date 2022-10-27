@@ -148,6 +148,21 @@ export default class App extends Component {
     }
   };
 
+  checkbox = () => {
+    const totalAmount = document.getElementById("total-amount")
+    const freeText = document.getElementById("free")
+    const checkbtn = document.querySelector("input");
+    checkbtn.addEventListener('click', function() {
+        if (checkbtn.checked) {
+            totalAmount.classList.add("crossout")
+            freeText.style.display = "inherit"
+        } else {
+            totalAmount.classList.remove("crossout")
+            freeText.style.display = "none"
+        }
+    })
+  }
+
 
 render() {
   return (
@@ -158,6 +173,7 @@ render() {
       addToCart: this.addToCart,
       login: this.login,
       checkout: this.checkout,
+      checkbox: this.checkbox
     }}
   >
     <Router ref={this.routerRef}>
