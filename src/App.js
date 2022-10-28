@@ -4,10 +4,13 @@ import { Route, Routes, NavLink, BrowserRouter as Router } from "react-router-do
 import AddProduct from './components/AddProduct';
 import Cart from './components/Cart';
 import Login from './components/Login';
+import About from './components/About'
 import ProductList from './components/ProductList';
 import Context from "./Context"
-import { signInUser, paintingsData, auth, updateProducts, db, updateItem } from './Firebase';
-import { onAuthStateChanged } from 'firebase/auth';
+import { signInUser, paintingsData, auth, updateProducts, db, updateItem, authChange } from './Firebase';
+import ProductItem from './components/ProductItem';
+import ProductDetails from './components/ProductDetails'
+import { signInAnonymously } from 'firebase/auth';
 
 export default class App extends Component {
   constructor(props) {
@@ -23,7 +26,7 @@ export default class App extends Component {
   }
 
   async componentDidMount() {
-    let user = signInUser
+    let user = null
     let cart = []
     let total = 0
     let numberOfItems = 0
@@ -34,24 +37,9 @@ export default class App extends Component {
   }
 
   login = async (username) => {
-    const res = await signInUser()
-    .then((cred) => {
-      console.log('user created', cred.user)
-    })
-    .catch((res) => {
-      return { status: 401, message: 'Unauthorized'}
-    })
-
-    if(res.status === 200) {
-      const user = {
-        username
-      }
-
-      this.setState({ user })
-      return true
-    } else {
-      return false
-    }
+    signInAnonymously(auth)
+    authChange(username)
+    this.setState({ user: username})
   }
 
   logout = e => {
@@ -163,6 +151,10 @@ export default class App extends Component {
     })
   }
 
+  moreInfo = (product) => {
+
+  }
+
 
 render() {
   return (
@@ -218,6 +210,14 @@ render() {
                   { Object.keys(this.state.cart).length }
                 </span>
               </NavLink>
+              <NavLink to="/about" className={({ isActive }) => 
+                      (isActive ? "active-nav navbar-item" : "navbar-item")}>
+                About
+              </NavLink>
+              <NavLink to="/" className={({ isActive }) => 
+                      (isActive ? "navbar-item" : "navbar-item")}>
+                 {this.state.user}
+              </NavLink>
               {!this.state.user ? (
                 <NavLink to="/login" className={({ isActive }) => 
                       (isActive ? "active-nav navbar-item" : "navbar-item")}>
@@ -235,8 +235,10 @@ render() {
             <Route exact path="/" element={<ProductList />} />
             <Route exact path="/login" element={<Login />} />
             <Route exact path="/cart" element={<Cart />} />
+            <Route exact path="/about" element={<About />} />
             <Route exact path="/add-product" element={<AddProduct />} />
             <Route exact path="/products" element={<ProductList />} />
+            <Route path="/:title" element={<ProductDetails />} />
           </Routes>
         </div>
       </Router>

@@ -1,6 +1,6 @@
-import { getAuth, signInAnonymously, onAuthStateChanged } from 'firebase/auth'
+import { getAuth, onAuthStateChanged } from 'firebase/auth'
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, onSnapshot, updateDoc, doc, setDoc } from "firebase/firestore";
+import { getFirestore, collection, onSnapshot, updateDoc, doc } from "firebase/firestore";
 import { firebaseConfig } from "./firebase.config"
 
 const app = initializeApp(firebaseConfig);
@@ -19,7 +19,19 @@ onSnapshot(paintingsRef, (snapshot) => {
 export const paintingsData = paintings
 
 export const auth = getAuth()
-  export const signInUser = signInAnonymously(auth)
+
+export function authChange(username) {
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      user.displayName = username
+      console.log("signed in")
+    }
+    else {
+      console.log("signed out")
+    }
+  })
+}
+
 
 export const updateItem = (item) => {
   const itemRef = doc(db, "paintings", item)

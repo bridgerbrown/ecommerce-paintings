@@ -19,11 +19,6 @@ class Login extends Component {
             return this.setState({ error: "Fill all fields!" })
         }
         this.props.context.login(username)
-            .then((loggedIn) => {
-                if (!loggedIn) {
-                    this.setState({ error: "Invalid Credentials" })
-                }
-            })
     }
 
     render() {
@@ -40,10 +35,10 @@ class Login extends Component {
                         <div className="columns is-mobile is-centered">
                             <div className="column is-one-third">
                                 <div className="field">
-                                    <label className="label">Email: </label>
+                                    <label className="label">Name: </label>
                                     <input
                                         className="input"
-                                        type="email"
+                                        type="username"
                                         name="username"
                                         onChange={this.handleChange}
                                     />

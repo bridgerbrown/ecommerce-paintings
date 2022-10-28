@@ -299,3 +299,83 @@ button:active {
 .checkbox-container label {
   padding-left: 0.3rem;
 }
+
+/* --------------------More Info--------------------- */
+
+.info-container {
+  display: flex;
+  margin: 2rem;
+}
+
+.info-image img {
+  max-width: 50vw;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+}
+
+.info-text {
+  margin: 0 2rem;
+}
+
+.info-buttons {
+  margin: 2rem 2rem;
+}
+
+.info-text>* {
+  padding: 0.1rem 0;
+}
+
+.info-text h1 {
+  font-size: 1.7em;
+}
+
+.info-text p {
+  margin: 1rem 0;
+}
+
+.info-stock-price {
+  display: flex;
+  flex-direction: column;
+}
+
+.info-buttons button {
+  margin-right: 1rem;
+}
+
+.info-buttons a {
+  text-decoration: none;
+  color: white;
+  background-color: gray;
+}
+
+.info-buttons button,
+.info-buttons a {
+  padding: 0.7rem 1rem;
+  border-radius: 5px;
+  border: none;
+  font-size: 1em;
+}
+
+/* --------------------About--------------------- */
+
+.about-container {
+  margin: 2rem 2rem;
+  text-align: center;
+}
+
+.about-container p {
+  margin: 1rem 7rem 3rem 7rem;
+}
+
+.about-container a {
+  padding: 0.7rem 1rem;
+  border-radius: 5px;
+  border: none;
+  font-size: 1em;
+  text-decoration: none;
+  color: white;
+  background-color: gray;
+}
