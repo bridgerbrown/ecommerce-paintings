@@ -25,18 +25,7 @@ const CartItem = props => {
                     <button
                         className="remove-cart"
                         onClick={() => 
-                            props.removeFromCart({
-                                id: product.id,
-                                title: product.title,
-                                img: product.img,
-                                link: product.link,
-                                description: product.description,
-                                medium: product.medium,
-                                artist: product.artist,
-                                quantity: 1,
-                                stock: product.stock,
-                                price: product.price
-                            })
+                            props.removeFromCart(product.id)
                         }
                     >
                         Remove

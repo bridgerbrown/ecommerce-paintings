@@ -143,7 +143,7 @@ export default class App extends Component {
 
     if (cart.length !== 0) {
           console.log("Successful items update");
-          this.setState({ cart: [] });
+          this.setState({ cart: [], total: 0, numberOfItems: 0 });
           alert("Cart Ordered!!!");
     }
   };
