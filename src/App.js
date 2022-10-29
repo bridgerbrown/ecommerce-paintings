@@ -18,12 +18,13 @@ export default class App extends Component {
     super(props)
     this.state = {
       user: null,
-      useruids: {},
+      usertoken: [],
       cart: [],
       products: [],
       total: 0,
       numberOfItems: 0,
-      loaded: false
+      loaded: false,  
+      value: ''
     }
     this.routerRef = React.createRef()
   }
@@ -33,7 +34,9 @@ export default class App extends Component {
     let cart = []
     let total = 0
     let numberOfItems = 0
-    
+    this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleChange = this.handleChange.bind(this)
+
     const products = paintingsData
 
     this.setState({ user, cart, total, numberOfItems })
@@ -48,16 +51,16 @@ export default class App extends Component {
     onAuthStateChanged(auth, async (user) => {
       if (user) {
         const token = await getIdToken(user)
-        this.setState({ useruids: token})
+        this.setState({ usertoken: this.state.usertoken + token})
       }
     })
     this.setState({ user: username })
-    console.log(this.state.useruids)
+    console.log(this.state.usertoken)
   }
 
   logout = e => {
     e.preventDefault()
-    this.setState({ user: null, useruids: null })
+    this.setState({ user: null, usertoken: null })
   }
 
    addToCart = (product) => {
@@ -164,10 +167,14 @@ export default class App extends Component {
     })
   }
 
-  moreInfo = (product) => {
-
+  handleChange(event) {
+    this.setState({value: event.target.value})
   }
 
+  handleSubmit(event) {
+    event.preventDefault()
+    this.setState({ user: this.state.value })
+  }
 
 render() {
   return (
@@ -178,7 +185,9 @@ render() {
       addToCart: this.addToCart,
       login: this.login,
       checkout: this.checkout,
-      checkbox: this.checkbox
+      checkbox: this.checkbox,
+      handleSubmit: this.handleSubmit,
+      handleChange: this.handleChange
     }}
   >
     <Router ref={this.routerRef}>
