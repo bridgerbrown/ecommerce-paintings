@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ProductItem from "./ProductItem"
 import withContext from "../withContext";
 
@@ -24,7 +24,7 @@ const ProductList = props => {
                 ) : (
                     <div className="column">
                         <span className="title has-text-grey-light">
-                            No products found!
+                            Loading...
                         </span>
                     </div>
                 )}

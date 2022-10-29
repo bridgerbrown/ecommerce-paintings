@@ -1,4 +1,4 @@
-import { getAuth, onAuthStateChanged } from 'firebase/auth'
+import { getAuth, getIdToken, onAuthStateChanged } from 'firebase/auth'
 import { initializeApp } from "firebase/app";
 import { getFirestore, collection, onSnapshot, updateDoc, doc } from "firebase/firestore";
 import { firebaseConfig } from "./firebase.config"
@@ -25,14 +25,13 @@ export function authChange(username) {
     if (user) {
       user.displayName = username
       console.log("signed in")
+      console.log("User uid = " + user.uid)
     }
     else {
       console.log("signed out")
     }
   })
 }
-
-
 export const updateItem = (item) => {
   const itemRef = doc(db, "paintings", item)
   updateDoc(itemRef, {

@@ -6,21 +6,24 @@ import Cart from './components/Cart';
 import Login from './components/Login';
 import About from './components/About'
 import ProductList from './components/ProductList';
+import User from './components/User';
 import Context from "./Context"
 import { signInUser, paintingsData, auth, updateProducts, db, updateItem, authChange } from './Firebase';
 import ProductItem from './components/ProductItem';
 import ProductDetails from './components/ProductDetails'
-import { signInAnonymously } from 'firebase/auth';
+import { getIdToken, signInAnonymously, onAuthStateChanged } from 'firebase/auth';
 
 export default class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
       user: null,
+      useruids: {},
       cart: [],
       products: [],
       total: 0,
-      numberOfItems: 0
+      numberOfItems: 0,
+      loaded: false
     }
     this.routerRef = React.createRef()
   }
@@ -30,21 +33,31 @@ export default class App extends Component {
     let cart = []
     let total = 0
     let numberOfItems = 0
-
+    
     const products = paintingsData
 
-    this.setState({ user, products: products, cart, total, numberOfItems })
+    this.setState({ user, cart, total, numberOfItems })
+    setTimeout(() => {
+      this.setState({products: products})
+    }, 1000);
   }
 
   login = async (username) => {
     signInAnonymously(auth)
     authChange(username)
-    this.setState({ user: username})
+    onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        const token = await getIdToken(user)
+        this.setState({ useruids: token})
+      }
+    })
+    this.setState({ user: username })
+    console.log(this.state.useruids)
   }
 
   logout = e => {
     e.preventDefault()
-    this.setState({ user: null })
+    this.setState({ user: null, useruids: null })
   }
 
    addToCart = (product) => {
@@ -214,8 +227,8 @@ render() {
                       (isActive ? "active-nav navbar-item" : "navbar-item")}>
                 About
               </NavLink>
-              <NavLink to="/" className={({ isActive }) => 
-                      (isActive ? "navbar-item" : "navbar-item")}>
+              <NavLink to="/user" className={({ isActive }) => 
+                      (isActive ? "active-nav navbar-item" : "navbar-item")}>
                  {this.state.user}
               </NavLink>
               {!this.state.user ? (
@@ -234,6 +247,7 @@ render() {
           <Routes>
             <Route exact path="/" element={<ProductList />} />
             <Route exact path="/login" element={<Login />} />
+            <Route exact path="/user" element={<User />} />
             <Route exact path="/cart" element={<Cart />} />
             <Route exact path="/about" element={<About />} />
             <Route exact path="/add-product" element={<AddProduct />} />
