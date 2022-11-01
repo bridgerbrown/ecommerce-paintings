@@ -25,17 +25,18 @@ class Login extends Component {
         return !this.props.context.user ? (
                 <>
                     <div className="hero is-primary">
-                        <div className="hero-body container">
-                            <h4 className="title">Login</h4>
-                        </div>
+                    <div className="title-container">
+                        <h4 className="page-title">Login</h4>
+                    </div>  
                     </div>
                     <br />
                     <br />
-                    <form onSubmit={this.login}>
-                        <div className="columns is-mobile is-centered">
-                            <div className="column is-one-third">
+                    <div className="login-form">
+                        <form onSubmit={this.login}>
+                            <div className="login">
                                 <div className="field">
-                                    <label className="label">Name: </label>
+                                    <h2>Sign up</h2>
+                                    <label className="label">Username: </label>
                                     <input
                                         className="input"
                                         type="username"
@@ -46,7 +47,7 @@ class Login extends Component {
                             {this.state.error && (
                                 <div className="has-text-danger">{this.state.error}</div>
                             )}
-                            <div className="field is-clearfix">
+                            <div className="submit-button">
                                 <button
                                     className="button is-primary is-outlined is-pulled-right"
                                 >
@@ -54,8 +55,8 @@ class Login extends Component {
                                 </button>
                             </div>
                         </div>
+                    </form>
                     </div>
-                </form>
             </>
         ) : (
             <Navigate to="/products" />

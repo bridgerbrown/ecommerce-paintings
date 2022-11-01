@@ -8,7 +8,7 @@ const ProductList = props => {
     return(
         <>
         <div className="title-container">
-            <h4 className="page-title">Our Products</h4>
+            <h4 className="page-title">Products</h4>
         </div>
         <br />
         <div className="container">
@@ -22,8 +22,8 @@ const ProductList = props => {
                         />
                     ))
                 ) : (
-                    <div className="column">
-                        <span className="title has-text-grey-light">
+                    <div className="loading-container">
+                        <span className="loading">
                             Loading...
                         </span>
                     </div>

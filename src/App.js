@@ -42,7 +42,7 @@ export default class App extends Component {
     this.setState({ user, cart, total, numberOfItems })
     setTimeout(() => {
       this.setState({products: products})
-    }, 1000);
+    }, 2000);
   }
 
   login = async (username) => {

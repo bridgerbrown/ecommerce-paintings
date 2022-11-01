@@ -52,12 +52,28 @@
 }
 
 .page-title {
-  padding: 3rem 0;
+  padding: 4rem 0;
   font-size: 1.75em;
 }
 
 /* --------------------Products--------------------- */
 
+.loading-container {
+  margin: 10rem auto;
+}
+
+@keyframes loadingAnimation {
+  0%   {color: transparent}
+  50% {color: black}
+  100%   {color: transparent}
+}
+
+.loading {
+  animation-name: loadingAnimation;
+  animation-duration: 1s;
+  animation-iteration-count: 4;
+  font-size: 3em;
+}
 
 .painting-image img {
   max-width: 19rem;
@@ -79,12 +95,12 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 2.5rem 0.5rem;
-  margin: 1.5rem;
+  padding: 2.25rem 0.5rem;
+  margin: 1rem;
   width: 25rem;
   height: 30rem;
-  background-color: rgba(236, 236, 236, 0.956);
-  border-bottom: 1px lightgray solid;
+  border: 1px rgba(211, 211, 211, 0.666) solid;
+  border-radius: 5px;
 }
 
 .painting-title {
@@ -147,6 +163,49 @@ button:active {
   color: white;
 }
 
+@media screen and (max-width: 1400px) {
+  .painting-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2.25rem 0.5rem;
+    margin: 0.7rem;
+    width: 20rem;
+    height: 25rem;
+    border: 1px rgba(211, 211, 211, 0.666) solid;
+    border-radius: 5px;
+  }
+
+  .painting-image img {
+    max-width: 14rem;
+    max-height: 12rem;
+    border: 15px outset brown;
+  }
+
+  .painting-text {
+    margin-top: 1rem;
+    width: 15rem;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .painting-title {
+    font-size: 0.9em;
+    font-style: italic;
+    font-weight: 800;
+  }
+  
+  .painting-artist {
+    font-size: 0.9em;
+    font-weight: 500;
+  }
+  
+  .painting-price {
+    font-size: 1.2em;
+  }
+}
+
 /* --------------------Cart--------------------- */
 
 .cart-container {
@@ -163,15 +222,16 @@ button:active {
 }
 
 .category-price {
-  margin-left: 90.5%;
+   position:fixed;
+   left: 70.5%;
 }
 
 .cartitems {
-  width: 75%;
+  width: 80vw;
 }
 
 .cartitem-right {
-  display: flex;
+  display: flex;  
 }
 
 .cartitem-row {
@@ -187,16 +247,15 @@ button:active {
 }
 
 .cartitem-list {
+  margin-left: 2rem;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
 }
 
 .cartitem-container {
+  width: 95%;
   display: flex;
-  flex-direction: row;
-  align-items: flex-start;
+  justify-content: space-between;
   padding: 1.5rem 0.5rem;
   margin-bottom: 2rem;
   height: 12rem;
@@ -254,7 +313,8 @@ button:active {
 }
 
 .total-container {
-  width: 20%;
+  width: 300px;
+  height: 175px;
   background-color: rgba(236, 236, 236, 0.956);
   display: flex;
   flex-direction: column;
@@ -362,22 +422,47 @@ button:active {
 /* --------------------About--------------------- */
 
 .about-container {
-  margin: 2rem 2rem;
+  margin: 4rem 2rem;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
-.about-container p {
-  margin: 1rem 7rem 3rem 7rem;
+.about-text {
+  display: flex;
+  justify-content: center;
+  width: 65vw;
+  margin: 1rem auto;
 }
 
-.about-container a {
-  padding: 0.7rem 1rem;
+.about-text p {
+  margin: 0 3rem;
+  font-size: 1.2em;
+}
+
+.about-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; 
+  align-items: center;
+}
+
+.about-info a {
+  width: 4rem;
+  margin-top: 1.25rem;
+  padding: 0.7rem 0.8rem;
   border-radius: 5px;
   border: none;
-  font-size: 1em;
+  font-size: 0.9em;
   text-decoration: none;
   color: white;
   background-color: gray;
+}
+
+.about-container img {
+  max-width: 200px;
 }
 
 /* --------------------User--------------------- */
@@ -396,4 +481,27 @@ button:active {
 .user-container span {
   color: rgb(1, 124, 38);
   font-weight: 300;
+}
+
+/* --------------------Login--------------------- */
+
+.login-form {
+  margin: 2rem;
+  width: 20rem;
+  height: 10rem;
+  padding: 1rem;
+  border: 1px solid black;
+  border-radius: 5px;
+  background-color: aliceblue;
+}
+
+.field>* {
+  margin: 0.5rem auto 1.5rem auto;
+}
+
+.submit-button button {
+  padding: 0.7rem 1rem;
+  border-radius: 5px;
+  border: none;
+  font-size: 1em;
 }
