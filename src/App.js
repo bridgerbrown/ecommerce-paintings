@@ -24,7 +24,8 @@ export default class App extends Component {
       total: 0,
       numberOfItems: 0,
       loaded: false,  
-      value: ''
+      value: '',
+      loggedIn: false
     }
     this.routerRef = React.createRef()
   }
@@ -34,12 +35,13 @@ export default class App extends Component {
     let cart = []
     let total = 0
     let numberOfItems = 0
+    let loggedIn = false
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleChange = this.handleChange.bind(this)
 
     const products = paintingsData
 
-    this.setState({ user, cart, total, numberOfItems })
+    this.setState({ user, cart, total, numberOfItems, loggedIn })
     setTimeout(() => {
       this.setState({products: products})
     }, 2000);
@@ -54,13 +56,13 @@ export default class App extends Component {
         this.setState({ usertoken: this.state.usertoken + token})
       }
     })
-    this.setState({ user: username })
+    this.setState({ user: username, loggedIn: true })
     console.log(this.state.usertoken)
   }
 
   logout = e => {
     e.preventDefault()
-    this.setState({ user: null, usertoken: null })
+    this.setState({ user: null, usertoken: null, loggedIn: false })
   }
 
    addToCart = (product) => {
@@ -215,34 +217,34 @@ render() {
             <span aria-hidden="true"></span>
           </label>
         </div>
-            <div className={`navbar-menu ${
-              this.state.showMenu ? "is-active" : ""
-              }`}>
+            <div className="navbar-menu">
               <NavLink to="/products" className={({ isActive }) => 
                       (isActive ? "active-nav navbar-item" : "navbar-item")}>
                 Products
               </NavLink>
               <NavLink to="/cart" className={({ isActive }) => 
-                      (isActive ? "active-nav navbar-item" : "navbar-item")}>
-                Cart { Object.keys(this.state.cart).length }
+                      (isActive ? "active-nav navbar-item" : "navbar-item")}
+                      id="cartnav">
+                Cart ({ Object.keys(this.state.cart).length })
               </NavLink>
               <NavLink to="/about" className={({ isActive }) => 
                       (isActive ? "active-nav navbar-item" : "navbar-item")}>
                 About
               </NavLink>
-              <NavLink to="/user" className={({ isActive }) => 
+             {this.state.loggedIn ? (<NavLink to="/user" className={({ isActive }) => 
                       (isActive ? "active-nav navbar-item" : "navbar-item")}>
                  <img src='../assets/user.png' alt='user icon' id='usericon'/>
                  {this.state.user}
-              </NavLink>
+              </NavLink>) : <div></div>}
               {!this.state.user ? (
                 <NavLink to="/login" className={({ isActive }) => 
-                      (isActive ? "active-nav navbar-item" : "navbar-item")}>
+                      (isActive ? "active-nav navbar-item" : "navbar-item")
+                      }>
                   Login
                 </NavLink>
               ) : (
                 <NavLink to="/" onClick={this.logout} className={({ isActive }) => 
-                      (isActive ? "active-nav navbar-item" : "navbar-item")}>
+                      (isActive ? "navbar-item" : "navbar-item")}>
                   Logout
                 </NavLink>
               )}

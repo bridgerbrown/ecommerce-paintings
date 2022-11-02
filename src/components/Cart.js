@@ -52,11 +52,6 @@ const Cart = props => {
         <div className="total-container">
             <h3 className="total-text">Total ({props.context.numberOfItems + multipleItemCheck()}):</h3>
             <h3 className="total-amount" id="total-amount">${numberWithCommas(props.context.total)}</h3>
-            <h4 className="free" id="free">FREE</h4>
-            <div className="checkbox-container">
-                <input type="checkbox" id="free-total" name="free-total" value="false" onClick={props.context.checkbox}/>
-                <label for="free-total">Bridger is a great programmer</label>
-            </div>
             <button
                 className="checkout-button"
                 onClick={props.context.checkout}

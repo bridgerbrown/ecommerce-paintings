@@ -10,8 +10,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-top: 1rem;
-  padding-bottom: 1.1rem;
+  height: 4rem;
   background-color: brown;
   color: white;
 }
@@ -25,26 +24,26 @@
 
 .navbar-menu {
   display: flex;
-  padding: 0 0.25rem;
+  padding-left: 1rem;
 }
 
 .navbar-item {
   display: flex;
   list-style: none;
   justify-content: center;
-  margin-right: 1rem;
+  align-items: center;
   color: white;
   text-decoration: none;
   font-size: 1.1em;
   text-transform: none;
   font-family: proxima-nova, sans-serif;
   font-weight: 200;
-  padding-bottom: 0.2rem;
+  height: 4rem;
+  padding: 0 1.5rem;
 }
 
 .active-nav {
-  color: white;
-  border-bottom: 2px solid white;
+  background-color: rgb(200, 52, 52);
 }
 
 #usericon {
@@ -240,7 +239,7 @@ button:active {
   justify-content: space-between;
   padding-bottom: 0.5rem;
   margin-bottom: 1rem;
-  border-bottom: 1px solid lightgray;
+  border-bottom: 1px rgba(211, 211, 211, 0.666) solid;
 }
 
 .cartitems {
@@ -275,7 +274,7 @@ button:active {
   padding: 1.5rem 0.5rem;
   margin-bottom: 2rem;
   height: 12rem;
-  border-bottom: 1px lightgray solid;
+  border-bottom: 1px rgba(211, 211, 211, 0.666) solid;
 }
 
 .cartitem-title {
@@ -320,8 +319,9 @@ button:active {
 }
 
 .cartitem-buttons button {
-  padding: 0.2rem 0.3rem;
+  padding: 0.3rem 0.5rem;
   margin-right: 0.5rem;
+  border-radius: 5px;
   border: 1px solid rgba(155, 155, 155, 0.539);
 }
 
@@ -348,12 +348,12 @@ button:active {
   width: 80%;
   justify-content: center;
   align-items: center;
-  background-color: yellow;
+  background-color: #f9d946;
   border: none;
   border-radius: 5px;
   padding: 0.5rem 0;
   margin: 1rem auto;
-  font-size: 1em;
+  font-size: 0.9em;
   box-shadow: 0px 3px rgba(170, 170, 170, 0.378);
 }
 
@@ -461,6 +461,7 @@ button:active {
 .about-text p {
   margin: 0 3rem;
   font-size: 1.2em;
+  font-weight: 300;
 }
 
 .about-info {
@@ -550,3 +551,135 @@ button:active {
   margin-right: 0.5rem;
   padding: 0.3rem 0;
  }
+
+
+ /* 750px Media (phone) */
+
+
+@media screen and (max-width: 750px) {
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 4rem;
+    background-color: brown;
+    color: white;
+  }
+  
+  .navbar-brand b {
+    font-weight: 700;
+    font-style: italic;
+    font-size: 1.2em;
+    padding: 0 1.25rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .navbar-menu {
+    display: flex;
+    padding-left: 1rem;
+  }
+  
+  .navbar-item {
+    display: flex;
+    list-style: none;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-decoration: none;
+    font-size: 0.9em;
+    text-transform: none;
+    font-family: proxima-nova, sans-serif;
+    font-weight: 200;
+    height: 4rem;
+    padding: 0 1.7rem;
+  }
+  
+  .active-nav {
+    background-color: rgb(200, 52, 52);
+  }
+  
+  #usericon {
+    width: 29px;
+    height: 29px;
+    margin-right: 0.5rem;
+  }
+  
+  #cartnav {
+    min-width: 3rem;
+  }
+
+  .cart-container {
+    display: flex;
+    margin-top: 2rem;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .total-container {
+    width: 80vw;
+    max-width: 400px;
+    height: 175px;
+    background-color: rgba(236, 236, 236, 0.956);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem 0;
+    margin: 3rem 3rem;
+  }
+
+  .info-container {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .info-container img {
+    margin-bottom: 1rem;
+  }
+}
+
+
+@media screen and (max-width: 700px) {
+  .navbar{
+    display: flex;
+    flex-direction: column;
+    height: auto;
+  }
+
+  .navbar-menu {
+    padding: 0;
+  }
+
+  .navbar b {
+    padding: 1.5rem 0;
+  }
+
+  .about-container img {
+    width: 200px;
+    height: 200px;
+    margin-bottom: 2rem;
+  }
+
+  .about-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .about-text p {
+    margin: 0 1rem;
+    font-size: 1em;
+  }
+
+  .login-container,
+  .user-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+}
