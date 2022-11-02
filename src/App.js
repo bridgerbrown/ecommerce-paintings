@@ -224,13 +224,7 @@ render() {
               </NavLink>
               <NavLink to="/cart" className={({ isActive }) => 
                       (isActive ? "active-nav navbar-item" : "navbar-item")}>
-                Cart
-                <span
-                  className='tag is-primary'
-                  style={{ marginLeft: "5px" }}
-                >
-                  { Object.keys(this.state.cart).length }
-                </span>
+                Cart { Object.keys(this.state.cart).length }
               </NavLink>
               <NavLink to="/about" className={({ isActive }) => 
                       (isActive ? "active-nav navbar-item" : "navbar-item")}>
