@@ -232,6 +232,7 @@ render() {
               </NavLink>
               <NavLink to="/user" className={({ isActive }) => 
                       (isActive ? "active-nav navbar-item" : "navbar-item")}>
+                 <img src='../assets/user.png' alt='user icon' id='usericon'/>
                  {this.state.user}
               </NavLink>
               {!this.state.user ? (

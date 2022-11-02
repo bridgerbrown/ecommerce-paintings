@@ -29,33 +29,35 @@ class Login extends Component {
                         <h4 className="page-title">Login</h4>
                     </div>  
                     </div>
-                    <br />
-                    <br />
-                    <div className="login-form">
-                        <form onSubmit={this.login}>
-                            <div className="login">
-                                <div className="field">
-                                    <h2>Sign up</h2>
-                                    <label className="label">Username: </label>
-                                    <input
-                                        className="input"
-                                        type="username"
-                                        name="username"
-                                        onChange={this.handleChange}
-                                    />
-                                </div>                        
-                            {this.state.error && (
-                                <div className="has-text-danger">{this.state.error}</div>
-                            )}
-                            <div className="submit-button">
-                                <button
-                                    className="button is-primary is-outlined is-pulled-right"
-                                >
-                                    Submit
-                                </button>
+                    <div className="login-container">
+                        <h2>Sign up</h2>
+                        <div className="login-form">
+                            <form onSubmit={this.login}>
+                                <div className="login">
+                                    <div className="field">
+                                        <label className="label">Username: </label>
+                                        <input
+                                            className="input"
+                                            type="username"
+                                            name="username"
+                                            onChange={this.handleChange}
+                                            id="newname"
+                                        />
+                                    </div>                        
+                                {this.state.error && (
+                                    <div className="has-text-danger">{this.state.error}</div>
+                                )}
+                                <div className="submit-button">
+                                    <button
+                                        className="button"
+                                        id="submit"
+                                    >
+                                        Submit
+                                    </button>
+                                </div>
                             </div>
+                        </form>
                         </div>
-                    </form>
                     </div>
             </>
         ) : (

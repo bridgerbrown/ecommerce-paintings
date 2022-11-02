@@ -10,13 +10,15 @@ const User = props => {
                 <h4 className="page-title">User</h4>
             </div>  
             <div className="user-container">
-                <h2>User: <span>{user}</span></h2>
-                <form onSubmit={props.context.handleSubmit}>
-                    <label for="newname">Set new username:</label>
-                    <input type="text" id="newname" name="newname" value={props.context.value} onChange={props.context.handleChange} />
-                    <input type="submit" value="Submit" />
-                </form>
-            </div>          
+                <h3>Username: <span>{user}</span></h3>
+                <div className="user-change">
+                    <form onSubmit={props.context.handleSubmit}>
+                        <label for="newname">Set new username:</label>
+                        <input type="text" id="newname" name="newname" value={props.context.value} onChange={props.context.handleChange} />
+                        <input type="submit" value="Submit" id="submit" />
+                    </form>
+                </div>      
+            </div>    
         </div>
     )
 }
