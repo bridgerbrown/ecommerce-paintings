@@ -1,7 +1,7 @@
 * {
   margin: 0;
   padding: 0;
-  font-family: 'EB Garamond', serif;
+  font-family: europa, sans-serif;
 }
 
 /* --------------------Navbar--------------------- */
@@ -17,7 +17,8 @@
 }
 
 .navbar-brand b {
-  font-family: 'Parisienne', cursive;
+  font-family: 'EB Garamond', serif;
+  font-weight: 500;
   font-size: 2em;
   padding: 0 1.25rem;
 }
@@ -36,6 +37,8 @@
   text-decoration: none;
   font-size: 1.2em;
   text-transform: none;
+  font-family: proxima-nova, sans-serif;
+  font-weight: 200;
 }
 
 .active-nav {
@@ -216,14 +219,10 @@ button:active {
 .cart-categories {
   display: flex;
   width: 95%;
+  justify-content: space-between;
   padding-bottom: 0.5rem;
   margin-bottom: 1rem;
   border-bottom: 1px solid lightgray;
-}
-
-.category-price {
-   position:fixed;
-   left: 70.5%;
 }
 
 .cartitems {
@@ -242,7 +241,7 @@ button:active {
 .cartitem-image img {
   max-width: 13rem;
   max-height: 11rem;
-  margin: 0 1rem;
+  margin-right: 1rem;
   border: 10px outset brown;
 }
 
@@ -255,7 +254,6 @@ button:active {
 .cartitem-container {
   width: 95%;
   display: flex;
-  justify-content: space-between;
   padding: 1.5rem 0.5rem;
   margin-bottom: 2rem;
   height: 12rem;
@@ -277,7 +275,6 @@ button:active {
   font-size: 1.1em;
   display:flex;
   flex-direction: column;
-  margin-right: 1rem;
 }
 
 .cartitem-title,
@@ -287,10 +284,14 @@ button:active {
 }
 
 .cartitem-text {
-  width: 22rem;
   display: flex;
   flex-direction: column;
-  margin-right: 10rem;
+}
+
+.cartitem-details {
+  width: 95%;
+  display: flex;
+  justify-content: space-between;
 }
 
 .cartitem-buttons {
@@ -313,13 +314,15 @@ button:active {
 }
 
 .total-container {
-  width: 300px;
+  width: 25vw;
+  max-width: 400px;
   height: 175px;
   background-color: rgba(236, 236, 236, 0.956);
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 1rem 0;
+  margin: 2rem 3rem;
 }
 
 .checkout-button {
@@ -364,7 +367,7 @@ button:active {
 
 .info-container {
   display: flex;
-  margin: 2rem;
+  margin: 4rem 2rem;
 }
 
 .info-image img {

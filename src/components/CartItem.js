@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const CartItem = props => {
   const { product } = props
@@ -12,35 +13,39 @@ const CartItem = props => {
                 />
             </figure>
         </div>
-        <div className="cartitem-right">
-            <div className="cartitem-info">
-                <div className="cartitem-text">
-                    <h1 className="cartitem-title">
-                        {product.title}
-                    </h1>
-                    <h2 className="cartitem-artist">{product.artist}</h2>
-                    <small>{`${product.quantity} in cart`}</small>
-                </div>
-                <div className="cartitem-buttons">
-                    <button
-                        className="remove-cart"
-                        onClick={() => 
-                            props.removeFromCart(product.id)
-                        }
-                    >
-                        Remove
-                    </button>
-                    <button
-                        className="more-info-cart"
-                    >
-                        More Info
-                    </button>
+        <div className="cartitem-details">
+            <div className="cartitem-right">
+                <div className="cartitem-info">
+                    <div className="cartitem-text">
+                        <h1 className="cartitem-title">
+                            {product.title}
+                        </h1>
+                        <h2 className="cartitem-artist">{product.artist}</h2>
+                        <small>{`${product.quantity} in cart`}</small>
+                    </div>
+                    <div className="cartitem-buttons">
+                        <button
+                            className="remove-cart"
+                            onClick={() => 
+                                props.removeFromCart(product.id)
+                            }
+                        >
+                            Remove
+                        </button>
+                        <Link to={`/${product.title}`}>
+                        <button
+                            className="more-info"
+                        >
+                            More Info
+                        </button>
+                    </Link>
+                    </div>
                 </div>
             </div>
+            <div className="cartitem-price">
+                    <h3>{product.price}</h3>
+            </div> 
         </div>
-        <div className="cartitem-price">
-                <h3>{product.price}</h3>
-        </div> 
   </div>
   );
 };
