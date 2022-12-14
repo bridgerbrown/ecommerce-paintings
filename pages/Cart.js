@@ -1,17 +1,17 @@
 import React from "react";
-import withContext from "../withContext";
-import CartItem from "./CartItem"
+import CartItem from "../components/CartItem"
+import { useProductContext } from "../components/context/ProductContext";
 
-const Cart = props => {
-   const { cart } = props.context
+export default function Cart() {
+   const { cart, numberOfItems, removeFromCart, total, checkout, } = useProductContext()
 
    function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
 
     function multipleItemCheck() {
-        if (props.context.numberOfItems) {
-            if (props.context.numberOfItems === 1) {
+        if (numberOfItems) {
+            if (numberOfItems === 1) {
                 return " item"
             } else {
                 return " items"
@@ -21,7 +21,6 @@ const Cart = props => {
         }
     }
     
-
    return(
     <>
     <div className="title-container">
@@ -39,7 +38,7 @@ const Cart = props => {
                         <CartItem
                             product={product}
                             key={index}
-                            removeFromCart={props.context.removeFromCart}
+                            removeFromCart={removeFromCart}
                         />
                     ))
             ) : (
@@ -50,11 +49,11 @@ const Cart = props => {
             </div>
         </div>
         <div className="total-container">
-            <h3 className="total-text">Total ({props.context.numberOfItems + multipleItemCheck()}):</h3>
-            <h3 className="total-amount" id="total-amount">${numberWithCommas(props.context.total)}</h3>
+            <h3 className="total-text">Total ({numberOfItems + multipleItemCheck()}):</h3>
+            <h3 className="total-amount" id="total-amount">${numberWithCommas(total)}</h3>
             <button
                 className="checkout-button"
-                onClick={props.context.checkout}
+                onClick={checkout}
             >
                 Checkout
             </button>
@@ -63,5 +62,3 @@ const Cart = props => {
     </>
    ) 
 }
-
-export default withContext(Cart)

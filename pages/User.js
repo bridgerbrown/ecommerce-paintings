@@ -1,8 +1,8 @@
-import React from "react";
-import withContext from "../withContext";
+import React from "react"
+import { useUserContext } from "../components/context/UserContext"
 
-const User = props => {
-    const { user } = props.context
+export default function User() {
+    const { user, handleChange, handleSubmit, formValue } = useUserContext()
 
     return(
         <div className="user-page">
@@ -12,9 +12,9 @@ const User = props => {
             <div className="user-container">
                 <h3>Username: <span>{user}</span></h3>
                 <div className="user-change">
-                    <form onSubmit={props.context.handleSubmit}>
+                    <form onSubmit={handleSubmit}>
                         <label for="newname">Set new username:</label>
-                        <input type="text" id="newname" name="newname" value={props.context.value} onChange={props.context.handleChange} />
+                        <input type="text" id="newname" name="newname" value={formValue} onChange={handleChange} />
                         <input type="submit" value="Submit" id="submit" />
                     </form>
                 </div>      
@@ -22,5 +22,3 @@ const User = props => {
         </div>
     )
 }
-
-export default withContext(User)

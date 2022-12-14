@@ -1,9 +1,9 @@
-import React, { useEffect } from "react";
-import ProductItem from "./ProductItem"
-import withContext from "../withContext";
+import React from "react";
+import { useProductContext } from "../components/context/ProductContext";
+import ProductItem from "../components/ProductItem"
 
-const ProductList = props => {
-    const { products } = props.context
+export default function ProductList() {
+    const { products, addToCart } = useProductContext()
 
     return(
         <>
@@ -18,7 +18,7 @@ const ProductList = props => {
                         <ProductItem
                             product={product}
                             key={index}
-                            addToCart={props.context.addToCart}
+                            addToCart={addToCart}
                         />
                     ))
                 ) : (
@@ -33,5 +33,3 @@ const ProductList = props => {
     </>
     )
 }
-
-export default withContext(ProductList)

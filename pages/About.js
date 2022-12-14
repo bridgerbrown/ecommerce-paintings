@@ -1,8 +1,6 @@
 import React from "react";
-import withContext from "../components/context/withContext";
 
-
-const About = props => {
+export default function About() {
     return(
         <div>
             <div className="title-container">
@@ -26,6 +24,3 @@ const About = props => {
         </div>
     )
 }
-
-export default withContext(About)
-

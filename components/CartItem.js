@@ -1,8 +1,10 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { useProductContext } from "./context/ProductContext";
+import Link from 'next/Link'
 
-const CartItem = props => {
-  const { product } = props
+export default function CartItem() {
+  const { product, removeFromCart } = useProductContext()
+
   return (
     <div className="cartitem-container">
         <div className="cartitem-image">
@@ -27,7 +29,7 @@ const CartItem = props => {
                         <button
                             className="remove-cart"
                             onClick={() => 
-                                props.removeFromCart(product.id)
+                                removeFromCart(product.id)
                             }
                         >
                             Remove
@@ -49,5 +51,3 @@ const CartItem = props => {
   </div>
   );
 };
-
-export default CartItem;

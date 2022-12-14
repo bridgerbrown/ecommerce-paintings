@@ -1,8 +1,10 @@
 import React from "react"
-import { Link } from "react-router-dom"
+import { Link } from "next/Link"
+import { useProductContext } from "./context/ProductContext"
 
-const ProductItem = props => {
-    const { product } = props
+export default function ProductItem() {
+    const { product, addToCart } = useProductContext()
+
     return(
         <div className="painting-container">
             <div className="painting-image">
@@ -33,7 +35,7 @@ const ProductItem = props => {
                             <button
                                 className="add-to-cart"
                                 onClick={() => 
-                                    props.addToCart({
+                                    addToCart({
                                         id: product.id,
                                         title: product.title,
                                         img: product.img,
@@ -62,5 +64,3 @@ const ProductItem = props => {
         </div>
     )
 }
-
-export default ProductItem

@@ -1,8 +1,11 @@
 import React from "react";
 import { useUserContext } from './context/UserContext'
+import Link from 'next/Link'
+import { useProductContext } from "./context/ProductContext";
 
 export default function Navbar() {
-  const { loggedIn, user } = useUserContext()
+  const { loggedIn, user, logout } = useUserContext()
+  const { cart } = useProductContext()
 
     return (
         <nav
@@ -20,7 +23,6 @@ export default function Navbar() {
             data-target='navbarBasicExample'
             onClick={e => {
               e.preventDefault()
-              this.setState({ showMenu: !this.state.showMenu })
             }}
           >
             <span aria-hidden="true"></span>
@@ -29,35 +31,35 @@ export default function Navbar() {
           </label>
         </div>
             <div className="navbar-menu">
-              <NavLink to="/products" className={({ isActive }) => 
+              <Link to="/products" className={({ isActive }) => 
                       (isActive ? "active-nav navbar-item" : "navbar-item")}>
                 Products
-              </NavLink>
-              <NavLink to="/cart" className={({ isActive }) => 
+              </Link>
+              <Link to="/cart" className={({ isActive }) => 
                       (isActive ? "active-nav navbar-item" : "navbar-item")}
                       id="cartnav">
-                Cart ({ Object.keys(this.state.cart).length })
-              </NavLink>
-              <NavLink to="/about" className={({ isActive }) => 
+                Cart ({ Object.keys(cart).length })
+              </Link>
+              <Link to="/about" className={({ isActive }) => 
                       (isActive ? "active-nav navbar-item" : "navbar-item")}>
                 About
-              </NavLink>
-             {loggedIn ? (<NavLink to="/user" className={({ isActive }) => 
+              </Link>
+             {loggedIn ? (<Link to="/user" className={({ isActive }) => 
                       (isActive ? "active-nav navbar-item" : "navbar-item")}>
                  <img src='../assets/user.png' alt='user icon' id='usericon'/>
                  {user}
-              </NavLink>) : <div></div>}
+              </Link>) : <div></div>}
               {!user ? (
-                <NavLink to="/login" className={({ isActive }) => 
+                <Link to="/login" className={({ isActive }) => 
                       (isActive ? "active-nav navbar-item" : "navbar-item")
                       }>
                   Login
-                </NavLink>
+                </Link>
               ) : (
-                <NavLink to="/" onClick={this.logout} className={({ isActive }) => 
+                <Link to="/" onClick={logout} className={({ isActive }) => 
                       (isActive ? "navbar-item" : "navbar-item")}>
                   Logout
-                </NavLink>
+                </Link>
               )}
             </div>
           </nav>
