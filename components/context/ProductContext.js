@@ -1,12 +1,12 @@
 import React from 'react'
 import { createContext, useContext, useState, useEffect } from 'react'
-import { paintingsData } from './Firebase';
+import { paintingsData } from '../firebase/index.js';
 
 const ProductContext = createContext()
 
 export function ProductProvider({ children }) {
-  const [cart, setCart] = useState()
-  const [products, setProducts] = useState()
+  const [cart, setCart] = useState(null)
+  const [products, setProducts] = useState(null)
   const [total, setTotal] = useState(0)
   const [numberOfItems, setNumberOfItems] = useState(0)
   const [loaded, setLoaded] = useState(false)

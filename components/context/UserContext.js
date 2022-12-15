@@ -1,12 +1,12 @@
 import React, { useEffect, createContext, useState, useContext } from 'react'
 import { getIdToken, signInAnonymously, onAuthStateChanged } from 'firebase/auth';
-import { auth, authChange } from './Firebase';
+import { auth, authChange } from '../firebase/index.js';
 
 const UserContext = createContext()
 
 export function UserProvider({ children }) {
   const [user, setUser] = useState(null)
-  const [userToken, setUserToken] = useState()
+  const [userToken, setUserToken] = useState(null)
   const [loggedIn, setLoggedIn] = useState(false)
   const [formValue, setFormValue] = useState('')
 

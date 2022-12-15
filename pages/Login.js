@@ -1,15 +1,13 @@
 import React, { useState } from "react";
-import { Navigate } from "react-router-dom"
+import Link from 'next/link'
 import { useUserContext } from "../components/context/UserContext";
 
-export default function User() { 
-    const { login, user } = useUserContext
+export default function User({ login, user }) { 
     const [username, setUsername] = useState("")
     const [error, setError] = useState("")
 
-
     const handleChange = e => {
-        setUsername({ [e.target.name]: e.target.value }) 
+        setUsername(e.target.value) 
         setError("")
     }
 
@@ -60,6 +58,16 @@ export default function User() {
                 </div>
         </>
     ) : (
-        <Navigate to="/products" />
+        <Link href="/products" />
     )
+}
+
+export async function getStaticProps() {
+    const { login, user } = useUserContext
+    return {
+        props: {
+            login: login,
+            user: user
+        },
+    };
 }

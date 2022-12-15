@@ -1,10 +1,8 @@
 import React from "react"
-import { Link } from "next/Link"
+import Link from "next/link"
 import { useProductContext } from "./context/ProductContext"
 
-export default function ProductItem() {
-    const { product, addToCart } = useProductContext()
-
+export default function ProductItem({ product, addToCart }) {
     return(
         <div className="painting-container">
             <div className="painting-image">
@@ -51,7 +49,7 @@ export default function ProductItem() {
                             >
                                 Add to Cart
                             </button>
-                            <Link to={`/${product.title}`}>
+                            <Link href={`/products/${product.id}`}>
                                 <button
                                     className="more-info"
                                 >

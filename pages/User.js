@@ -1,9 +1,7 @@
 import React from "react"
 import { useUserContext } from "../components/context/UserContext"
 
-export default function User() {
-    const { user, handleChange, handleSubmit, formValue } = useUserContext()
-
+export default function User({ user, handleChange, handleSubmit, formValue }) {
     return(
         <div className="user-page">
             <div className="title-container">
@@ -21,4 +19,16 @@ export default function User() {
             </div>    
         </div>
     )
+}
+
+export async function getStaticProps() {
+    const { user, handleChange, handleSubmit, formValue } = useUserContext()
+    return {
+        props: {
+            user: user,
+            handleChange: handleChange,
+            handleSubmit: handleSubmit,
+            formValue: formValue
+        },
+    };
 }

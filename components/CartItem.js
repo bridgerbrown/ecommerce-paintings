@@ -1,10 +1,8 @@
 import React from "react";
 import { useProductContext } from "./context/ProductContext";
-import Link from 'next/Link'
+import Link from 'next/link'
 
-export default function CartItem() {
-  const { product, removeFromCart } = useProductContext()
-
+export default function CartItem({ product, removeFromCart }) {
   return (
     <div className="cartitem-container">
         <div className="cartitem-image">
@@ -34,7 +32,7 @@ export default function CartItem() {
                         >
                             Remove
                         </button>
-                        <Link to={`/${product.title}`}>
+                        <Link href={`/products/${product.title}`}>
                         <button
                             className="more-info"
                         >

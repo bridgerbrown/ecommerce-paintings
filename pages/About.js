@@ -8,7 +8,7 @@ export default function About() {
             </div>
             <div className="about-container">
                 <div className="about-text">
-                    <img src="assets/AIC.png" alt="art institute of chicago logo"/>
+                    <img src="/AIC.png" alt="art institute of chicago logo"/>
                     <div className="about-info">
                         <p>
                         This project was made using React router, React context,

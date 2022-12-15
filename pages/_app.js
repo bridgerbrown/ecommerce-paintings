@@ -1,4 +1,4 @@
-import '.styles/styles.css';
+import '/styles/styles.css';
 import React from 'react';
 import { UserProvider } from '../components/context/UserContext';
 import { ProductProvider } from '../components/context/ProductContext';
