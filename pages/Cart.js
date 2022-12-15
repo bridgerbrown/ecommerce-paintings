@@ -2,7 +2,8 @@ import React from "react";
 import CartItem from "../components/CartItem"
 import { useProductContext } from "../components/context/ProductContext";
 
-export default function Cart({ cart, numberOfItems, removeFromCart, total, checkout, }) {
+export default function Cart({ cart, numberOfItems, total }) {
+    const { removeFromCart, checkout } = useProductContext()
     
    function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -63,14 +64,13 @@ export default function Cart({ cart, numberOfItems, removeFromCart, total, check
 }
 
 export async function getStaticProps() {
-    const { cart, numberOfItems, removeFromCart, total, checkout, } = useProductContext()
+    const { cart, numberOfItems, total, } = useProductContext()
     return {
         props: {
             cart: cart,
             numberOfItems: numberOfItems,
-            removeFromCart: removeFromCart,
             total: total,
-            checkout: checkout
         },
+        revalidate: 10,
     };
 }
