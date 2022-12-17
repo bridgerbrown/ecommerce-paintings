@@ -12,10 +12,10 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "next start",
-    "build": "next build",
-    "test": "next test",
-    "eject": "next eject"
+    "start": "npx next start",
+    "build": "npx next build",
+    "test": "npx next test",
+    "eject": "npx next eject"
   },
   "browserslist": {
     "production": [

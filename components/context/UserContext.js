@@ -1,6 +1,6 @@
 import React, { useEffect, createContext, useState, useContext } from 'react'
-import { getIdToken, signInAnonymously, onAuthStateChanged } from 'firebase/auth';
-import { auth, authChange } from '../firebase/index.js';
+import { getAuth, getIdToken, onAuthStateChanged, signInAnonymously } from 'firebase/auth'
+import { firebaseConfig } from "../firebase/firebase.config.js"
 
 const UserContext = createContext()
 
@@ -10,10 +10,20 @@ export function UserProvider({ children }) {
   const [loggedIn, setLoggedIn] = useState(false)
   const [formValue, setFormValue] = useState('')
 
-  // useEffect(() => {
-  //   setUser(null)
-  //   setLoggedIn(false)
-  // }, [])
+  const auth = getAuth()
+
+  function authChange(username) {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        user.displayName = username
+        console.log("signed in")
+        console.log("User uid = " + user.uid)
+      }
+      else {
+        console.log("signed out")
+      }
+    })
+  }
 
   const login = async (username) => {
     signInAnonymously(auth)

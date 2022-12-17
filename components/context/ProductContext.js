@@ -1,22 +1,31 @@
-import React from 'react'
-import { createContext, useContext, useState, useEffect } from 'react'
-import { paintingsData } from '../firebase/index.js';
+import React, { useEffect } from 'react'
+import { createContext, useContext, useState } from 'react'
+import { initializeApp } from "firebase/app";
+import { getFirestore, collection, onSnapshot, updateDoc, doc, docs } from "firebase/firestore";
+import { firebaseConfig } from "../firebase/firebase.config.js"
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 
-const ProductContext = createContext()
+const ProductContext = createContext();
 
 export function ProductProvider({ children }) {
-  const [cart, setCart] = useState(null)
-  const [products, setProducts] = useState(null)
+  const [cart, setCart] = useState([])
+  const [products, setProducts] = useState()
   const [total, setTotal] = useState(0)
   const [numberOfItems, setNumberOfItems] = useState(0)
   const [loaded, setLoaded] = useState(false)
-    
+  
   useEffect(() => {
-      const products = paintingsData
-      setTimeout(() => {
-        setProducts(products)
-      }, 2000);  
-  }, [])
+    const paintingsRef = collection(db, 'paintings')
+    onSnapshot(paintingsRef, (snapshot) => {
+      const paintings = [];
+      snapshot.docs.forEach((doc) => {
+        paintings.push({ ...doc.data(), id: doc.id })
+      });
+      setProducts(paintings)
+      return paintings
+    });
+  }, []);
   
   const addToCart = (product) => {
   setTimeout(() => {
@@ -110,13 +119,14 @@ const checkbox = () => {
 }
 
   return (
-      <ProductContext.Provider
+    <ProductContext.Provider
       value={{
         cart: cart,
-        products: products,
+        setProducts: setProducts,
         total: total,
         numberOfItems: numberOfItems,
         loaded: loaded,
+        setLoaded: setLoaded,
         addToCart: addToCart,
         removeFromCart: removeFromCart,
         checkout: checkout,

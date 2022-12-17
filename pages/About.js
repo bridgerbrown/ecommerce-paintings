@@ -1,14 +1,23 @@
 import React from "react";
+import Navbar from "../components/Navbar";
+import Image from "next/image"
 
 export default function About() {
     return(
-        <div>
+        <>
+        <div className="App">
+            <Navbar />
             <div className="title-container">
                 <h4 className="page-title">About</h4>
             </div>
             <div className="about-container">
                 <div className="about-text">
-                    <img src="/AIC.png" alt="art institute of chicago logo"/>
+                    <Image 
+                        src="AIC.png" 
+                        alt="art institute of chicago logo" 
+                        width={500}
+                        height={500}
+                        />
                     <div className="about-info">
                         <p>
                         This project was made using React router, React context,
@@ -22,5 +31,6 @@ export default function About() {
                 </div>
             </div>
         </div>
+        </>
     )
 }

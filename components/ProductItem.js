@@ -1,6 +1,5 @@
 import React from "react"
 import Link from "next/link"
-import { useProductContext } from "./context/ProductContext"
 
 export default function ProductItem({ product, addToCart }) {
     return(

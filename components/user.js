@@ -1,9 +1,13 @@
 import React from "react"
-import { useUserContext } from "../components/context/UserContext"
+import { useUserContext } from "./context/UserContext"
+import Navbar from "./Navbar";
 
 export default function User({ user, handleChange, handleSubmit, formValue }) {
     return(
-        <div className="user-page">
+    <>
+        <div className="App">
+            <Navbar />
+            <div className="user-page">
             <div className="title-container">
                 <h4 className="page-title">User</h4>
             </div>  
@@ -18,17 +22,19 @@ export default function User({ user, handleChange, handleSubmit, formValue }) {
                 </div>      
             </div>    
         </div>
+        </div>
+    </>
     )
 }
 
 export async function getStaticProps() {
-    const { user, handleChange, handleSubmit, formValue } = useUserContext()
+    const { handleChange, handleSubmit, formValue, user } = useUserContext()
     return {
         props: {
             user: user,
             handleChange: handleChange,
             handleSubmit: handleSubmit,
-            formValue: formValue
+            formValue: formValue,
         },
     };
 }
