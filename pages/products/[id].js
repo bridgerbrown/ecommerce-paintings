@@ -24,9 +24,11 @@ export default function ProductDetails({ products }) {
             .map((product, index) => (
                 <div className="info-container" key={index}>
                     <div className="info-image">
-                        <img 
+                        <Image
                             src={product.img}
                             alt={product.shortDesc}
+                            width={1000}
+                            height={1000}
                         />
                     </div>
                     <div className="info">
@@ -87,7 +89,7 @@ export async function getStaticProps() {
     const snapshot = await getDocs(paintingsRef);
     const paintings = [];
     snapshot.docs.forEach((doc) => {
-      paintings.push({ ...doc.data(), id: doc.id })
+      paintings.push({ ...doc.data() })
     });
     return {
       props: {

@@ -1,10 +1,16 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useProductContext } from "../components/context/ProductContext";
 import ProductItem from "../components/ProductItem"
 import Navbar from "../components/Navbar";
+import { collection, getDocs} from "firebase/firestore";
+import { db } from "../components/firebase/firebase.config"
 
-export default function ProductList() {
-    const { addToCart, products } = useProductContext()
+export default function ProductList({paintings}) {
+    const { addToCart, setProducts } = useProductContext()
+
+    useEffect(() => {(
+        setProducts(paintings)
+    )}, [paintings])
 
     return(
         <>
@@ -16,8 +22,8 @@ export default function ProductList() {
             <br />
             <div className="container">
                 <div className="painting-list">
-                    {products && products.length ? (
-                        products.map((product, index) => (
+                    {paintings && paintings.length ? (
+                        paintings.map((product, index) => (
                             <ProductItem
                                 product={product}
                                 key={index}
@@ -36,4 +42,18 @@ export default function ProductList() {
         </div>
     </>
     )
+}
+export async function getServerSideProps() {
+    const paintingsRef = collection(db, 'paintings')
+    const paintings = []
+    const snapshot = await getDocs(paintingsRef)
+    snapshot.forEach((doc) => {
+        paintings.push({ ...doc.data() })
+        })
+    console.log(paintings)
+    return {
+        props: {
+            paintings: paintings,
+        }
+    }
 }

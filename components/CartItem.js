@@ -32,7 +32,7 @@ export default function CartItem({ product, removeFromCart }) {
                         >
                             Remove
                         </button>
-                        <Link href={`/products/${product.title}`}>
+                        <Link href={`/products/${product.id}`}>
                         <button
                             className="more-info"
                         >

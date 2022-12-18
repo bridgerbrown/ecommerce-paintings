@@ -1,10 +1,5 @@
 import React, { useEffect } from 'react'
 import { createContext, useContext, useState } from 'react'
-import { initializeApp } from "firebase/app";
-import { getFirestore, collection, onSnapshot, updateDoc, doc, docs } from "firebase/firestore";
-import { firebaseConfig } from "../firebase/firebase.config.js"
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
 
 const ProductContext = createContext();
 
@@ -14,19 +9,8 @@ export function ProductProvider({ children }) {
   const [total, setTotal] = useState(0)
   const [numberOfItems, setNumberOfItems] = useState(0)
   const [loaded, setLoaded] = useState(false)
-  
-  useEffect(() => {
-    const paintingsRef = collection(db, 'paintings')
-    onSnapshot(paintingsRef, (snapshot) => {
-      const paintings = [];
-      snapshot.docs.forEach((doc) => {
-        paintings.push({ ...doc.data(), id: doc.id })
-      });
-      setProducts(paintings)
-      return paintings
-    });
-  }, []);
-  
+
+
   const addToCart = (product) => {
   setTimeout(() => {
     let newCart = [];
@@ -130,7 +114,7 @@ const checkbox = () => {
         addToCart: addToCart,
         removeFromCart: removeFromCart,
         checkout: checkout,
-        checkbox: checkbox
+        checkbox: checkbox,
       }}
     >
       {children}

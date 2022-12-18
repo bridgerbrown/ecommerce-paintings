@@ -1,15 +1,18 @@
 import React from "react"
 import Link from "next/link"
+import Image from "next/image"
 
 export default function ProductItem({ product, addToCart }) {
     return(
         <div className="painting-container">
             <div className="painting-image">
                 <figure className="image">
-                    <Link to={`/${product.title}`}>
-                        <img 
+                    <Link href={`/${product.id}`}>
+                        <Image
                             src={product.img}
                             alt={product.shortDesc}
+                            width={50}
+                            height={50}
                         />  
                     </Link>
                 </figure>

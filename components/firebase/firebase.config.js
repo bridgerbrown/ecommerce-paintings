@@ -1,3 +1,6 @@
+import { initializeApp } from "firebase/app";
+import { getFirestore } from "firebase/firestore";
+
 export const firebaseConfig = {
     apiKey: "AIzaSyD-93dTvcqceIgA7eiJ-ZTGGuP0pgSfR8I",
     authDomain: "ecommerce-f2425.firebaseapp.com",
@@ -6,3 +9,6 @@ export const firebaseConfig = {
     messagingSenderId: "342964477004",
     appId: "1:342964477004:web:0c45cbd1a73981775b68e9"
 }
+
+const app = initializeApp(firebaseConfig);
+export const db = getFirestore(app);

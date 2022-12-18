@@ -62,7 +62,7 @@ export default function User({ login, user }) {
         </div>
         </>
     ) : (
-        <Link href="/products" />
+        <Link href="/" />
     )
 }
 
