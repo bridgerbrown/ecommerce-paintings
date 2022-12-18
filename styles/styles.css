@@ -90,11 +90,11 @@ html {
   font-size: 3em;
 }
 
-.painting-image img {
+.product-item-image {
   max-width: 19rem;
   max-height: 15rem;
-  border: 15px outset brown;
   cursor: pointer;
+  border: 15px outset brown;
 }
 
 .painting-list {
@@ -196,10 +196,9 @@ button:active {
     border-radius: 5px;
   }
 
-  .painting-image img {
+  .product-item-image {
     max-width: 14rem;
     max-height: 9rem;
-    border: 15px outset brown;
   }
 
   .painting-titling {

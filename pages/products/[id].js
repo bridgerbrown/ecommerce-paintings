@@ -1,19 +1,17 @@
 import React, { useEffect } from "react";
 import { useProductContext } from "../../components/context/ProductContext";
-import { useRouter } from 'next/router'
-import { initializeApp } from "firebase/app";
-import { getFirestore, collection, getDocs, docs } from "firebase/firestore";
-import { firebaseConfig } from "./../../components/firebase/firebase.config"
+import { collection, getDocs} from "firebase/firestore";
+import { db } from "../../components/firebase/firebase.config"
 import Navbar from './../../components/Navbar'
 
-export default function ProductDetails({ products }) {
-    const { setProducts, addToCart } = useProductContext()
-    const router = useRouter()
-    const { id } = router.query
+export default function ProductDetails({ products, id }) {
+    const { setProducts, addToCart, loaderProp } = useProductContext()
 
     useEffect(() => {
         setProducts(products)
     }, [products])
+
+    
 
     return(
     <div className="App">
@@ -27,8 +25,9 @@ export default function ProductDetails({ products }) {
                         <Image
                             src={product.img}
                             alt={product.shortDesc}
-                            width={1000}
-                            height={1000}
+                            sizes="(max-width: 40vw)"
+                            loader={loaderProp}
+                            loaderProp={loaderProp}
                         />
                     </div>
                     <div className="info">
@@ -64,7 +63,9 @@ export default function ProductDetails({ products }) {
                                         artist: product.artist,
                                         quantity: 1,
                                         stock: product.stock,
-                                        price: product.price
+                                        price: product.price,
+                                        width: product.width,
+                                        height: product.height,
                                     })
                                 }
                             >
@@ -82,38 +83,18 @@ export default function ProductDetails({ products }) {
     )
 }
 
-export async function getStaticProps() {
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
-    const paintingsRef = collection(db, 'paintings');
-    const snapshot = await getDocs(paintingsRef);
-    const paintings = [];
-    snapshot.docs.forEach((doc) => {
-      paintings.push({ ...doc.data() })
-    });
+export async function getServerSideProps(context) {
+    const id = context.params.id
+    const paintingsRef = collection(db, 'paintings')
+    const paintings = []
+    const snapshot = await getDocs(paintingsRef)
+    snapshot.forEach((doc) => {
+        paintings.push({ ...doc.data() })
+        })
     return {
-      props: {
-        products: paintings
-      }
-    };
-}
-
-export async function getStaticPaths() {
-    return {
-        paths: [
-            { params: { id: '1'} },
-            { params: { id: '2'} },
-            { params: { id: '3'} },
-            { params: { id: '4'} },
-            { params: { id: '5'} },
-            { params: { id: '6'} },
-            { params: { id: '7'} },
-            { params: { id: '8'} },
-            { params: { id: '9'} },
-            { params: { id: '10'} },
-            { params: { id: '11'} },
-            { params: { id: '12'} },    
-        ],
-        fallback: true,
+        props: {
+            products: paintings,
+            id: id,
+        }
     }
 }

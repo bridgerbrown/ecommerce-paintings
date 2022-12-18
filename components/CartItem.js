@@ -1,15 +1,21 @@
 import React from "react";
 import { useProductContext } from "./context/ProductContext";
 import Link from 'next/link'
+import Image from "next/image";
 
 export default function CartItem({ product, removeFromCart }) {
-  return (
+    const { loaderProp } = useProductContext()
+
+    return (
     <div className="cartitem-container">
         <div className="cartitem-image">
             <figure className="image">
-                <img 
+                <Image
                     src={product.img}
                     alt={product.shortDesc}
+                    width={product.width}
+                    height={product.height}
+                    loader={loaderProp}
                 />
             </figure>
         </div>
@@ -46,6 +52,6 @@ export default function CartItem({ product, removeFromCart }) {
                     <h3>{product.price}</h3>
             </div> 
         </div>
-  </div>
+    </div>
   );
 };

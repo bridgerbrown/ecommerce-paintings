@@ -1,21 +1,25 @@
 import React from "react"
 import Link from "next/link"
 import Image from "next/image"
+import { useProductContext } from "./context/ProductContext"
 
 export default function ProductItem({ product, addToCart }) {
+    const { loaderProp } = useProductContext()
+
     return(
         <div className="painting-container">
-            <div className="painting-image">
-                <figure className="image">
-                    <Link href={`/${product.id}`}>
+            <div className="painting-image-container">
+                    <Link href={`/products/${product.id}`}>
                         <Image
                             src={product.img}
                             alt={product.shortDesc}
-                            width={50}
-                            height={50}
+                            sizes="(max-width: 19rem, max-height: 15rem),
+                                    (max-width: 14rem, max-height: 9rem) 50vw,
+                                    "
+                            loader={loaderProp}
+                            className="product-item-image"
                         />  
                     </Link>
-                </figure>
             </div>
                 <div className="painting-text">
                     <div className="painting-titling">
@@ -45,7 +49,9 @@ export default function ProductItem({ product, addToCart }) {
                                         artist: product.artist,
                                         quantity: 1,
                                         stock: product.stock,
-                                        price: product.price
+                                        price: product.price,
+                                        width: product.width,
+                                        height: product.height,
                                     })
                                 }
                             >

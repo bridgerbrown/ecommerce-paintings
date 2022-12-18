@@ -10,6 +10,9 @@ export function ProductProvider({ children }) {
   const [numberOfItems, setNumberOfItems] = useState(0)
   const [loaded, setLoaded] = useState(false)
 
+  const loaderProp =({ src }) => {
+    return src;
+  }
 
   const addToCart = (product) => {
   setTimeout(() => {
@@ -39,7 +42,9 @@ export function ProductProvider({ children }) {
               medium: product.medium,
               artist: product.artist,
               quantity: 1,
-              price: product.price
+              price: product.price,
+              width: product.width,
+              height: product.height,
             }
           ])
         )
@@ -107,6 +112,7 @@ const checkbox = () => {
       value={{
         cart: cart,
         setProducts: setProducts,
+        products: products,
         total: total,
         numberOfItems: numberOfItems,
         loaded: loaded,
@@ -115,6 +121,7 @@ const checkbox = () => {
         removeFromCart: removeFromCart,
         checkout: checkout,
         checkbox: checkbox,
+        loaderProp: loaderProp,
       }}
     >
       {children}

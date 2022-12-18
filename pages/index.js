@@ -50,7 +50,6 @@ export async function getServerSideProps() {
     snapshot.forEach((doc) => {
         paintings.push({ ...doc.data() })
         })
-    console.log(paintings)
     return {
         props: {
             paintings: paintings,
