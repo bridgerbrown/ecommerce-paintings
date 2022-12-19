@@ -4,12 +4,13 @@ import Image from "next/image"
 import { useProductContext } from "./context/ProductContext"
 
 export default function ProductItem({ product, addToCart }) {
-    const { loaderProp } = useProductContext()
-
+    const { loaderProp, setInfoPage } = useProductContext()
+    console.log(product.id)
     return(
         <div className="painting-container">
-            <div className="painting-image-container">
-                    <Link href={`/products/${product.id}`}>
+            <div className="painting-image-container" 
+                onClick={() => setInfoPage(product.id)}>
+                    <Link href="/product-info">
                         <Image
                             src={product.img}
                             alt={product.shortDesc}
@@ -57,9 +58,10 @@ export default function ProductItem({ product, addToCart }) {
                             >
                                 Add to Cart
                             </button>
-                            <Link href={`/products/${product.id}`}>
+                            <Link href="/product-info">
                                 <button
                                     className="more-info"
+                                    onClick={() => setInfoPage(product.id)}
                                 >
                                     More Info
                                 </button>

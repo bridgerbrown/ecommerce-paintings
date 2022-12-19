@@ -88,12 +88,13 @@ export async function getServerSideProps(context) {
     const paintingsRef = collection(db, 'paintings')
     const paintings = []
     const snapshot = await getDocs(paintingsRef)
-    snapshot.forEach((doc) => {
+    snapshot.filter((doc) => {
         paintings.push({ ...doc.data() })
         })
+    paintings.filter((product) => product.id === id)
     return {
         props: {
-            products: paintings,
+            painting: paintings,
             id: id,
         }
     }

@@ -8,7 +8,7 @@ export function ProductProvider({ children }) {
   const [products, setProducts] = useState()
   const [total, setTotal] = useState(0)
   const [numberOfItems, setNumberOfItems] = useState(0)
-  const [loaded, setLoaded] = useState(false)
+  const [infoPage, setInfoPage] = useState(0)
 
   const loaderProp =({ src }) => {
     return src;
@@ -115,13 +115,13 @@ const checkbox = () => {
         products: products,
         total: total,
         numberOfItems: numberOfItems,
-        loaded: loaded,
-        setLoaded: setLoaded,
         addToCart: addToCart,
         removeFromCart: removeFromCart,
         checkout: checkout,
         checkbox: checkbox,
         loaderProp: loaderProp,
+        infoPage: infoPage,
+        setInfoPage: setInfoPage
       }}
     >
       {children}
