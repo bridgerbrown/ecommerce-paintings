@@ -1,37 +1,36 @@
-import React, { useEffect } from "react"
+import React from "react"
 import Link from "next/link"
 import Image from "next/image"
-import { useProductContext } from "./context/ProductContext"
 
-export default function ProductItem({ product, addToCart }) {
-    const { loaderProp } = useProductContext()
-    
+export default function ProductItem({ product, addToCart, loaderProp }) {
     return(
         <div className="painting-container">
-            <div className="painting-image-container" >
-                    <Link href={`/products/${product.fields.title.stringValue}`}>
+            <div className="painting-image">
+                <div className="painting-image-container">
+                    <Link href={`/products/${product.route}`}>
                         <Image
-                            src={product.fields.img.stringValue}
-                            alt={product.fields.title.stringValue}
+                            src={product.img}
+                            alt={product.title}
                             sizes="(max-width: 19rem, max-height: 15rem),
-                                    (max-width: 14rem, max-height: 9rem) 50vw,
-                                    "
+                            (max-width: 14rem, max-height: 9rem) 50vw,
+                            "
                             loader={loaderProp}
                             className="product-item-image"
                         />  
                     </Link>
+                </div>
             </div>
                 <div className="painting-text">
                     <div className="painting-titling">
                         <h1 className="painting-title">
-                            {product.fields.title.stringValue}
+                            {product.title}
                         </h1>
-                        <h2 className="painting-artist">{product.fields.artist.stringValue}</h2>
+                        <h2 className="painting-artist">{product.artist}</h2>
                     </div>
                     <div className="painting-action">
-                        <span className="painting-price">{product.fields.price.stringValue}</span>
-                        {product.fields.stock.integerValue > 0 ? (
-                        <small className="painting-stock">{product.fields.stock.integerValue + " Available"}</small>
+                        <span className="painting-price">{product.price}</span>
+                        {product.stock > 0 ? (
+                        <small className="painting-stock">{product.stock + " Available"}</small>
                         ) : (
                         <small className="out-of-stock">Out Of Stock</small>
                         )}
@@ -40,28 +39,27 @@ export default function ProductItem({ product, addToCart }) {
                                 className="add-to-cart"
                                 onClick={() => 
                                     addToCart({
-                                        id: product.fields.id.integerValue,
-                                        title: product.fields.title.stringValue,
-                                        img: product.fields.img.stringValue,
-                                        link: product.fields.link.stringValue,
-                                        description: product.fields.description.stringValue,
-                                        medium: product.fields.medium.stringValue,
-                                        artist: product.fields.artist.stringValue,
+                                        id: product.id,
+                                        title: product.title,
+                                        img: product.img,
+                                        link: product.link,
+                                        description: product.description,
+                                        medium: product.medium,
+                                        artist: product.artist,
                                         quantity: 1,
-
-                                        width: product.fields.width.integerValue,
-                                        height: product.fields.height.integerValue,
-                                        stock: product.fields.stock.integerValue,
-                                        fsid: product.fields.fsid.stringValue,
-                                        date: product.fields.date.stringValue,
-                                        place: product.fields.place.stringValue,
+                                        stock: product.stock,
+                                        price: product.price,
+                                        route: product.route,
+                                        fsid: product.fsid
                                     })
                                 }
                             >
                                 Add to Cart
                             </button>
-                            <Link href={`/products/${product.fields.route.stringValue}`}>
-                                <button className="more-info">
+                            <Link href={`/products/${product.route}`}>
+                                <button
+                                    className="more-info"
+                                >
                                     More Info
                                 </button>
                             </Link>
