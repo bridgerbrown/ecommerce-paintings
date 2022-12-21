@@ -13,11 +13,11 @@ export default function ProductItem({ product, addToCart, loaderProp }) {
                 stock: product.stock - 1
             })    
         } 
-        // else if(product.stock <= 0 ) {
-        //     await updateDoc(productRef, {
-        //         stock: 100
-        //     })    
-        // }
+        else if(product.stock <= 0 ) {
+            await updateDoc(productRef, {
+                stock: 10
+            })    
+        }
     }
 
     return(

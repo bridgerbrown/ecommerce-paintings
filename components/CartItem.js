@@ -2,9 +2,23 @@ import React from "react";
 import { useProductContext } from "./context/ProductContext";
 import Link from 'next/link'
 import Image from "next/image";
+import { updateDoc, doc } from "firebase/firestore"
+import { db } from "./firebase/firebase.config"
 
 export default function CartItem({ product, removeFromCart }) {
-    const { loaderProp } = useProductContext()
+    const { loaderProp, cart } = useProductContext()
+    const productRef = doc(db, "paintings", `${product.fsid}`)
+
+    async function removeFromCartStockUpdate() {
+        const productInCart = cart.filter((item) => item.id == product.id)
+        console.log(productInCart)
+        const originalStock = productInCart[0].stock
+        console.log(originalStock)
+
+        await updateDoc(productRef, {
+            stock: originalStock
+        })  
+    }
 
     return (
     <div className="cartitem-container">
@@ -32,8 +46,10 @@ export default function CartItem({ product, removeFromCart }) {
                     <div className="cartitem-buttons">
                         <button
                             className="remove-cart"
-                            onClick={() => 
+                            onClick={() => {
+                                removeFromCartStockUpdate()
                                 removeFromCart(product.id)
+                                }
                             }
                         >
                             Remove

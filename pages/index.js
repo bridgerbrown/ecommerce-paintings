@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useProductContext } from "../components/context/ProductContext";
 import ProductItem from "../components/ProductItem"
-import Navbar from "../components/Navbar";
+import Navbar from "../components/Navbar/Navbar";
 import { collection, getDocs} from "firebase/firestore";
 import { db } from "../components/firebase/firebase.config"
 
@@ -11,7 +11,7 @@ export default function ProductList({ paintings }) {
     useEffect(() => {(
         setProducts(paintings)
     )}, [paintings])
-    
+
     return(
         <>
         <div className="App">

@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import Navbar from "../../../components/Navbar"
+import Navbar from "../../../components/Navbar/Navbar"
 import Details from "../../../components/Details";
 import { useProductContext } from "../../../components/context/ProductContext";
 import { collection, getDocs} from "firebase/firestore";

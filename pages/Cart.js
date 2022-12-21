@@ -1,7 +1,7 @@
 import React from "react";
 import CartItem from "../components/CartItem"
 import { useProductContext } from "../components/context/ProductContext";
-import Navbar from "../components/Navbar";
+import Navbar from "../components/Navbar/Navbar";
 
 export default function Cart() {
     const { cart, numberOfItems, total, removeFromCart, checkout } = useProductContext()

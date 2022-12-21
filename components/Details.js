@@ -4,6 +4,22 @@ import { useProductContext } from "./context/ProductContext";
 
 export default function Details({product}) {
     const { loaderProp, addToCart } = useProductContext()
+    const productRef = doc(db, "paintings", `${product.fsid}`)
+
+    async function addToCartStockUpdate() {
+        if(product.stock > 0) {
+            await updateDoc(productRef, {
+                stock: product.stock - 1
+            })    
+        } 
+        // else if(product.stock <= 0 ) {
+        //     await updateDoc(productRef, {
+        //         stock: 100
+        //     })    
+        // }
+    }
+
+
     return (
         <div className="info-container">
             <div className="info-image">
@@ -36,7 +52,8 @@ export default function Details({product}) {
                 <div className="info-buttons">
                     <button
                         className="add-to-cart"
-                        onClick={() => 
+                        onClick={() => {
+                            addToCartStockUpdate()
                             addToCart({
                                 id: product.id,
                                 title: product.title,
@@ -48,10 +65,10 @@ export default function Details({product}) {
                                 quantity: 1,
                                 stock: product.stock,
                                 price: product.price,
-                                width: product.width,
-                                height: product.height,
+                                route: product.route,
+                                fsid: product.fsid
                             })
-                        }
+                        }}
                     >
                         Add to Cart
                     </button>

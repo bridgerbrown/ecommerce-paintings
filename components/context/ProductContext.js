@@ -39,7 +39,8 @@ export function ProductProvider({ children }) {
               quantity: 1,
               price: product.price,
               route: product.route,
-              fsid: product.fsid
+              fsid: product.fsid,
+              stock: product.stock,
             }
           ])
         )
