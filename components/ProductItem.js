@@ -1,8 +1,25 @@
 import React from "react"
 import Link from "next/link"
 import Image from "next/image"
+import { updateDoc, doc } from "firebase/firestore"
+import { db } from "./firebase/firebase.config"
 
 export default function ProductItem({ product, addToCart, loaderProp }) {
+    const productRef = doc(db, "paintings", `${product.fsid}`)
+
+    async function addToCartStockUpdate() {
+        if(product.stock > 0) {
+            await updateDoc(productRef, {
+                stock: product.stock - 1
+            })    
+        } 
+        // else if(product.stock <= 0 ) {
+        //     await updateDoc(productRef, {
+        //         stock: 100
+        //     })    
+        // }
+    }
+
     return(
         <div className="painting-container">
             <div className="painting-image">
@@ -37,7 +54,8 @@ export default function ProductItem({ product, addToCart, loaderProp }) {
                         <div className="painting-buttons">
                             <button
                                 className="add-to-cart"
-                                onClick={() => 
+                                onClick={() => {
+                                    addToCartStockUpdate()
                                     addToCart({
                                         id: product.id,
                                         title: product.title,
@@ -52,7 +70,7 @@ export default function ProductItem({ product, addToCart, loaderProp }) {
                                         route: product.route,
                                         fsid: product.fsid
                                     })
-                                }
+                                }}
                             >
                                 Add to Cart
                             </button>

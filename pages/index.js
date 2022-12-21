@@ -11,7 +11,7 @@ export default function ProductList({ paintings }) {
     useEffect(() => {(
         setProducts(paintings)
     )}, [paintings])
-
+    
     return(
         <>
         <div className="App">
@@ -54,7 +54,7 @@ export async function getServerSideProps() {
     console.log(paintings)
     return {
         props: {
-            paintings: paintings,
+            paintings: paintings
         }
     }
 }
