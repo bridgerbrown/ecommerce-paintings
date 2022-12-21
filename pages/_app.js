@@ -6,9 +6,9 @@ import { ProductProvider } from '../components/context/ProductContext';
 export default function App({ Component, pageProps }) {
     return (  
       <div>
-        <ProductProvider>
-            <Component {...pageProps} />
-        </ProductProvider>
+          <ProductProvider>
+              <Component {...pageProps} />
+          </ProductProvider>
       </div>
       )
   }

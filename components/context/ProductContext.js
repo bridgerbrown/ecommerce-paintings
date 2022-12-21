@@ -1,31 +1,32 @@
-import React, { useEffect } from 'react'
-import { createContext, useContext, useState } from 'react'
+import React, { createContext, useContext, useEffect, useState } from 'react'
+import getDocument from '../firebase/getDocument';
+import "../firebase/firebase.config"
+import useSWR, { mutate } from 'swr'
 
 const ProductContext = createContext();
 
 export function ProductProvider({ children }) {
   const [cart, setCart] = useState([])
-  const [products, setProducts] = useState()
   const [total, setTotal] = useState(0)
   const [numberOfItems, setNumberOfItems] = useState(0)
-  const [infoPage, setInfoPage] = useState(0)
 
-  const loaderProp =({ src }) => {
-    return src;
+  async function updateStock(url, { newStock }) {
+    await fetch(url, {
+      method: 'POST',
+      fields: {
+        stock: {
+          integerValue: newStock
+        }
+      }
+    })
   }
 
   const addToCart = (product) => {
-  setTimeout(() => {
     let newCart = [];
-    let updatedProducts = [];
-    let indexProd = products.findIndex((prod) => {
-      return prod.id === product.id;
-    });
-
-    let correctNumber = product.price.replace(/,/g,'').replace(/\$/g,'')
+    let correctNumber = product.fields.price.stringValue.replace(/,/g,'').replace(/\$/g,'')
     let newTotal = Number(total) + Number(correctNumber)
 
-    if (products[indexProd].stock > 0) {
+    if (product.stock > 0) {
       let indexCart = cart.findIndex((item) => {
         return item.id === product.id;
       });
@@ -34,17 +35,21 @@ export function ProductProvider({ children }) {
         setCart(
           cart.concat([
             {
-              id: product.id,
-              title: product.title,
-              img: product.img,
-              link: product.link,
-              description: product.description,
-              medium: product.medium,
-              artist: product.artist,
+              id: product.fields.id.integerValue,
+              title: product.fields.title.stringValue,
+              img: product.fields.img.stringValue,
+              link: product.fields.link.stringValue,
+              description: product.fields.description.stringValue,
+              medium: product.fields.medium.stringValue,
+              artist: product.fields.artist.stringValue,
               quantity: 1,
-              price: product.price,
-              width: product.width,
-              height: product.height,
+              price: product.fields.price.stringValue,
+              width: product.fields.width.integerValue,
+              height: product.fields.height.integerValue,
+              stock: product.fields.stock.integerValue,
+              fsid: product.fields.fsid.stringValue,
+              date: product.fields.date.stringValue,
+              place: product.fields.place.stringValue,
             }
           ])
         )
@@ -55,31 +60,26 @@ export function ProductProvider({ children }) {
         setCart(newCart)
         setTotal(newTotal)
       }
+      
+      const fetcher = async () => {
+        const response = await fetch(`https://firestore.googleapis.com/v1/projects/ecommerce-f2425/databases/(default)/documents/paintings/${product.fields.fsid.stringValue}`)
+        const data = await response.json()
+        return data
+    }
+      const { data, mutate } = useSWR('doc', fetcher)
+      const lessStock = data.fields.stock.integerValue--
+      mutate({ ...data, lessStock })
 
-      updatedProducts = products;
-      updatedProducts[indexProd].stock--;
-      setProducts(updatedProducts)
       setTotal(newTotal)
       setNumberOfItems(numberOfItems + 1)
     }
-  }, 100);
 };
 
 const removeFromCart = (id, quantity) => {
-  setTimeout(() => {
     let newCart = cart;
     setCart(newCart.filter((item) => item.id !== id))
 
-    let indexProd = products.findIndex((prod) => {
-      return prod.id === id;
-    });
 
-    let updatedProducts = products;
-    updatedProducts[indexProd].stock =
-      updatedProducts[indexProd].stock + parseInt(quantity);
-
-    setProducts(updatedProducts)
-  }, 100);
 };
 
 const checkout = () => {
@@ -92,36 +92,20 @@ const checkout = () => {
   }
 };
 
-const checkbox = () => {
-  const totalAmount = document.getElementById("total-amount")
-  const freeText = document.getElementById("free")
-  const checkbtn = document.querySelector("input");
-  checkbtn.addEventListener('click', function() {
-      if (checkbtn.checked) {
-          totalAmount.classList.add("crossout")
-          freeText.style.display = "inherit"
-      } else {
-          totalAmount.classList.remove("crossout")
-          freeText.style.display = "none"
-      }
-  })
+const loaderProp =({ src }) => {
+  return src;
 }
 
   return (
     <ProductContext.Provider
       value={{
         cart: cart,
-        setProducts: setProducts,
-        products: products,
         total: total,
         numberOfItems: numberOfItems,
         addToCart: addToCart,
         removeFromCart: removeFromCart,
         checkout: checkout,
-        checkbox: checkbox,
         loaderProp: loaderProp,
-        infoPage: infoPage,
-        setInfoPage: setInfoPage
       }}
     >
       {children}

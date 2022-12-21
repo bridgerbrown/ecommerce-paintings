@@ -2,15 +2,12 @@ import React, { useEffect, useState } from "react";
 import { useProductContext } from "../components/context/ProductContext";
 import ProductItem from "../components/ProductItem"
 import Navbar from "../components/Navbar";
-import { collection, getDocs} from "firebase/firestore";
-import { db } from "../components/firebase/firebase.config"
+import getCollection from "../components/firebase/getCollection";
 
-export default function ProductList({paintings}) {
-    const { addToCart, setProducts } = useProductContext()
 
-    useEffect(() => {(
-        setProducts(paintings)
-    )}, [paintings])
+export default function ProductList() {
+    const { addToCart, cart } = useProductContext()
+    const { collection, isLoading, isError } = getCollection()
 
     return(
         <>
@@ -22,37 +19,24 @@ export default function ProductList({paintings}) {
             <br />
             <div className="container">
                 <div className="painting-list">
-                    {paintings && paintings.length ? (
-                        paintings.map((product, index) => (
-                            <ProductItem
-                                product={product}
-                                key={index}
-                                addToCart={addToCart}
-                            />
-                        ))
-                    ) : (
-                        <div className="loading-container">
-                            <span className="loading">
-                                Loading...
-                            </span>
-                        </div>
-                    )}
+                    {!isLoading ? (
+                            collection.documents.map((product, index) => (
+                                <ProductItem
+                                    product={product}
+                                    key={index}
+                                    addToCart={addToCart}
+                                />
+                            ))
+                        ) : (
+                            <div className="loading-container">
+                                <span className="loading">
+                                    Loading...
+                                </span>
+                            </div>
+                        )}
                 </div>
             </div>
         </div>
     </>
     )
-}
-export async function getServerSideProps() {
-    const paintingsRef = collection(db, 'paintings')
-    const paintings = []
-    const snapshot = await getDocs(paintingsRef)
-    snapshot.forEach((doc) => {
-        paintings.push({ ...doc.data() })
-        })
-    return {
-        props: {
-            paintings: paintings,
-        }
-    }
 }

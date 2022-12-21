@@ -1,5 +1,4 @@
 import React from "react";
-import { useUserContext } from './context/UserContext'
 import Link from 'next/link'
 import { useProductContext } from "./context/ProductContext";
 
