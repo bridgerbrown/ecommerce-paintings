@@ -460,11 +460,13 @@ button:active {
 .about-text {
   display: flex;
   justify-content: center;
-  width: 65vw;
+  align-items: center;
   margin: 1rem auto;
+  width: 45vw;
 }
 
 .about-text p {
+  text-align: center;
   margin: 0 3rem;
   font-size: 1.2em;
   font-weight: 300;
@@ -475,9 +477,11 @@ button:active {
   flex-direction: column;
   justify-content: center; 
   align-items: center;
+  margin-top: 1rem;
 }
 
 .about-info a {
+  text-align: center;
   width: 4rem;
   margin-top: 1.25rem;
   padding: 0.7rem 0.8rem;
@@ -489,8 +493,9 @@ button:active {
   background-color: gray;
 }
 
-.about-container img {
-  max-width: 200px;
+.about-image {
+  width: 200px;
+  height: 200px;
 }
 
 /* --------------------User--------------------- */
@@ -557,7 +562,6 @@ button:active {
   margin-right: 0.5rem;
   padding: 0.3rem 0;
  }
-
 
  /* 750px Media (phone) */
 
@@ -674,6 +678,7 @@ button:active {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin-top: 1rem;
   }
 
   .about-text p {

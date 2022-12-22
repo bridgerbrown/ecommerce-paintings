@@ -1,8 +1,10 @@
 import React from "react";
 import Navbar from "../components/Navbar/Navbar";
 import Image from "next/image"
+import { useProductContext } from "../components/context/ProductContext";
 
 export default function About() {
+    const { loaderProp } = useProductContext()
     return(
         <>
         <div className="App">
@@ -12,12 +14,15 @@ export default function About() {
             </div>
             <div className="about-container">
                 <div className="about-text">
-                    <Image 
-                        src="AIC.png" 
-                        alt="art institute of chicago logo" 
-                        width={500}
-                        height={500}
-                        />
+                    <figure className="about-image">
+                        <Image 
+                            src="/AIC.png" 
+                            alt="art institute of chicago logo" 
+                            width={200}
+                            height={200}
+                            loader={loaderProp}
+                            />
+                    </figure>
                     <div className="about-info">
                         <p>
                         This project was made using React router, React context,
