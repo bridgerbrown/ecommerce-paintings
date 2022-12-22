@@ -61,20 +61,29 @@ export function ProductProvider({ children }) {
   }, 100);
 };
 
-  const removeFromCart = (id, quantity) => {
+  const removeFromCart = (product) => {
     setTimeout(() => {
       let newCart = cart;
-      setCart(newCart.filter((item) => item.id !== id))
+      setCart(newCart.filter((item) => item.id !== product.id))
 
       let indexProd = products.findIndex((prod) => {
-        return prod.id === id;
+        return prod.id === product.id;
       });
 
       let updatedProducts = products;
+
+      let correctNumber = updatedProducts[indexProd].price.replace(/,/g,'').replace(/\$/g,'')
+
+      let newTotal = total - (correctNumber * product.quantity)
+
       updatedProducts[indexProd].stock =
-        updatedProducts[indexProd].stock + parseInt(quantity);
+        updatedProducts[indexProd].stock + parseInt(product.quantity);
 
       setProducts(updatedProducts)
+      setNumberOfItems(0)
+
+      console.log(newTotal)
+      setTotal(newTotal)
     }, 100);
   };
 

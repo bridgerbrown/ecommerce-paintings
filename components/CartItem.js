@@ -48,7 +48,7 @@ export default function CartItem({ product, removeFromCart }) {
                             className="remove-cart"
                             onClick={() => {
                                 removeFromCartStockUpdate()
-                                removeFromCart(product.id)
+                                removeFromCart(product)
                                 }
                             }
                         >
