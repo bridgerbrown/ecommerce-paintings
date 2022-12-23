@@ -1,26 +1,28 @@
-import React, { useState } from "react";
-import Link from 'next/link'
-import { useUserContext } from "./context/UserContext";
-import Navbar from "./Navbar";
+import React from "react";
+import { useUserContext } from "../../components/context/UserContext";
+import Navbar from "../../components/Navbar/Navbar" 
+import Link from "next/link";
 
-export default function User({ login, user }) { 
-    const [username, setUsername] = useState("")
+export default function Login() { 
+    const { setUser } = useUserContext()
+    const [usernameField, setUsernameField] = useState("")
     const [error, setError] = useState("")
 
-    const handleChange = e => {
-        setUsername(e.target.value) 
+    const handleChange = (e) => {
+        setUsernameField(e.target.value)
         setError("")
     }
 
-    const loginSubmit = (e) => {
+    const loginForm = (e) => {
         e.preventDefault()
-        if (!username) {
-            return setError( "Fill all fields!")
+        if (!usernameField) {
+            return setError("Fill all fields!")
+        } else {
+            setUser(usernameField)
         }
-        login(username)
     }
 
-    return !user ? (
+    return (
         <>
         <div className="App">
             <Navbar />
@@ -32,10 +34,10 @@ export default function User({ login, user }) {
             <div className="login-container">
                 <h2>Sign up</h2>
                 <div className="login-form">
-                    <form onSubmit={loginSubmit}>
+                    <form onSubmit={loginForm}>
                         <div className="login">
                             <div className="field">
-                                <label className="label">Username: </label>
+                                <label className="label">Set a username: </label>
                                 <input
                                     className="input"
                                     type="username"
@@ -48,12 +50,14 @@ export default function User({ login, user }) {
                             <div className="has-text-danger">{error}</div>
                         )}
                         <div className="submit-button">
-                            <button
-                                className="button"
-                                id="submit"
-                            >
-                                Submit
-                            </button>
+                            <Link href={ !error ? "/user" : "/user/login"}>
+                                <button
+                                    className="button"
+                                    id="submit"
+                                >
+                                    Submit
+                                </button>
+                            </Link>
                         </div>
                     </div>
                 </form>
@@ -61,17 +65,6 @@ export default function User({ login, user }) {
             </div>
         </div>
         </>
-    ) : (
-        <Link href="/" />
     )
 }
 
-export async function getStaticProps() {
-    const { login, user } = useUserContext()
-    return {
-        props: {
-            login: login,
-            user: user
-        },
-    };
-}
