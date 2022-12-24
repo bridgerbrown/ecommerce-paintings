@@ -13,7 +13,6 @@ export default function ProductFour({paintings}) {
     )}, [paintings])
 
     const product = paintings.filter(item => item.fsid === 'N71IbYnia1DWOZiqYH1i')[0]
-    console.log(product)
 
     return (
     <div className="App">

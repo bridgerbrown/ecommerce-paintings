@@ -5,24 +5,13 @@ import { firebaseConfig } from "../firebase/firebase.config"
 const UserContext = createContext()
 
 export function UserProvider({ children }) {
-  const [user, setUser] = useState("")
-
-  const login = async (username) => {
-    setUser(username)
-  }
-  
-  const logout = (e) => {
-    e.preventDefault()
-    setUser(null)
-  }
+  const [loggedIn, setLoggedIn] = useState(false)
 
   return (
       <UserContext.Provider
       value={{
-        login: login,
-        logout: logout,
-        user: user, 
-        setUser: setUser,
+        setLoggedIn: setLoggedIn,
+        loggedIn: loggedIn,
       }}
     >
       {children}

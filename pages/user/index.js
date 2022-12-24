@@ -1,11 +1,10 @@
-import React from "react"
-import { useUserContext } from "../../components/context/UserContext"
+import React, { useEffect, useState } from "react"
 import Navbar from "../../components/Navbar/Navbar"
-import { getAuth, signInAnonymously, updateProfile, auth } from 'firebase/auth'
+import { getAuth, initializeAuth, signInAnonymously, updateProfile } from 'firebase/auth'
+import { auth } from '../../components/firebase/firebase.config'
 
-export default function User({ userNameData, userFirebaseId }) {
-    const { login, user } = useUserContext()
-    const [usernameField, setUsernameField] = useState()
+export default function User({ auth, userNameData }) {
+    const [usernameField, setUsernameField] = useState("")
     const [error, setError] = useState("")
 
     const handleChange = (e) => {
@@ -18,16 +17,13 @@ export default function User({ userNameData, userFirebaseId }) {
         if (!usernameField) {
             return setError("Fill all fields!")
         } else {
-            setUser(usernameField)
-            // const auth = getAuth()
-            // signInAnonymously(auth)
-            // updateProfile(auth.currentUser, {
-            //     displayName: { usernameField }
-            //   })
+            updateProfile(auth.currentUser, {
+                displayName: usernameField 
+              })
         }
     }
 
-    return user ? (
+    return (
     <>
         <div className="App">
             <Navbar />
@@ -36,7 +32,7 @@ export default function User({ userNameData, userFirebaseId }) {
                 <h4 className="page-title">User</h4>
             </div>  
             <div className="user-container">
-                <h3>Username: <span>{user}</span></h3>
+                <h3>Username: <span>{userNameData}</span></h3>
                 <div className="user-change">
                     <form onSubmit={loginForm}>
                         <label for="newname">Set new username:</label>
@@ -51,25 +47,16 @@ export default function User({ userNameData, userFirebaseId }) {
         </div>
         </div>
     </>
-    ) :
-    (
-        <Link href="/user/login" />
-    )
+    ) 
 }
 
 export async function getServerSideProps() {
-    const { user } = useUserContext()
-    const auth = getAuth()
     signInAnonymously(auth)
-    updateProfile(auth.currentUser, {
-        displayName: { user }
-      })
     const userNameData = auth.currentUser.displayName
-    const userFirebaseId = currentUser.uid
     return {
         props: {
-            userNameData: userNameData,
-            userFirebaseId: userFirebaseId,
+            auth: auth,
+            userNameData: userNameData
         }
     }
 }

@@ -1,14 +1,12 @@
-import React, { useEffect } from "react";
+import React  from "react";
 import Link from 'next/link'
 import { useProductContext } from "../context/ProductContext";
 import styles from '../Navbar/Navbar.module.css'
 import { useRouter } from "next/router"
-import { getAuth } from 'firebase/auth'
 
-export default function Navbar({ userUnregistered }) {
-  const { numberOfItems, user } = useProductContext()
+export default function Navbar({ username }) {
+  const { numberOfItems } = useProductContext()
   const router = useRouter()
-
 
   return (
   <nav
@@ -44,37 +42,24 @@ export default function Navbar({ userUnregistered }) {
         About
       </Link>
 
-      {userUnregistered ? 
-        <Link href="/user/login" className={
-          router.pathname == "/user/login" ? 
-            `${styles.activenav} ${styles.navbaritem}` : `${styles.navbaritem}`}>
-          Login
-        </Link>
-        :
-        <Link href="/user" className={
-          router.pathname == "/user" ? 
-            `${styles.activenav} ${styles.navbaritem}` : `${styles.navbaritem}`}>
-          {user}
-        </Link>
-      }
+      <Link href="/user/login" className={
+        router.pathname == "/user/login" ? 
+          `${styles.activenav} ${styles.navbaritem}` : `${styles.navbaritem}`}>
+            Login
+      </Link>
+      
+      {/* <Link href="/user" className={
+        router.pathname == "/user" ? 
+          `${styles.activenav} ${styles.navbaritem}` : `${styles.navbaritem}`}>
+        {userNameData}
+      </Link> */}
+      
 
     </div>
   </nav>
   )
 }
 
-export async function getServerSideProps() {
-  const auth = getAuth()
-  signInAnonymously(auth)
-  const user = auth.currentUser
-  const userUnregistered = !user.displayName
-  return {
-      props: {
-          auth: auth,
-          userUnregistered: userUnregistered
-      }
-  }
-}
 
 // If FS has enough data on Anon Auth, use that for conditional
 // Otherwise, create a new collection where each doc has 

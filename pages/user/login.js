@@ -1,12 +1,13 @@
-import React from "react";
-import { useUserContext } from "../../components/context/UserContext";
+import React, { useEffect, useState} from "react";
 import Navbar from "../../components/Navbar/Navbar" 
-import Link from "next/link";
+import { useRouter } from "next/router";
+import { browserSessionPersistence, getAuth, initializeAuth, signInAnonymously, updateProfile } from 'firebase/auth'
+import { auth } from '../../components/firebase/firebase.config'
 
-export default function Login() { 
-    const { setUser } = useUserContext()
+export default function Login({ auth }) { 
     const [usernameField, setUsernameField] = useState("")
     const [error, setError] = useState("")
+    const router = useRouter()
 
     const handleChange = (e) => {
         setUsernameField(e.target.value)
@@ -18,7 +19,11 @@ export default function Login() {
         if (!usernameField) {
             return setError("Fill all fields!")
         } else {
-            setUser(usernameField)
+            updateProfile(auth.currentUser, {
+                displayName: usernameField 
+              })
+            router.push("/user")
+            setUsername(usernameField)
         }
     }
 
@@ -50,14 +55,12 @@ export default function Login() {
                             <div className="has-text-danger">{error}</div>
                         )}
                         <div className="submit-button">
-                            <Link href={ !error ? "/user" : "/user/login"}>
-                                <button
-                                    className="button"
-                                    id="submit"
-                                >
-                                    Submit
-                                </button>
-                            </Link>
+                            <button
+                                className="button"
+                                id="submit"
+                            >
+                                Submit
+                            </button>
                         </div>
                     </div>
                 </form>
@@ -68,3 +71,13 @@ export default function Login() {
     )
 }
 
+export async function getServerSideProps() {
+    signInAnonymously(auth)
+    console.log(auth)
+    console.log(auth.currentUser)
+    return {
+        props: {
+            auth: auth,
+        }
+    }
+}
