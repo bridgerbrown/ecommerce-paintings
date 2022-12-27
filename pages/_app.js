@@ -1,14 +1,21 @@
 import '../styles/styles.css'
 import React from 'react';
-import { UserProvider } from '../components/context/UserContext';
+import { SessionProvider } from "next-auth/react"
 import { ProductProvider } from '../components/context/ProductContext';
 
-export default function App({ Component, pageProps }) {
+export default function App({ 
+    Component, 
+    pageProps: {
+        session,
+        ...pageProps
+    } }) {
     return (  
       <div>
-          <ProductProvider>
-              <Component {...pageProps} />
-          </ProductProvider>
+        <SessionProvider session={session}>
+            <ProductProvider>
+                <Component {...pageProps} />
+            </ProductProvider>
+        </SessionProvider>
       </div>
       )
   }

@@ -6,12 +6,19 @@ const UserContext = createContext()
 
 export function UserProvider({ children }) {
   const [loggedIn, setLoggedIn] = useState(false)
+  const [username, setUsername] = useState("User")
+
+  const loginUsername = (usernameEntry) => {
+    setUsername(usernameEntry)
+  }
 
   return (
       <UserContext.Provider
       value={{
         setLoggedIn: setLoggedIn,
         loggedIn: loggedIn,
+        loginUsername: loginUsername,
+        username: username,
       }}
     >
       {children}

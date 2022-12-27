@@ -1,12 +1,14 @@
-import React  from "react";
+import React, { useEffect, useState }  from "react";
 import Link from 'next/link'
 import { useProductContext } from "../context/ProductContext";
 import styles from '../Navbar/Navbar.module.css'
 import { useRouter } from "next/router"
+import { useUserContext } from "../context/UserContext";
 
-export default function Navbar({ username }) {
+export default function Navbar() {
   const { numberOfItems } = useProductContext()
   const router = useRouter()
+  
 
   return (
   <nav
@@ -45,6 +47,7 @@ export default function Navbar({ username }) {
       <Link href="/user/login" className={
         router.pathname == "/user/login" ? 
           `${styles.activenav} ${styles.navbaritem}` : `${styles.navbaritem}`}>
+            {/* {username === "User" ? "Login" : username} */}
             Login
       </Link>
       
@@ -59,13 +62,3 @@ export default function Navbar({ username }) {
   </nav>
   )
 }
-
-
-// If FS has enough data on Anon Auth, use that for conditional
-// Otherwise, create a new collection where each doc has 
-// the user token and the username. Then you just call SSR on
-// Navbar, login.js, and user.js
-
-// Navbar calls SSR -> creates User Token + checks for past username
-// -> renders 'Login' or '{username}' Link on Navbar.
-// On render, Navbar sets state in UserContext for 

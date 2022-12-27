@@ -13,7 +13,7 @@ export const firebaseConfig = {
 
 export const app = initializeApp(firebaseConfig);
 
-export const auth = initializeAuth(app, {
+export const authInitialize = initializeAuth(app, {
     persistence: browserSessionPersistence,
     popupRedirectResolver: undefined,
 })
