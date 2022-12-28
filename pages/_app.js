@@ -1,6 +1,6 @@
 import '../styles/styles.css'
 import React from 'react';
-import { SessionProvider } from "next-auth/react"
+import { AuthUserProvider } from '../components/context/AuthUserContext';
 import { ProductProvider } from '../components/context/ProductContext';
 
 export default function App({ 
@@ -11,11 +11,11 @@ export default function App({
     } }) {
     return (  
       <div>
-        <SessionProvider session={session}>
+        <AuthUserProvider>
             <ProductProvider>
                 <Component {...pageProps} />
             </ProductProvider>
-        </SessionProvider>
+        </AuthUserProvider>
       </div>
       )
   }

@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
-import { initializeAuth, browserSessionPersistence } from "firebase/auth";
+import 'Firebase/auth'
 
 export const firebaseConfig = {
     apiKey: "AIzaSyD-93dTvcqceIgA7eiJ-ZTGGuP0pgSfR8I",
@@ -12,10 +12,4 @@ export const firebaseConfig = {
 }
 
 export const app = initializeApp(firebaseConfig);
-
-export const authInitialize = initializeAuth(app, {
-    persistence: browserSessionPersistence,
-    popupRedirectResolver: undefined,
-})
-
 export const db = getFirestore(app);

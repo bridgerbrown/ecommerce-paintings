@@ -44,8 +44,8 @@ export default function Navbar() {
         About
       </Link>
 
-      <Link href="/user/login" className={
-        router.pathname == "/user/login" ? 
+      <Link href="/api/auth/signin" className={
+        router.pathname == "/api/auth/signin" ? 
           `${styles.activenav} ${styles.navbaritem}` : `${styles.navbaritem}`}>
             {/* {username === "User" ? "Login" : username} */}
             Login
