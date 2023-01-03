@@ -1,57 +1,92 @@
 import React, {useState} from "react"
 import { useRouter } from "next/router";
 import { useAuth } from "../components/context/AuthUserContext";
+import { FormProvider, useForm } from "react-hook-form";
 
-const SignUp = (props) => {
-    const [email, setEmail] = useState("");
-    const [passwordOne, setPasswordOne] = useState("");
-    const [passwordTwo, setPasswordTwo] = useState("");
-    const router = useRouter();
-    const [error, setError] = useState(null);
-  
-    const { createUserWithEmailAndPassword } = useAuth();
-  
-    const onSubmit = event => {
-      setError(null)
-      //check if passwords match. If they do, create user in Firebase
-      // and redirect to your logged in page.
-      if(passwordOne === passwordTwo)
-        createUserWithEmailAndPassword(email, passwordOne)
-        .then(authUser => {
-          console.log("Success. The user is created in Firebase")
-          router.push("/profile");
-        })
-        .catch(error => {
-          // An error occurred. Set error message to be displayed to user
-          setError(error.message)
-        });
-      else
-        setError("Password do not match")
-      event.preventDefault();
-    }; 
+const SignUp = () => {
+  const methods = useForm({ mode: "onBlur" });
+  const { signUp } = useAuth()
+  const router = useRouter()
 
-    return (
-        <div className="signInForm">
-            <form onSubmit={onSubmit}>
-            { error && <Alert color="danger">{error}</Alert>}
-                <h1>Log In</h1>
-                <label for="signUpEmail">Email</label>
-                <input 
-                    type="email"
-                    value={email}
-                    onChange={(event) => setEmail(event.target.value)}
-                    name="email"
-                    id="signUpEmail"
-                    placeholder="Email" 
-                />
-                <button
-                    type="submit"
-                    value="Login" 
-                >Submit</button>
-            </form>
-        </div>
-    )
-}
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = methods;
+
+  const onSubmit = async (data) => {
+    try {
+      await signUp(data.email, data.password);
+      router.push("/profile");
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  return (
+    <div className="">
+      <h2 className="">Sign Up</h2>
+      <FormProvider {...methods}>
+        <form action="" onSubmit={handleSubmit(onSubmit)}>
+          <div className="">
+            <div className="">
+              <label htmlFor="" className="">
+                Email
+              </label>
+            </div>
+
+            <input
+              type="email"
+              {...register("email", { required: "Email is required" })}
+              className=""
+            />
+            {errors.email && <p className="">{errors.email.message}</p>}
+          </div>
+          <div className="">
+            <div className="">
+              <label htmlFor="" className="">
+                Password
+              </label>
+            </div>
+
+            <input
+              type="password"
+              {...register("password", { required: "Password is required" })}
+              className=""
+            />
+            {errors.password && <p className="">{errors.password.message}</p>}
+          </div>
+          <div className="">
+            <div className="">
+              <label htmlFor="" className="">
+                Confirm Password
+              </label>
+            </div>
+
+            <input
+              type="password"
+              {...register("password_confirm", {
+                required: "Verify your password",
+              })}
+              className=""
+            />
+            {errors.password_confirm && (
+              <p className="">{errors.password_confirm.message}</p>
+            )}
+          </div>
+          <div className="">
+            <button
+              type="submit"
+              className=""
+            >
+              <p className="">submit</p>
+            </button>
+          </div>
+        </form>
+      </FormProvider>
+    </div>
+  );
+};
 
 export default SignUp;
 

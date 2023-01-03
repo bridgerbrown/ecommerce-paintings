@@ -1,21 +1,16 @@
 import '../styles/styles.css'
 import React from 'react';
-import { AuthUserProvider } from '../components/context/AuthUserContext';
+import { AuthUserContextProvider } from '../components/context/AuthUserContext';
 import { ProductProvider } from '../components/context/ProductContext';
 
-export default function App({ 
-    Component, 
-    pageProps: {
-        session,
-        ...pageProps
-    } }) {
+export default function App({ Component, pageProps }) {
     return (  
       <div>
-        <AuthUserProvider>
+        <AuthUserContextProvider>
             <ProductProvider>
                 <Component {...pageProps} />
             </ProductProvider>
-        </AuthUserProvider>
+        </AuthUserContextProvider>
       </div>
       )
   }

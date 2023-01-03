@@ -4,7 +4,6 @@ import ProductItem from "../components/ProductItem"
 import Navbar from "../components/Navbar/Navbar";
 import { collection, getDocs} from "firebase/firestore";
 import { db } from "../components/firebase/firebase.config"
-import { useUserContext } from "../components/context/UserContext";
 
 export default function ProductList({ paintings }) {
     const { addToCart, setProducts, loaderProp } = useProductContext()

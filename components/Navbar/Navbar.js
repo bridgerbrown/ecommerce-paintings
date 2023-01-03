@@ -3,12 +3,21 @@ import Link from 'next/link'
 import { useProductContext } from "../context/ProductContext";
 import styles from '../Navbar/Navbar.module.css'
 import { useRouter } from "next/router"
-import { useUserContext } from "../context/UserContext";
+import { useAuth } from "../context/AuthUserContext";
 
 export default function Navbar() {
   const { numberOfItems } = useProductContext()
   const router = useRouter()
+  const { user, logOut } = useAuth()
   
+  const handleLogOut = async () => {
+    try {
+      await logOut()
+      router.push("login")
+    } catch (error) {
+      console.log(error.message)
+    }
+  }
 
   return (
   <nav
@@ -43,21 +52,29 @@ export default function Navbar() {
             `${styles.activenav} ${styles.navbaritem}` : `${styles.navbaritem}`}>
         About
       </Link>
-
-      <Link href="/api/auth/signin" className={
-        router.pathname == "/api/auth/signin" ? 
+    { !user.uid ? (
+      <Link href="/signup" className={
+        router.pathname == "/signup" ? 
           `${styles.activenav} ${styles.navbaritem}` : `${styles.navbaritem}`}>
             {/* {username === "User" ? "Login" : username} */}
             Login
       </Link>
-      
-      {/* <Link href="/user" className={
-        router.pathname == "/user" ? 
-          `${styles.activenav} ${styles.navbaritem}` : `${styles.navbaritem}`}>
-        {userNameData}
-      </Link> */}
-      
+      ) : (
+        <>
+          <Link href="/profile" className={
+            router.pathname == "/profile" ? 
+              `${styles.activenav} ${styles.navbaritem}` : `${styles.navbaritem}`}>
+            Profile
+          </Link>
+          <Link href="/login" className={styles.navbaritem}>
+            <a onClick={handleLogOut}>
+              Logout
+            </a>
+          </Link>
+        </>
 
+      )
+    }
     </div>
   </nav>
   )
