@@ -4,6 +4,7 @@ import { useProductContext } from "../context/ProductContext";
 import styles from '../Navbar/Navbar.module.css'
 import { useRouter } from "next/router"
 import { useAuth } from "../context/AuthUserContext";
+import Image from "next/image";
 
 export default function Navbar() {
   const { numberOfItems } = useProductContext()
@@ -52,11 +53,10 @@ export default function Navbar() {
             `${styles.activenav} ${styles.navbaritem}` : `${styles.navbaritem}`}>
         About
       </Link>
-    { !user.uid ? (
+    { !user.email ? (
       <Link href="/signup" className={
-        router.pathname == "/signup" ? 
+        router.pathname == "/login" ? 
           `${styles.activenav} ${styles.navbaritem}` : `${styles.navbaritem}`}>
-            {/* {username === "User" ? "Login" : username} */}
             Login
       </Link>
       ) : (
@@ -64,7 +64,13 @@ export default function Navbar() {
           <Link href="/profile" className={
             router.pathname == "/profile" ? 
               `${styles.activenav} ${styles.navbaritem}` : `${styles.navbaritem}`}>
-            Profile
+            <Image
+              src="/user.png"
+              width={25}
+              height={25}
+              id="usericon"
+            />
+            User
           </Link>
           <Link href="/login" className={styles.navbaritem}>
             <a onClick={handleLogOut}>
