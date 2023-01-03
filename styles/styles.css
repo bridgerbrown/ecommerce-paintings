@@ -64,6 +64,7 @@ html {
   justify-content: center;
   background-color: rgba(211, 211, 211, 0.431);
   margin-bottom: 1rem;
+  margin-top: 9.2rem;
 }
 
 .page-title {
@@ -112,9 +113,9 @@ html {
   justify-content: space-between;
   align-items: center;
   padding: 2.25rem 0.5rem;
-  margin: 1rem;
-  width: 25rem;
-  height: 28rem;
+  margin: 1.25rem;
+  width: 27rem;
+  height: 30rem;
   border: 1px rgba(211, 211, 211, 0.666) solid;
   border-radius: 5px;
 }

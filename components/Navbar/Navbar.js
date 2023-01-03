@@ -37,7 +37,7 @@ export default function Navbar() {
       <Link href="/" 
         className={
           router.pathname == "/" ? 
-            `${styles.activenav} ${styles.navbaritem}` : `${styles.navbaritem}`}>
+            `${styles.activenav} ${styles.startnavbaritem}` : `${styles.startnavbaritem}`}>
         Products
       </Link>
 
@@ -73,7 +73,7 @@ export default function Navbar() {
             User
           </Link>
           <Link href="/login" className={styles.navbaritem}>
-            <a onClick={handleLogOut}>
+            <a onClick={handleLogOut} className="logoutnav">
               Logout
             </a>
           </Link>
