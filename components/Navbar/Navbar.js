@@ -37,7 +37,7 @@ export default function Navbar() {
       <Link href="/" 
         className={
           router.pathname == "/" ? 
-            `${styles.activenav} ${styles.startnavbaritem}` : `${styles.startnavbaritem}`}>
+            `${styles.activenav} ${styles.startnavbaritem} ${styles.navbaritem}` : `${styles.startnavbaritem} ${styles.navbaritem} `}>
         Products
       </Link>
 

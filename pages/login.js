@@ -4,6 +4,7 @@ import { useAuth } from "../components/context/AuthUserContext";
 import { FormProvider, useForm } from "react-hook-form";
 import Link from "next/link";
 import Navbar from "../components/Navbar/Navbar"
+import Image from "next/image";
 
 const Login = () => {
   const methods = useForm({ mode: "onBlur" });
@@ -31,6 +32,12 @@ const Login = () => {
   return (
     <div className="App">
       <Navbar />
+      <Image
+        src="/bbg.jpg"
+        width={3000}
+        height={2297}
+        className="formImg"
+      />
       <div className="form-page">
             <div className="form-container log-in">
               <h4 className="form-title">Log In</h4>

@@ -1,6 +1,8 @@
 import React from "react";
 import Image from "next/image";
 import { useProductContext } from "./context/ProductContext";
+import { updateDoc, doc } from "firebase/firestore"
+import { db } from "./firebase/firebase.config";
 
 export default function Details({product}) {
     const { loaderProp, addToCart } = useProductContext()

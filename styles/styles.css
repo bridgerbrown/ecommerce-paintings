@@ -8,55 +8,6 @@ html {
   margin-bottom: 4rem;
 }
 
-/* --------------------Navbar--------------------- */
-
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 4.5rem;
-  background-color: brown;
-  color: white;
-}
-
-.navbar-brand b {
-  font-weight: 700;
-  font-style: italic;
-  font-size: 1.5em;
-  padding: 0 1.25rem;
-  cursor: pointer;
-}
-
-.navbar-menu {
-  display: flex;
-  padding-left: 1rem;
-}
-
-.navbar-item {
-  display: flex;
-  list-style: none;
-  justify-content: center;
-  align-items: center;
-  color: white;
-  text-decoration: none;
-  font-size: 1.1em;
-  text-transform: none;
-  font-family: proxima-nova, sans-serif;
-  font-weight: 200;
-  height: 4.5rem;
-  padding: 0 1.5rem;
-}
-
-.active-nav {
-  background-color: rgb(200, 52, 52);
-}
-
-#usericon {
-  width: 29px;
-  height: 29px;
-  margin-right: 0.5rem;
-}
-
 /* --------------------Pages--------------------- */
 
 .title-container {
@@ -64,12 +15,13 @@ html {
   justify-content: center;
   background-color: rgba(211, 211, 211, 0.431);
   margin-bottom: 1rem;
-  margin-top: 9.2rem;
+  margin-top: 177px;
 }
 
 .page-title {
   padding: 4rem 0;
-  font-size: 1.75em;
+  font-size: 1.5em;
+  font-weight: 700;
 }
 
 /* --------------------Products--------------------- */
@@ -392,7 +344,8 @@ button:active {
 
 .info-container {
   display: flex;
-  margin: 4rem 2rem;
+  margin-top: 177px;
+  padding: 4rem 2rem;
 }
 
 .info-image img {
@@ -711,6 +664,7 @@ button:active {
 
 .form-page {
   display: flex;
+  margin-top: 177px;
 }
 
 .form-item {
@@ -730,6 +684,7 @@ button:active {
   align-items: center;
   border: 1px solid rgb(170, 170, 170);
   border-radius: 5px;
+  background-color: white;
 }
 
 .sign-up {
@@ -775,4 +730,14 @@ button:active {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.formImg {
+  object-fit: cover;
+  position: absolute;
+  top: 239.87px;
+  left: 0;
+  z-index: -1;
+  width: 100vw;
+  height: 81%;
 }
