@@ -4,6 +4,7 @@ import ProductItem from "../components/ProductItem"
 import Navbar from "../components/Navbar/Navbar";
 import { collection, getDocs} from "firebase/firestore";
 import { db } from "../components/firebase/firebase.config"
+import Image from "next/image";
 
 export default function ProductList({ paintings }) {
     const { addToCart, setProducts, loaderProp } = useProductContext()
@@ -17,6 +18,12 @@ export default function ProductList({ paintings }) {
         <div className="App">
             <Navbar />
             <div className="title-container">
+                <Image
+                    src="/bdgbg.png"
+                    width={3000}
+                    height={600}
+                    className="bgimg"
+                />
                 <h4 className="page-title">Products</h4>
             </div>
             <br />

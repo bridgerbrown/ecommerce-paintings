@@ -10,6 +10,12 @@ export default function About() {
         <div className="App">
             <Navbar />
             <div className="title-container">
+                <Image
+                    src="/ahbg.png"
+                    width={3000}
+                    height={600}
+                    className="bgimg"
+                />
                 <h4 className="page-title">About</h4>
             </div>
             <div className="about-container">

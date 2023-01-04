@@ -27,7 +27,13 @@ const LoggedIn = () => {
       <Navbar />
       <div className="user-page">
           <div className="title-container">
-              <h4 className="page-title">User</h4>
+            <Image
+                src="/wlbg.png"
+                width={3000}
+                height={600}
+                className="bgimg"
+            />
+            <h4 className="page-title">User</h4>
           </div>  
           <div className="user-container">
               <div className='user-details-container'>

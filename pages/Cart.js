@@ -2,6 +2,7 @@ import React from "react";
 import CartItem from "../components/CartItem"
 import { useProductContext } from "../components/context/ProductContext";
 import Navbar from "../components/Navbar/Navbar";
+import Image from "next/image";
 
 export default function Cart() {
     const { cart, numberOfItems, total, removeFromCart, checkout } = useProductContext()
@@ -26,6 +27,12 @@ export default function Cart() {
     <div className="App">
         <Navbar />
         <div className="title-container">
+            <Image
+                src="/rpgbg.png"
+                width={3000}
+                height={600}
+                className="bgimg"
+            />
             <h4 className="page-title">Cart</h4>
         </div>
         <div className="cart-container">
