@@ -19,26 +19,32 @@ export default function About() {
                 <h4 className="page-title">About</h4>
             </div>
             <div className="about-container">
-                <div className="about-text">
-                    <figure className="about-image">
-                        <Image 
-                            src="/AIC.png" 
-                            alt="art institute of chicago logo" 
-                            width={200}
-                            height={200}
-                            loader={loaderProp}
-                            />
-                    </figure>
+                <div className="about-main">
+                    <Image 
+                        src="/AIC.png" 
+                        alt="art institute of chicago logo" 
+                        width={200}
+                        height={200}
+                        loader={loaderProp}
+                        className="about-image"
+                    />
                     <div className="about-info">
                         <p>
-                        This project was made using React router, React context,
-                        Firebase Firestore database, Firebase user authentication and 
-                        the art database of the Art Institute of Chicago's public API. 
+                        This is a demo eCommerce project with features such as a database of dynamically 
+                        updating products, cart functionality, and basic email user authentication. 
+                        <br/>
+                        <br/>
+                        This project was made using <span>React</span>, <span>NextJS</span>, 
+                        <span> Firestore</span> database, <span>Firebase</span> user authentication and 
+                        the art database of the <span>Art Institute of Chicago's public API</span>. 
                         The ARTIC has an excellent collection of some of the most renowned pieces and collections which I narrowed
                         down to a few that stuck out to me and were public domain.
                         </p>
-                        <a href="https://www.artic.edu/open-access/public-api">More Info</a>
                     </div>
+                </div>
+                <div className="about-bottom">
+                    <a href="https://github.com/bridgerbrown/ecommerce-basic" className="about-btn">GitHub</a>  
+                    <a href="https://www.artic.edu/open-access/public-api" className="about-btn">ARTIC API</a>              
                 </div>
             </div>
         </div>

@@ -30,11 +30,16 @@
   
   .navbarbrand {
     margin: 4rem auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   
   .navbarbrand b {
+    letter-spacing: 1px;
+    font-family: ltc-caslon-pro,serif;
     font-weight: 700;
-    letter-spacing: 1.2px;
+    font-style: normal;
   }
 
   .navbarmenu {
