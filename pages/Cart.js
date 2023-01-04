@@ -3,6 +3,7 @@ import CartItem from "../components/CartItem"
 import { useProductContext } from "../components/context/ProductContext";
 import Navbar from "../components/Navbar/Navbar";
 import Image from "next/image";
+import Footer from "../components/Footer";
 
 export default function Cart() {
     const { cart, numberOfItems, total, removeFromCart, checkout } = useProductContext()
@@ -68,6 +69,7 @@ export default function Cart() {
                 </button>
             </div>
         </div>
+        <Footer />
     </div>
        </>
    ) 

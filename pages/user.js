@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import { useAuth } from '../components/context/AuthUserContext'
 import Navbar from '../components/Navbar/Navbar'
 import Image from 'next/image';
+import Footer from '../components/Footer';
 
 const LoggedIn = () => {
   const { user, loading, logOut } = useAuth();
@@ -50,6 +51,7 @@ const LoggedIn = () => {
               </div>
           </div>
       </div>
+      <Footer />
   </div>
   )
 }

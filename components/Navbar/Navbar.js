@@ -61,15 +61,15 @@ export default function Navbar() {
       </Link>
       ) : (
         <>
-          <Link href="/profile" className={
-            router.pathname == "/profile" ? 
-              `${styles.activenav} ${styles.navbaritem}` : `${styles.navbaritem}`}>
             <Image
               src="/user.png"
               width={25}
               height={25}
-              id="usericon"
+              className="usericon"
             />
+          <Link href="/user" className={
+            router.pathname == "/user" ? 
+              `${styles.activenav} ${styles.navbaritemuser}` : `${styles.navbaritemuser}`}>
             User
           </Link>
           <Link href="/login" className={styles.navbaritem}>

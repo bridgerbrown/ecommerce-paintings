@@ -2,6 +2,7 @@ import React from "react";
 import Navbar from "../components/Navbar/Navbar";
 import Image from "next/image"
 import { useProductContext } from "../components/context/ProductContext";
+import Footer from "../components/Footer";
 
 export default function About() {
     const { loaderProp } = useProductContext()
@@ -47,6 +48,7 @@ export default function About() {
                     <a href="https://www.artic.edu/open-access/public-api" className="about-btn">ARTIC API</a>              
                 </div>
             </div>
+            <Footer />
         </div>
         </>
     )
