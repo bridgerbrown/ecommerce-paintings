@@ -1,2 +1,4 @@
 *.env
 .next
+
+firebase/firebase-config-keys.js
