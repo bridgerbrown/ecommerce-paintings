@@ -29,11 +29,11 @@ const LoggedIn = () => {
       <div className="user-page">
           <div className="title-container">
             <Image
-                src="/wlbg.png"
-                width={3000}
-                height={600}
-                className="bgimg"
-            />
+                  src="/wlbg.png"
+                  width={3000}
+                  height={600}
+                  className="bgimg"
+              />
             <h4 className="page-title">User</h4>
           </div>  
           <div className="user-container">

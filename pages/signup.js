@@ -20,7 +20,7 @@ const SignUp = () => {
   const onSubmit = async (data) => {
     try {
       await signUp(data.email, data.password);
-      router.push("/profile");
+      router.push("/user");
     } catch (error) {
       console.log(error.message);
     }

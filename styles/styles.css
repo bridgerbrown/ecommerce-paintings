@@ -43,7 +43,7 @@
   max-width: 19rem;
   max-height: 15rem;
   cursor: pointer;
-  border: 15px outset lightgray;
+  border: 15px outset gray;
 }
 
 .painting-list {
@@ -304,13 +304,14 @@ button:active {
   width: 80%;
   justify-content: center;
   align-items: center;
-  background-color: #f9d946;
+  background-color: rgb(255, 72, 72);
+  color: white;
   border: none;
   border-radius: 5px;
   padding: 0.5rem 0;
   margin: 1rem auto;
   font-size: 0.9em;
-  box-shadow: 0px 3px rgba(170, 170, 170, 0.378);
+  /* box-shadow: 0px 3px rgba(170, 170, 170, 0.378); */
 }
 
 .total-text {
@@ -493,7 +494,7 @@ button:active {
   padding: 0.75rem 0.75rem;
   margin: 1.5rem auto;
   font-size: 0.9em;
-  background-color: #1a54e8;
+  background-color: rgb(255, 72, 72);
   color: white;
   border: none;
   border-radius: 5px;
@@ -718,7 +719,7 @@ button:active {
   padding: 0.75rem 0.75rem;
   margin: 1rem auto 1.5rem auto;
   font-size: 0.9em;
-  background-color: #1a54e8;
+  background-color: rgb(255, 72, 72);
   color: white;
   border: none;
   border-radius: 5px;

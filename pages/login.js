@@ -21,7 +21,7 @@ const Login = () => {
   const onSubmit = async (data) => {
     try {
       await logIn(data.email, data.password);
-      router.push("/profile");
+      router.push("/user");
       setInvalid("")
     } catch (error) {
       setInvalid("Invalid login")
