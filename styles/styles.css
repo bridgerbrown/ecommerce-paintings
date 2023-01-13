@@ -187,6 +187,7 @@ button:active {
 .cart-container {
   display: flex;
   margin-top: 2rem;
+  padding-bottom: 10rem;
 }
 
 .cart-categories {
@@ -342,7 +343,7 @@ button:active {
 
 .info-container {
   display: flex;
-  margin-top: 177px;
+  margin: 177px 4rem 0 4rem;
   padding: 4rem 2rem;
 }
 
@@ -401,7 +402,9 @@ button:active {
 /* --------------------About--------------------- */
 
 .about-container {
-  margin: 8rem auto;
+  margin: 8rem 2rem 0 2rem;
+  padding-bottom: 15rem;
+
 }
 
 .about-info {
@@ -459,6 +462,7 @@ button:active {
   display: flex;
   justify-content: center;
   align-items: center;
+  padding-bottom: 10rem;
 }
 
 .user-details {

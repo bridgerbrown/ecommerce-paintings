@@ -20,10 +20,11 @@ export default function ProductList({ paintings }) {
             <Navbar />
             <div className="title-container">
                 <Image
-                    src="/bdgbg.png"
-                    width={3000}
-                    height={600}
+                    src="/bdgbg.jpg"
+                    width={2000}
+                    height={400}
                     className="bgimg"
+                    alt='painting page title background'
                 />
                 <h4 className="page-title">Products</h4>
             </div>

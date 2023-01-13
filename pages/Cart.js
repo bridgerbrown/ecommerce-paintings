@@ -29,10 +29,11 @@ export default function Cart() {
         <Navbar />
         <div className="title-container">
             <Image
-                src="/rpgbg.png"
-                width={3000}
-                height={600}
+                src="/rpgbg.jpg"
+                width={2000}
+                height={400}
                 className="bgimg"
+                alt='painting page title background'
             />
             <h4 className="page-title">Cart</h4>
         </div>

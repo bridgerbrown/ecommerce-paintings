@@ -31,9 +31,10 @@ const SignUp = () => {
         <Navbar />
         <Image
         src="/bbg.jpg"
-        width={3000}
-        height={2297}
+        width={2500}
+        height={1914}
         className="formImg"
+        alt="battle between gods painting background"
       />
         <div className="form-page">
               <div className="form-container sign-up">

@@ -12,17 +12,18 @@ export default function About() {
             <Navbar />
             <div className="title-container">
                 <Image
-                    src="/ahbg.png"
-                    width={3000}
-                    height={600}
+                    src="/ahbg.jpg"
+                    width={2000}
+                    height={400}
                     className="bgimg"
+                    alt='painting page title background'
                 />
                 <h4 className="page-title">About</h4>
             </div>
             <div className="about-container">
                 <div className="about-main">
                     <Image 
-                        src="/AIC.png" 
+                        src="/AIC.jpg" 
                         alt="art institute of chicago logo" 
                         width={200}
                         height={200}

@@ -29,10 +29,11 @@ const LoggedIn = () => {
       <div className="user-page">
           <div className="title-container">
             <Image
-                  src="/wlbg.png"
-                  width={3000}
-                  height={600}
+                  src="/wlbg.jpg"
+                  width={2000}
+                  height={400}
                   className="bgimg"
+                  alt='water lillies painting page title background'
               />
             <h4 className="page-title">User</h4>
           </div>  
@@ -42,6 +43,7 @@ const LoggedIn = () => {
                   width={150}
                   height={191}
                   className="user-img"
+                  alt='van gogh self portrait'
                 />
                 <div className='user-details'>
                   <h3>Email:</h3>
