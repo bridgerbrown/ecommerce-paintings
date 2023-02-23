@@ -67,6 +67,10 @@
     height: 64px;
   }
 
+  .navbaritem:hover {
+    opacity: 0.7;
+  }
+
   .navbaritemuser {
     display: flex;
     list-style: none;
