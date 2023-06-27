@@ -31,6 +31,8 @@ export default function ProductItem({ product, addToCart, loaderProp }) {
                             sizes="(max-width: 19rem, max-height: 15rem),
                             (max-width: 14rem, max-height: 9rem) 50vw,
                             "
+                            width={product.width}
+                            height={product.height}
                             loader={loaderProp}
                             className="product-item-image"
                         />  

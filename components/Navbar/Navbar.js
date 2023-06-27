@@ -41,15 +41,15 @@ export default function Navbar() {
         Products
       </Link>
 
-      <Link href="/Cart" className={
-          router.pathname == "/Cart" ? 
+      <Link href="/cart" className={
+          router.pathname == "/cart" ? 
             `${styles.activenav} ${styles.navbaritem}` : `${styles.navbaritem}`}
             id="cartnav">
         Cart ({ numberOfItems })
       </Link>
 
-      <Link href="/About" className={
-          router.pathname == "/About" ? 
+      <Link href="/about" className={
+          router.pathname == "/about" ? 
             `${styles.activenav} ${styles.navbaritem}` : `${styles.navbaritem}`}>
         About
       </Link>

@@ -24,12 +24,14 @@ export default function Details({product}) {
 
     return (
         <div className="info-container">
-            <div className="info-image">
+            <div className="info-image-container">
                 <Image
-                    src={product.img}
+                    src={product.img_full}
                     alt={product.shortDesc}
-                    sizes="(max-width: 40vw)"
+                    width={product.width}
+                    height={product.height}
                     loader={loaderProp}
+                    className="info-image"
                 />
             </div>
             <div className="info">
@@ -60,6 +62,7 @@ export default function Details({product}) {
                                 id: product.id,
                                 title: product.title,
                                 img: product.img,
+                                img_full: product.img_full,
                                 link: product.link,
                                 description: product.description,
                                 medium: product.medium,

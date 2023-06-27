@@ -19,7 +19,7 @@
   
   .navbarbrand a {
     font-weight: 500;
-    font-size: 2.25em;
+    font-size: 2.5em;
     padding: 0 1.25rem;
     cursor: pointer;
     text-decoration: none;
@@ -36,9 +36,9 @@
   }
   
   .navbarbrand b {
-    letter-spacing: 1px;
-    font-family: ltc-caslon-pro,serif;
-    font-weight: 700;
+    letter-spacing: 1.5px;
+    font-family: europa, sans-serif;
+    font-weight: 500;
     font-style: normal;
   }
 
@@ -63,7 +63,7 @@
     text-transform: none;
     font-family: proxima-nova, sans-serif;
     font-weight: 300;
-    padding: 0 2.3rem;
+    padding: 0 3.25rem;
     height: 64px;
   }
 
@@ -104,3 +104,10 @@
   .navbaritem a {
     font-family: proxima-nova, sans-serif;
   }
+
+@media screen and (max-width: 700px) {
+  .navbaritem {
+     padding: 0 1.5rem;
+   }
+
+}

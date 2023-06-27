@@ -21,8 +21,8 @@ export default function ProductList({ paintings }) {
             <div className="title-container">
                 <Image
                     src="/bdgbg.jpg"
-                    width={2000}
-                    height={400}
+                    width={1700}
+                    height={340}
                     className="bgimg"
                     alt='painting page title background'
                 />
@@ -61,7 +61,6 @@ export async function getServerSideProps() {
     snapshot.forEach((doc) => {
         paintings.push({ ...doc.data() })
         })
-    console.log(paintings)
     return {
         props: {
             paintings: paintings
