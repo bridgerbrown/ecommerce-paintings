@@ -4,6 +4,7 @@ import { useProductContext } from "../components/context/ProductContext";
 import Navbar from "../components/Navbar/Navbar";
 import Image from "next/image";
 import Footer from "../components/Footer";
+import PageTitle from "../components/PageTitle";
 
 export default function Cart() {
     const { cart, numberOfItems, total, removeFromCart, checkout } = useProductContext()
@@ -27,16 +28,7 @@ export default function Cart() {
     <>
     <div className="App">
         <Navbar />
-        <div className="title-container">
-            <Image
-                src="/rpgbg.webp"
-                width={1700}
-                height={340}
-                className="bgimg"
-                alt='painting page title background'
-            />
-            <h4 className="page-title">Cart</h4>
-        </div>
+        <PageTitle title={"Cart"} /> 
         <div className="cart-container">
             <div className="cartitems">
                 <div className="cartitem-list">

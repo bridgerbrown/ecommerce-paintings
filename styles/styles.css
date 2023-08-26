@@ -9,15 +9,17 @@
 .title-container {
   display: flex;
   justify-content: center;
-  margin-bottom: 1rem;
+  margin-bottom: 0rem;
+  opacity: 0.9;
   margin-top: 177px;
 }
 
 .page-title {
-  padding: 4.5rem 0;
-  font-size: 1.8em;
+  padding-top: 2.2rem;
+  padding-bottom: 2rem;
+  font-size: 1.9em;
   font-weight: 500;
-  color: white;
+  color: black;
 }
 
 /* --------------------Products--------------------- */
@@ -36,7 +38,8 @@
   animation-name: loadingAnimation;
   animation-duration: 1s;
   animation-iteration-count: 4;
-  font-size: 2em;
+  font-size: 1.5em;
+  font-weight: 300;
 }
 
 .product-item-image {
@@ -345,9 +348,6 @@ button:active {
   display: flex;
   margin: 177px 4rem 0 4rem;
   padding: 4rem 2rem;
-}
-
-.info-image-container {
 }
 
 .info-image {
@@ -718,6 +718,7 @@ button:active {
 .form-title {
   font-size: 1.75em;
   margin-bottom: 0.75rem;
+  font-weight: 500;
 }
 
 .form-redirect-text {

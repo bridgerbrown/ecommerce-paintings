@@ -6,6 +6,7 @@ import { collection, getDocs} from "firebase/firestore";
 import { db } from "../components/firebase/firebase.config"
 import Image from "next/image";
 import Footer from "../components/Footer";
+import PageTitle from "../components/PageTitle";
 
 export default function ProductList({ paintings }) {
   const { addToCart, setProducts, loaderProp } = useProductContext()
@@ -20,17 +21,7 @@ export default function ProductList({ paintings }) {
       <>
       <div className="App">
           <Navbar />
-          <div className="title-container">
-              <Image
-                  src="/bdgbg.webp"
-                  width={1700}
-                  height={340}
-                  className="bgimg"
-                  alt='painting page title background'
-              />
-              <h4 className="page-title">Products</h4>
-          </div>
-          <br />
+          <PageTitle title={"Products"} />     
           <div className="container">
               <div className="painting-list">
                   {!loading ? (

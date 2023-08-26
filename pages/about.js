@@ -3,6 +3,7 @@ import Navbar from "../components/Navbar/Navbar";
 import Image from "next/image"
 import { useProductContext } from "../components/context/ProductContext";
 import Footer from "../components/Footer";
+import PageTitle from "../components/PageTitle";
 
 export default function About() {
     const { loaderProp } = useProductContext()
@@ -10,16 +11,7 @@ export default function About() {
         <>
         <div className="App">
             <Navbar />
-            <div className="title-container">
-                <Image
-                    src="/ahbg.webp"
-                    width={1700}
-                    height={340}
-                    className="bgimg"
-                    alt='painting page title background'
-                />
-                <h4 className="page-title">About</h4>
-            </div>
+            <PageTitle title={"About"} /> 
             <div className="about-container">
                 <div className="about-main">
                     <Image 
