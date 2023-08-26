@@ -34,8 +34,8 @@ const Login = () => {
       <Navbar />
       <Image
         src="/bbg.jpg"
-        width={2500}
-        height={1914}
+        width={1000}
+        height={765}
         className="formImg"
         alt="battle between gods painting background"
       />

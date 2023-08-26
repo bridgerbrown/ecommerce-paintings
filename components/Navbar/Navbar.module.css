@@ -20,7 +20,7 @@
   .navbarbrand a {
     font-weight: 500;
     font-size: 2.5em;
-    padding: 0 1.25rem;
+    padding: 0 0.7rem;
     cursor: pointer;
     text-decoration: none;
     color: black;
@@ -29,7 +29,7 @@
   }
   
   .navbarbrand {
-    margin: 4rem auto;
+    margin: 3rem auto;
     display: flex;
     justify-content: center;
     align-items: center;

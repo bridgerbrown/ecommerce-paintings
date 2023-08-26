@@ -27,6 +27,12 @@ export default function Navbar() {
     aria-label='main navigation'
   >
     <div className={styles.navbarbrand}>
+      <Image
+        src={"/palette.jpg"}
+        width={40}
+        height={40}
+        alt="paint palette icon"
+      />
       <Link href="/">
         <b>eCommerce Paintings</b>
       </Link>
