@@ -29,9 +29,9 @@ const LoggedIn = () => {
       <div className="user-page">
           <div className="title-container">
             <Image
-                  src="/wlbg.jpg"
-                  width={2000}
-                  height={400}
+                  src="/wlbg.webp"
+                  width={1700}
+                  height={340}
                   className="bgimg"
                   alt='water lillies painting page title background'
               />

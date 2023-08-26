@@ -20,7 +20,7 @@ export default function ProductList({ paintings }) {
             <Navbar />
             <div className="title-container">
                 <Image
-                    src="/bdgbg.jpg"
+                    src="/bdgbg.webp"
                     width={1700}
                     height={340}
                     className="bgimg"

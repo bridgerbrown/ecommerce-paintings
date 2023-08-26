@@ -12,9 +12,9 @@ export default function About() {
             <Navbar />
             <div className="title-container">
                 <Image
-                    src="/ahbg.jpg"
-                    width={2000}
-                    height={400}
+                    src="/ahbg.webp"
+                    width={1700}
+                    height={340}
                     className="bgimg"
                     alt='painting page title background'
                 />

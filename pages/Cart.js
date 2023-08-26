@@ -29,9 +29,9 @@ export default function Cart() {
         <Navbar />
         <div className="title-container">
             <Image
-                src="/rpgbg.jpg"
-                width={2000}
-                height={400}
+                src="/rpgbg.webp"
+                width={1700}
+                height={340}
                 className="bgimg"
                 alt='painting page title background'
             />
