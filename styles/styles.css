@@ -43,10 +43,10 @@
 }
 
 .product-item-image {
-  width:fit-content;
+  width: fit-content;
   max-height: 15rem;
   cursor: pointer;
-  border: 15px outset silver;
+  border: 15px outset black;
 }
 
 .painting-list {
@@ -65,11 +65,11 @@
   justify-content: space-between;
   align-items: center;
   padding: 2.25rem 0.5rem;
-  margin: 1.25rem;
+  margin: 0.8rem;
   width: 27rem;
   height: 30rem;
-  border: 1px rgba(211, 211, 211, 0.666) solid;
-  border-radius: 5px;
+  border: 1px rgba(200, 200, 200, 1) solid;
+  border-radius: 0px;
 }
 
 .painting-title {
@@ -142,11 +142,9 @@ button:active {
     justify-content: space-between;
     align-items: center;
     padding: 2rem 0.25rem;
-    margin: 0.7rem;
+    margin: 0.6rem;
     width: 20rem;
     height: 22rem;
-    border: 1px rgba(211, 211, 211, 0.666) solid;
-    border-radius: 5px;
   }
 
   .product-item-image {

@@ -43,7 +43,7 @@
 
   .navbarmenu {
     display: flex;
-    border: 1px solid #e2e2e2;
+    border: 1px solid rgba(200, 200, 200, 1);
     width: 100vw; 
     height: 64px;
     display: flex;
