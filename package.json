@@ -22,7 +22,7 @@
     "dev": "npx next dev",
     "start": "npx next start",
     "build": "npx next build",
-    "test": "npx next test",
+    "test": "jest",
     "eject": "npx next eject"
   },
   "browserslist": {
@@ -37,5 +37,8 @@
       "last 1 safari version"
     ]
   },
-  "type": "module"
+  "type": "module",
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
 }

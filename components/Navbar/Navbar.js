@@ -1,4 +1,4 @@
-import React, { useEffect, useState }  from "react";
+import React  from "react";
 import Link from 'next/link'
 import { useProductContext } from "../context/ProductContext";
 import styles from '../Navbar/Navbar.module.css'

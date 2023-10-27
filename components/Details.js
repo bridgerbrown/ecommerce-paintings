@@ -14,11 +14,6 @@ export default function Details({product}) {
                 stock: product.stock - 1
             })    
         } 
-        // else if(product.stock <= 0 ) {
-        //     await updateDoc(productRef, {
-        //         stock: 100
-        //     })    
-        // }
     }
 
 

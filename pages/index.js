@@ -4,7 +4,6 @@ import ProductItem from "../components/ProductItem"
 import Navbar from "../components/Navbar/Navbar";
 import { collection, getDocs} from "firebase/firestore";
 import { db } from "../components/firebase/firebase.config"
-import Image from "next/image";
 import Footer from "../components/Footer";
 import PageTitle from "../components/PageTitle";
 

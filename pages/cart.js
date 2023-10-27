@@ -2,7 +2,6 @@ import React from "react";
 import CartItem from "../components/CartItem"
 import { useProductContext } from "../components/context/ProductContext";
 import Navbar from "../components/Navbar/Navbar";
-import Image from "next/image";
 import Footer from "../components/Footer";
 import PageTitle from "../components/PageTitle";
 
