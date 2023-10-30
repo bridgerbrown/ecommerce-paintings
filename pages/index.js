@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { useProductContext } from "../components/context/ProductContext";
+import { useProductContext } from "../data/context/ProductContext";
 import ProductItem from "../components/ProductItem"
 import Navbar from "../components/Navbar/Navbar";
-import { collection, getDocs} from "firebase/firestore";
-import { db } from "../components/firebase/firebase.config"
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../data/firebase/firebase.config"
 import Footer from "../components/Footer";
 import PageTitle from "../components/PageTitle";
 
@@ -17,13 +17,13 @@ export default function ProductList({ paintings }) {
   }, [paintings])
 
   return(
-      <>
+    <>
       <div className="App">
           <Navbar />
           <PageTitle title={"Products"} />     
           <div className="container">
               <div className="painting-list">
-                  {!loading ? (
+                  { !loading ? (
                       paintings && paintings.length ?
                         paintings.map((product, index) => (
                             <ProductItem
@@ -49,10 +49,11 @@ export default function ProductList({ paintings }) {
   </>
   )
 }
+
 export async function getServerSideProps() {
-  const paintingsRef = collection(db, 'paintings')
-  const paintings = []
-  const snapshot = await getDocs(paintingsRef)
+  const paintingsRef = collection(db, 'paintings');
+  const paintings = [];
+  const snapshot = await getDocs(paintingsRef);
   snapshot.forEach((doc) => {
       paintings.push({ ...doc.data() })
       })
@@ -60,5 +61,5 @@ export async function getServerSideProps() {
       props: {
           paintings: paintings
       }
-  }
-}
+  };
+};

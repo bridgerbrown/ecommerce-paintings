@@ -1,9 +1,9 @@
 import React  from "react";
 import Link from 'next/link'
-import { useProductContext } from "../context/ProductContext";
+import { useProductContext } from "../../data/context/ProductContext";
 import styles from '../Navbar/Navbar.module.css'
 import { useRouter } from "next/router"
-import { useAuth } from "../context/AuthUserContext";
+import { useAuth } from "../../data/context/AuthUserContext";
 import Image from "next/image";
 
 export default function Navbar() {

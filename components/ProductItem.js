@@ -2,7 +2,7 @@ import React from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { updateDoc, doc } from "firebase/firestore"
-import { db } from "./firebase/firebase.config"
+import { db } from "../data/firebase/firebase.config"
 
 export default function ProductItem({ product, addToCart, loaderProp }) {
     const productRef = doc(db, "paintings", `${product.fsid}`)
@@ -76,7 +76,7 @@ export default function ProductItem({ product, addToCart, loaderProp }) {
                             >
                                 Add to Cart
                             </button>
-                            <Link href={`/products/${product.route}`}>
+                            <Link href={`/products/${product.artist}/${product.title}`}>
                                 <button
                                     className="more-info"
                                 >
