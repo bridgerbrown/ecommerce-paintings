@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { useAuth } from '../components/context/AuthUserContext'
+import { useAuth } from '../data/context/AuthUserContext'
 import Navbar from '../components/Navbar/Navbar'
 import Image from 'next/image';
 import Footer from '../components/Footer';

@@ -1,6 +1,6 @@
 import React from "react";
 import CartItem from "../components/CartItem"
-import { useProductContext } from "../components/context/ProductContext";
+import { useProductContext } from "../data/context/ProductContext";
 import Navbar from "../components/Navbar/Navbar";
 import Footer from "../components/Footer";
 import PageTitle from "../components/PageTitle";

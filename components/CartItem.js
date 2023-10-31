@@ -1,5 +1,5 @@
 import React from "react";
-import { useProductContext } from "./context/ProductContext";
+import { useProductContext } from "../data/context/ProductContext";
 import Link from 'next/link'
 import Image from "next/image";
 import { updateDoc, doc } from "firebase/firestore"

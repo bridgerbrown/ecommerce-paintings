@@ -1,6 +1,6 @@
 import React from "react"
 import { useRouter } from "next/router";
-import { useAuth } from "../components/context/AuthUserContext";
+import { useAuth } from "../data/context/AuthUserContext";
 import { FormProvider, useForm } from "react-hook-form";
 import Link from "next/link";
 import Navbar from "../components/Navbar/Navbar"
