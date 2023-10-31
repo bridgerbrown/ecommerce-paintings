@@ -5,23 +5,19 @@ import mockRouter from "next-router-mock";
 import Navbar from "../components/Navbar/Navbar";
 import ProductList from "../pages/index";
 import ProductItem from "../components/ProductItem";
-import { useProductContext } from "../data/context/ProductContext";
 
 jest.mock('next/router', () => jest.requireActual('next-router-mock'));
 
 jest.mock('../data/context/ProductContext', () => ({
   useProductContext: () => ({
     cart: [],
-    setCart: jest.fn(),
-    products: [],
     setProducts: jest.fn(),
     total: 0,
-    setTotal: jest.fn(),
     numberOfItems: 0,
-    setNumberOfItems: jest.fn(),
     addToCart: jest.fn(),
     removeFromCart: jest.fn(),
     checkout: jest.fn(),
+    loaderProp: jest.fn(),
   }),
 }));
 
@@ -60,8 +56,6 @@ describe('ProductList components', () => {
     mockRouterSetup();
   });
 
-  let renderedComponent;
-
   const mockProducts = [
     {
       artist: "Vincent van Gogh",
@@ -70,7 +64,7 @@ describe('ProductList components', () => {
       fsid: 0,
       height: 493,
       id: 0,
-      img: "https://www.artic.edu",
+      img: "/AIC.jpg",
       img_full: "https://www.artic.edu",
       link: "https://www.artic.edu",
       medium: "Oil on artist's board",
@@ -88,7 +82,7 @@ describe('ProductList components', () => {
       fsid: 1,
       height: 770,
       id: 1,
-      img: "https://www.artic.edu",
+      img: "/AIC.jpg",
       img_full: "https://www.artic.edu",
       link: "https://www.artic.edu",
       medium: "Oil on poplar wood",
@@ -106,7 +100,7 @@ describe('ProductList components', () => {
       fsid: 2,
       height: 349,
       id: 2,
-      img: "https://www.artic.edu",
+      img: "/AIC.jpg",
       img_full: "https://www.artic.edu",
       link: "https://www.artic.edu",
       medium: "Oil on canvas",
@@ -152,7 +146,6 @@ describe('ProductList components', () => {
 
     it('should addToCart in ProductContext', async () => {
       const { getByTestId } = renderedComponent;
-      const firstProduct = getByTestId('productItem-0');
 
       const addToCartButton = getByTestId('productItem-0-addToCart');
       expect(addToCartButton).toBeInTheDocument();
@@ -162,7 +155,8 @@ describe('ProductList components', () => {
       });
       
       await waitFor(() => {
-        expect(useProductContext.cart.length).toBe(1);
+        const navbarCartNumber = getByTestId("navbar-cart-number");
+        expect(navbarCartNumber.textContent).toBe("Cart (1)");
       });
     });
   });

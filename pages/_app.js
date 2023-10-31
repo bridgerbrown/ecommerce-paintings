@@ -1,5 +1,4 @@
 import '../styles/styles.css'
-import React from 'react';
 import { AuthUserContextProvider } from '../data/context/AuthUserContext';
 import { ProductProvider } from '../data/context/ProductContext';
 

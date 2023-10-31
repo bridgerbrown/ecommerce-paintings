@@ -48,10 +48,17 @@ export default function Navbar() {
         Products
       </Link>
 
-      <Link href="/cart" className={
+      <Link 
+        href="/cart" 
+        className={
           router.pathname == "/cart" ? 
-            `${styles.activenav} ${styles.navbaritem}` : `${styles.navbaritem}`}
-            id="cartnav">
+            `${styles.activenav} ${styles.navbaritem}` 
+            : 
+            `${styles.navbaritem}`
+        }
+        id="cartnav"
+        data-testid="navbar-cart-number"
+      >
         Cart ({ numberOfItems })
       </Link>
 

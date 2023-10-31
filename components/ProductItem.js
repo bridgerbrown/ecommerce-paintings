@@ -52,7 +52,12 @@ export default function ProductItem({ product, addToCart, loaderProp }) {
                     <div className="painting-action">
                         <span className="painting-price">{product.price}</span>
                         {product.stock > 0 ? (
-                        <small className="painting-stock">{product.stock + " Available"}</small>
+                        <small 
+                          className="painting-stock"
+                          data-testid={`productItem-${product.id}-stock`}
+                        >
+                          {product.stock + " Available"}
+                        </small>
                         ) : (
                         <small className="out-of-stock">Out Of Stock</small>
                         )}
