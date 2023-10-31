@@ -32,6 +32,7 @@ export default function Navbar() {
         width={40}
         height={40}
         alt="paint palette icon"
+        data-testid="navbar-logo"
       />
       <Link href="/">
         <b>eCommerce Paintings</b>

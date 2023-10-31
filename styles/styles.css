@@ -217,7 +217,7 @@ button:active {
   max-width: 13rem;
   max-height: 11rem;
   margin-right: 1rem;
-  border: 10px outset brown;
+  border: 10px outset black;
 }
 
 .cartitem-list {
