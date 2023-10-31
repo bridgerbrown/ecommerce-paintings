@@ -10,56 +10,56 @@ export function ProductProvider({ children }) {
   const [numberOfItems, setNumberOfItems] = useState(0)
 
   const addToCart = (product) => {
-  setTimeout(() => {
-    let newCart = [];
-    let updatedProducts = [];
-    let indexProd = products.findIndex((prod) => {
-      return prod.id === product.id;
-    });
-
-    let correctNumber = product.price.replace(/,/g,'').replace(/\$/g,'')
-    let newTotal = Number(total) + Number(correctNumber)
-
-    if (products[indexProd].stock > 0) {
-      let indexCart = cart.findIndex((item) => {
-        return item.id === product.id;
+    setTimeout(() => {
+      let newCart = [];
+      let updatedProducts = [];
+      let indexProd = products.findIndex((prod) => {
+        return prod.id === product.id;
       });
 
-      if (indexCart === -1) {
-        setCart(
-          cart.concat([
-            {
-              id: product.id,
-              title: product.title,
-              img: product.img,
-              link: product.link,
-              description: product.description,
-              medium: product.medium,
-              artist: product.artist,
-              quantity: 1,
-              price: product.price,
-              route: product.route,
-              fsid: product.fsid,
-              stock: product.stock,
-            }
-          ])
-        )
-        setTotal(newTotal)
-      } else {
-        newCart = cart;
-        newCart[indexCart].quantity = newCart[indexCart].quantity + 1;
-        setCart(newCart)
-        setTotal(newTotal)
-      }
+      let correctNumber = product.price.replace(/,/g,'').replace(/\$/g,'')
+      let newTotal = Number(total) + Number(correctNumber)
 
-      updatedProducts = products;
-      updatedProducts[indexProd].stock--;
-      setProducts(updatedProducts)
-      setTotal(newTotal)
-      setNumberOfItems(numberOfItems + 1)
-    }
-  }, 100);
-};
+      if (products[indexProd].stock > 0) {
+        let indexCart = cart.findIndex((item) => {
+          return item.id === product.id;
+        });
+
+        if (indexCart === -1) {
+          setCart(
+            cart.concat([
+              {
+                id: product.id,
+                title: product.title,
+                img: product.img,
+                link: product.link,
+                description: product.description,
+                medium: product.medium,
+                artist: product.artist,
+                quantity: 1,
+                price: product.price,
+                route: product.route,
+                fsid: product.fsid,
+                stock: product.stock,
+              }
+            ])
+          )
+          setTotal(newTotal)
+        } else {
+          newCart = cart;
+          newCart[indexCart].quantity = newCart[indexCart].quantity + 1;
+          setCart(newCart)
+          setTotal(newTotal)
+        }
+
+        updatedProducts = products;
+        updatedProducts[indexProd].stock--;
+        setProducts(updatedProducts)
+        setTotal(newTotal)
+        setNumberOfItems(numberOfItems + 1)
+      }
+    }, 100);
+  };
 
   const removeFromCart = (product) => {
     setTimeout(() => {
@@ -96,7 +96,6 @@ export function ProductProvider({ children }) {
           alert("Cart Ordered!!!");
     }
   };
-
 
   const loaderProp =({ src }) => {
     return src;

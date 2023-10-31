@@ -28,4 +28,8 @@ describe('Navbar component', () => {
   })
 });
 
+describe('ProductItem components' () => {
+  it('should render all products', () => {
 
+  })
+})

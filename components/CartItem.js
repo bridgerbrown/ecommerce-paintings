@@ -3,7 +3,7 @@ import { useProductContext } from "../data/context/ProductContext";
 import Link from 'next/link'
 import Image from "next/image";
 import { updateDoc, doc } from "firebase/firestore"
-import { db } from "./firebase/firebase.config"
+import { db } from "../data/firebase/firebase.config"
 
 export default function CartItem({ product, removeFromCart }) {
     const { loaderProp, cart } = useProductContext()
