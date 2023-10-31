@@ -15,7 +15,7 @@ export default function ProductPage({paintings}) {
         setProducts(paintings)
     )}, [paintings])
 
-    const product = paintings.filter(item => item.painting === painting)[0]
+    const product = paintings.filter(item => item.title === painting)[0]
 
     return (
     <div className="App">
