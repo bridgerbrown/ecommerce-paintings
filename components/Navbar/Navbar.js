@@ -72,6 +72,7 @@ export default function Navbar() {
               src="/user.png"
               width={25}
               height={25}
+              alt="user icon"
               className="usericon"
             />
           <Link href="/user" className={
@@ -80,9 +81,9 @@ export default function Navbar() {
             User
           </Link>
           <Link href="/login" className={styles.navbaritem}>
-            <a onClick={handleLogOut} className="logoutnav">
+            <button onClick={handleLogOut} className="logoutnav">
               Logout
-            </a>
+            </button>
           </Link>
         </>
 

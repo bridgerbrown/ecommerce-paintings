@@ -37,7 +37,10 @@ export default function ProductList({ paintings }) {
                         <span></span>
                   ) : (
                       <div className="loading-container">
-                          <span className="loading">
+                          <span 
+                            className="loading"
+                            data-testid="productList-loading" 
+                          >
                               Loading API data...
                           </span>
                       </div>

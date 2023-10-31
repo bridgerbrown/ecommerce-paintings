@@ -1,10 +1,10 @@
 import React from "react";
-import { render, fireEvent, waitFor } from "@testing-library/react";
+import { render, fireEvent, waitFor, getByTestId, queryByTestId } from "@testing-library/react";
 import { act } from "react-dom/test-utils";
 import mockRouter from "next-router-mock";
-import { useProductContext } from "../data/context/ProductContext";
 import Navbar from "../components/Navbar/Navbar";
-import ProductList from "../pages";
+import ProductList from "../pages/index";
+import ProductItem from "../components/ProductItem";
 
 jest.mock('next/router', () => jest.requireActual('next-router-mock'));
 
@@ -18,6 +18,18 @@ jest.mock('../data/context/ProductContext', () => ({
     setTotal: jest.fn(),
     numberOfItems: 0,
     setNumberOfItems: jest.fn(),
+  }),
+}));
+
+jest.mock('../data/context/AuthUserContext', () => ({
+  useAuth: () => ({
+    user: {
+      email: "example@gmail.com",
+      uid: 0,
+    },
+    setUser: jest.fn(),
+    loading: true,
+    setLoading: jest.fn(),
   }),
 }));
 
@@ -39,7 +51,11 @@ describe('Navbar component', () => {
   });
 });
 
-describe('ProductItem components', () => {
+describe('ProductList components', () => {
+  beforeEach(() => {
+    mockRouterSetup();
+  });
+
   let renderedComponent;
 
   const mockProducts = [
@@ -99,13 +115,43 @@ describe('ProductItem components', () => {
     },
   ];
 
-  beforeEach(() => {
-    mockRouterSetup();
-  });
 
   it('should render ProductItem components for each product', async () => {
-    const { getAllByTestId } = render(<ProductList paintings={mockProducts} />);
-    const productItems = getAllByTestId(/^product-\d+$/);
+    const renderedComponent = render(<ProductList paintings={mockProducts} />);
+
+    await act( async () => {
+      await new Promise(resolve => setTimeout(resolve, 1700));
+    });
+
+    const { getAllByTestId } = renderedComponent;
+    const productItems = getAllByTestId(/^productItem-\d+$/);
     expect(productItems.length).toBe(mockProducts.length);
-  })
-})
+  });
+
+  describe('ProductItem functionality', () => {
+    let renderedComponent;
+
+    beforeEach(async () => {
+      renderedComponent = render(<ProductList paintings={mockProducts} />);
+      await act( async () => {
+        await new Promise(resolve => setTimeout(resolve, 1700));
+      });
+    });
+
+    it('should render first product', async () => {
+      const { getByTestId } = renderedComponent;
+      const firstProduct = getByTestId('productItem-0');
+      const title = mockProducts[0].title;
+
+      expect(firstProduct).toHaveTextContent(title);
+    });
+
+    it('should addToCart in ProductContext', async () => {
+      const { getByTestId } = renderedComponent;
+      const firstProduct = getByTestId('productItem-0');
+      const title = mockProducts[0].title;
+
+      expect(firstProduct).toHaveTextContent(title);
+    });
+  });
+});

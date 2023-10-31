@@ -23,7 +23,7 @@ export default function ProductItem({ product, addToCart, loaderProp }) {
     return(
         <div 
           className="painting-container"
-          data-testid={`product-${product.id}`}
+          data-testid={`productItem-${product.id}`}
         >
             <div className="painting-image">
                 <div className="painting-image-container">
