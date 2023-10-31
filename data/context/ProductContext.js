@@ -10,7 +10,6 @@ export function ProductProvider({ children }) {
   const [numberOfItems, setNumberOfItems] = useState(0)
 
   const addToCart = (product) => {
-    setTimeout(() => {
       let newCart = [];
       let updatedProducts = [];
       let indexProd = products.findIndex((prod) => {
@@ -58,11 +57,9 @@ export function ProductProvider({ children }) {
         setTotal(newTotal)
         setNumberOfItems(numberOfItems + 1)
       }
-    }, 100);
   };
 
   const removeFromCart = (product) => {
-    setTimeout(() => {
       let newCart = cart;
       setCart(newCart.filter((item) => item.id !== product.id))
 
@@ -84,7 +81,6 @@ export function ProductProvider({ children }) {
 
       console.log(newTotal)
       setTotal(newTotal)
-    }, 100);
   };
 
   const checkout = () => {

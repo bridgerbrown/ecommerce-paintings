@@ -76,6 +76,7 @@ export default function ProductItem({ product, addToCart, loaderProp }) {
                                         fsid: product.fsid
                                     })
                                 }}
+                              data-testid={`productItem-${product.id}-addToCart`}
                             >
                                 Add to Cart
                             </button>

@@ -5,6 +5,7 @@ import mockRouter from "next-router-mock";
 import Navbar from "../components/Navbar/Navbar";
 import ProductList from "../pages/index";
 import ProductItem from "../components/ProductItem";
+import { useProductContext } from "../data/context/ProductContext";
 
 jest.mock('next/router', () => jest.requireActual('next-router-mock'));
 
@@ -18,6 +19,9 @@ jest.mock('../data/context/ProductContext', () => ({
     setTotal: jest.fn(),
     numberOfItems: 0,
     setNumberOfItems: jest.fn(),
+    addToCart: jest.fn(),
+    removeFromCart: jest.fn(),
+    checkout: jest.fn(),
   }),
 }));
 
@@ -115,7 +119,6 @@ describe('ProductList components', () => {
     },
   ];
 
-
   it('should render ProductItem components for each product', async () => {
     const renderedComponent = render(<ProductList paintings={mockProducts} />);
 
@@ -127,6 +130,7 @@ describe('ProductList components', () => {
     const productItems = getAllByTestId(/^productItem-\d+$/);
     expect(productItems.length).toBe(mockProducts.length);
   });
+
 
   describe('ProductItem functionality', () => {
     let renderedComponent;
@@ -149,9 +153,17 @@ describe('ProductList components', () => {
     it('should addToCart in ProductContext', async () => {
       const { getByTestId } = renderedComponent;
       const firstProduct = getByTestId('productItem-0');
-      const title = mockProducts[0].title;
 
-      expect(firstProduct).toHaveTextContent(title);
+      const addToCartButton = getByTestId('productItem-0-addToCart');
+      expect(addToCartButton).toBeInTheDocument();
+
+      await act( async () => {
+        fireEvent.click(addToCartButton);
+      });
+      
+      await waitFor(() => {
+        expect(useProductContext.cart.length).toBe(1);
+      });
     });
   });
 });
