@@ -1,5 +1,5 @@
 import React from "react";
-import { render, fireEvent, waitFor, getByTestId, queryByTestId } from "@testing-library/react";
+import { render, fireEvent, waitFor } from "@testing-library/react";
 import { act } from "react-dom/test-utils";
 import mockRouter from "next-router-mock";
 import Navbar from "../components/Navbar/Navbar";
@@ -42,7 +42,7 @@ describe('Navbar component', () => {
   });
 });
 
-describe('ProductList components', () => {
+describe('ProductList page', () => {
   beforeEach(() => {
     mockRouterSetup();
   });
@@ -135,6 +135,7 @@ describe('ProductList components', () => {
       });
     });
 
+
     it('should render first product', async () => {
       const { getByTestId } = renderedComponent;
       const firstProduct = getByTestId('productItem-0');
@@ -143,7 +144,8 @@ describe('ProductList components', () => {
       expect(firstProduct).toHaveTextContent(title);
     });
 
-    it('should addToCart in ProductContext', async () => {
+
+    it('should add product to cart in ProductContext', async () => {
       const { getByTestId } = renderedComponent;
 
       const addToCartButton = getByTestId('productItem-0-addToCart');
@@ -156,6 +158,23 @@ describe('ProductList components', () => {
       await waitFor(() => {
         const navbarCartNumber = getByTestId("navbar-cart-number");
         expect(navbarCartNumber.textContent).toBe("Cart (1)");
+      });
+    });
+
+
+    it('should deduct from stock when adding to cart', async () => {
+      const { getByTestId } = renderedComponent;
+
+      const addToCartButton = getByTestId('productItem-1-addToCart');
+      expect(addToCartButton).toBeInTheDocument();
+
+      await act( async () => {
+        fireEvent.click(addToCartButton);
+      });
+      
+      await waitFor(() => {
+        const productItemStock = getByTestId("productItem-1-stock");
+        expect(productItemStock.textContent).toBe("44 Available");
       });
     });
   });
