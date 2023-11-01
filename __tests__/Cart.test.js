@@ -4,22 +4,9 @@ import { act } from "react-dom/test-utils";
 import mockRouter from "next-router-mock";
 import Navbar from "../components/Navbar/Navbar";
 import ProductList from "../pages/index";
-import ProductItem from "../components/ProductItem";
+import { ProductProvider } from "../data/context/ProductContext";
 
 jest.mock('next/router', () => jest.requireActual('next-router-mock'));
-
-jest.mock('../data/context/ProductContext', () => ({
-  useProductContext: () => ({
-    cart: [],
-    setProducts: jest.fn(),
-    total: 0,
-    numberOfItems: 0,
-    addToCart: jest.fn(),
-    removeFromCart: jest.fn(),
-    checkout: jest.fn(),
-    loaderProp: jest.fn(),
-  }),
-}));
 
 jest.mock('../data/context/AuthUserContext', () => ({
   useAuth: () => ({
@@ -45,7 +32,11 @@ describe('next-router-mock', () => {
 
 describe('Navbar component', () => {
   it('should render', () => {
-    const { getByTestId } = render(<Navbar />);
+    const { getByTestId } = render(
+      <ProductProvider>
+        <Navbar />
+      </ProductProvider>
+    );
     const navbarLogo = getByTestId("navbar-logo");
     expect(navbarLogo.alt).toBe("paint palette icon");
   });
@@ -114,7 +105,11 @@ describe('ProductList components', () => {
   ];
 
   it('should render ProductItem components for each product', async () => {
-    const renderedComponent = render(<ProductList paintings={mockProducts} />);
+    const renderedComponent = render(
+      <ProductProvider>
+        <ProductList paintings={mockProducts} />
+      </ProductProvider>
+    );
 
     await act( async () => {
       await new Promise(resolve => setTimeout(resolve, 1700));
@@ -130,7 +125,11 @@ describe('ProductList components', () => {
     let renderedComponent;
 
     beforeEach(async () => {
-      renderedComponent = render(<ProductList paintings={mockProducts} />);
+      renderedComponent = render(
+        <ProductProvider>
+          <ProductList paintings={mockProducts} />
+        </ProductProvider>
+      );
       await act( async () => {
         await new Promise(resolve => setTimeout(resolve, 1700));
       });
