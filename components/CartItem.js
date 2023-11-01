@@ -11,17 +11,17 @@ export default function CartItem({ product, removeFromCart }) {
 
     async function removeFromCartStockUpdate() {
         const productInCart = cart.filter((item) => item.id == product.id)
-        console.log(productInCart)
         const originalStock = productInCart[0].stock
-        console.log(originalStock)
-
         await updateDoc(productRef, {
             stock: originalStock
         })  
     }
 
     return (
-    <div className="cartitem-container">
+    <div 
+      className="cartitem-container"
+      data-testid={`product-${product.id}-cart-item`}
+    >
         <div className="cartitem-image">
             <figure className="image">
                 <Image

@@ -6,7 +6,7 @@ import Footer from "../components/Footer";
 import PageTitle from "../components/PageTitle";
 
 export default function Cart() {
-    const { cart, numberOfItems, total, removeFromCart, checkout } = useProductContext()
+   const { cart, numberOfItems, total, removeFromCart, checkout } = useProductContext()
    function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
@@ -51,11 +51,22 @@ export default function Cart() {
                 </div>
             </div>
             <div className="total-container">
-                <h3 className="total-text">Total ({numberOfItems + multipleItemCheck()}):</h3>
-                <h3 className="total-amount" id="total-amount">${numberWithCommas(total)}</h3>
+                <h3 
+                  className="total-text"
+                >
+                  Total ({numberOfItems + multipleItemCheck()}):
+                </h3>
+                <h3 
+                  className="total-amount" 
+                  id="total-amount"
+                  data-testid="cart-total-amount"
+                >
+                  ${numberWithCommas(total)}
+                </h3>
                 <button
                     className="checkout-button"
                     onClick={checkout}
+                    data-testid="checkout-button"
                 >
                     Checkout
                 </button>

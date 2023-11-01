@@ -3,10 +3,62 @@ import { render, fireEvent, waitFor } from "@testing-library/react";
 import { act } from "react-dom/test-utils";
 import mockRouter from "next-router-mock";
 import Navbar from "../components/Navbar/Navbar";
-import ProductList from "../pages/index";
-import { ProductProvider } from "../data/context/ProductContext";
+import { ProductProvider, useProductContext } from "../data/context/ProductContext";
+import { mockProductContext } from "./MockProductContext";
+import Cart from "../pages/cart";
+
 
 jest.mock('next/router', () => jest.requireActual('next-router-mock'));
+
+jest.mock('../data/context/ProductContext', () => ({
+  useProductContext: () => ({
+    cart: [
+      {
+        id: 0,
+        title: "Self-Portrait",
+        img: "/AIC.jpg",
+        link: "https://www.artic.edu",
+        description: "In 1886 Vincent...",
+        medium: "Oil on artist's board",
+        artist: "Vincent van Gogh",
+        quantity: 1,
+        price: "$72,000,000",
+        route: "vincent-van-gogh/self-portrait",
+        fsid: 0,
+        stock: 1,
+        width: 388,
+        height: 388,
+      },
+    ],
+    products: [
+      {
+        artist: "Vincent van Gogh",
+        date: 1887,
+        description: "In 1886 Vincent...",
+        fsid: 0,
+        height: 493,
+        id: 0,
+        img: "/AIC.jpg",
+        img_full: "https://www.artic.edu",
+        link: "https://www.artic.edu",
+        medium: "Oil on artist's board",
+        place: "Paris",
+        price: "$72,000,000",
+        route: "vincent-van-gogh/self-portrait",
+        stock: 1,
+        title: "Self-Portrait",
+        width: 388,
+        height: 388,
+      },
+    ],
+    total: 72000000,
+    numberOfItems: 1,
+    addToCart: jest.fn(),
+    removeFromCart: jest.fn(),
+    checkout: jest.fn(),
+    loaderProp: jest.fn(),
+  })
+}));
 
 jest.mock('../data/context/AuthUserContext', () => ({
   useAuth: () => ({
@@ -21,7 +73,7 @@ jest.mock('../data/context/AuthUserContext', () => ({
 }));
 
 const mockRouterSetup = () => {
-  mockRouter.push('/');
+  mockRouter.push('/cart');
 };
 
 describe('next-router-mock', () => {
@@ -33,9 +85,7 @@ describe('next-router-mock', () => {
 describe('Navbar component', () => {
   it('should render', () => {
     const { getByTestId } = render(
-      <ProductProvider>
         <Navbar />
-      </ProductProvider>
     );
     const navbarLogo = getByTestId("navbar-logo");
     expect(navbarLogo.alt).toBe("paint palette icon");
@@ -43,138 +93,31 @@ describe('Navbar component', () => {
 });
 
 describe('ProductList page', () => {
-  beforeEach(() => {
+  beforeEach(async () => {
     mockRouterSetup();
   });
 
-  const mockProducts = [
-    {
-      artist: "Vincent van Gogh",
-      date: 1887,
-      description: "In 1886 Vincent...",
-      fsid: 0,
-      height: 493,
-      id: 0,
-      img: "/AIC.jpg",
-      img_full: "https://www.artic.edu",
-      link: "https://www.artic.edu",
-      medium: "Oil on artist's board",
-      place: "Paris",
-      price: "$72,000,000",
-      route: "vincent-van-gogh/self-portrait",
-      stock: 60,
-      title: "Self-Portrait",
-      width: 388,
-    },
-    {
-      artist: "Leonardo da Vinci",
-      date: 1503,
-      description: "Mona Lisa is a famous portrait...",
-      fsid: 1,
-      height: 770,
-      id: 1,
-      img: "/AIC.jpg",
-      img_full: "https://www.artic.edu",
-      link: "https://www.artic.edu",
-      medium: "Oil on poplar wood",
-      place: "Florence",
-      price: "$860,000,000",
-      route: "leonardo-da-vinci/mona-lisa",
-      stock: 45,
-      title: "Mona Lisa",
-      width: 530,
-    },
-    {
-      artist: "Pablo Picasso",
-      date: 1937,
-      description: "Guernica is a powerful anti-war mural...",
-      fsid: 2,
-      height: 349,
-      id: 2,
-      img: "/AIC.jpg",
-      img_full: "https://www.artic.edu",
-      link: "https://www.artic.edu",
-      medium: "Oil on canvas",
-      place: "Paris",
-      price: "$200,000,000",
-      route: "pablo-picasso/guernica",
-      stock: 30,
-      title: "Guernica",
-      width: 776,
-    },
-  ];
-
-  it('should render ProductItem components for each product', async () => {
-    const renderedComponent = render(
-      <ProductProvider>
-        <ProductList paintings={mockProducts} />
-      </ProductProvider>
-    );
-
-    await act( async () => {
-      await new Promise(resolve => setTimeout(resolve, 1700));
-    });
-
-    const { getAllByTestId } = renderedComponent;
-    const productItems = getAllByTestId(/^productItem-\d+$/);
-    expect(productItems.length).toBe(mockProducts.length);
-  });
-
-
-  describe('ProductItem functionality', () => {
-    let renderedComponent;
-
-    beforeEach(async () => {
-      renderedComponent = render(
-        <ProductProvider>
-          <ProductList paintings={mockProducts} />
-        </ProductProvider>
+  describe('Checkout functionality', () => {
+    it('should checkout item, clearing cart', async () => {
+      const { getByTestId } = render(
+          <Cart />
       );
-      await act( async () => {
-        await new Promise(resolve => setTimeout(resolve, 1700));
+
+      const addedCartItem = getByTestId("product-0-cart-item");
+      expect(addedCartItem).toBeInTheDocument();
+      const cartTotalAmount = getByTestId("cart-total-amount");
+      expect(cartTotalAmount.textContent).toBe("$72,000,000");
+
+      const checkoutButton = getByTestId("checkout-button");
+      expect(checkoutButton).toBeInTheDocument();
+
+      act(() => {
+        fireEvent.click(checkoutButton);
       });
-    });
 
-
-    it('should render first product', async () => {
-      const { getByTestId } = renderedComponent;
-      const firstProduct = getByTestId('productItem-0');
-      const title = mockProducts[0].title;
-
-      expect(firstProduct).toHaveTextContent(title);
-    });
-
-
-    it('should add product to cart in ProductContext', async () => {
-      const { getByTestId } = renderedComponent;
-
-      const addToCartButton = getByTestId('productItem-0-addToCart');
-      expect(addToCartButton).toBeInTheDocument();
-
-      await act( async () => {
-        fireEvent.click(addToCartButton);
-      });
-      
       await waitFor(() => {
         const navbarCartNumber = getByTestId("navbar-cart-number");
-        expect(navbarCartNumber.textContent).toBe("Cart (1)");
-      });
-    });
-
-
-    it('should deduct from stock when adding to cart', async () => {
-      const { getByTestId } = renderedComponent;
-
-      const addToCartButton = getByTestId('productItem-1-addToCart');
-      expect(addToCartButton).toBeInTheDocument();
-
-      await act( async () => {
-        fireEvent.click(addToCartButton);
-      });
-      
-      await waitFor(() => {
-        const productItemStock = getByTestId("productItem-1-stock");
-        expect(productItemStock.textContent).toBe("44 Available");
+        expect(navbarCartNumber.textContent).toBe("Cart (0)");
       });
     });
   });

@@ -85,11 +85,10 @@ export function ProductProvider({ children }) {
 
   const checkout = () => {
     if (cart.length !== 0) {
-          console.log("Successful items update");
-          setCart([])
-          setTotal(0)
-          setNumberOfItems(0)
-          alert("Cart Ordered!!!");
+      console.log("Successful items update");
+      setCart([]);
+      setTotal(0);
+      setNumberOfItems(0);
     }
   };
 
