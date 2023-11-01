@@ -1,7 +1,7 @@
 import React from 'react'
 import { createContext, useContext, useState } from 'react'
 
-const ProductContext = createContext();
+export const ProductContext = createContext();
 
 export function ProductProvider({ children }) {
   const [cart, setCart] = useState([])
@@ -83,15 +83,6 @@ export function ProductProvider({ children }) {
       setTotal(newTotal)
   };
 
-  const checkout = () => {
-    if (cart.length !== 0) {
-      console.log("Successful items update");
-      setCart([]);
-      setTotal(0);
-      setNumberOfItems(0);
-    }
-  };
-
   const loaderProp =({ src }) => {
     return src;
   }
@@ -101,12 +92,12 @@ export function ProductProvider({ children }) {
     <ProductContext.Provider
       value={{
         cart: cart,
+        setCart: setCart,
         setProducts: setProducts,
         total: total,
         numberOfItems: numberOfItems,
         addToCart: addToCart,
         removeFromCart: removeFromCart,
-        checkout: checkout,
         loaderProp: loaderProp
       }}
     >

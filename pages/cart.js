@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import CartItem from "../components/CartItem"
 import { useProductContext } from "../data/context/ProductContext";
 import Navbar from "../components/Navbar/Navbar";
@@ -6,7 +6,8 @@ import Footer from "../components/Footer";
 import PageTitle from "../components/PageTitle";
 
 export default function Cart() {
-   const { cart, numberOfItems, total, removeFromCart, checkout } = useProductContext()
+  const { cart, numberOfItems, total, removeFromCart, setNumberOfItems, setCart, setTotal } = useProductContext()
+  const [checkedOut, setCheckedOut] = useState(false);
    function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
@@ -22,7 +23,18 @@ export default function Cart() {
             return 0
         }
     }
+
+  useEffect(() => {
+  }, [checkedOut]);
     
+  function cartCheckout() {
+    setCart([]);
+    setTotal(0);
+    setNumberOfItems(0);
+    setCheckedOut(true);
+    alert("Successfuly ordered!");
+  }
+
    return(
     <>
     <div className="App">
@@ -65,7 +77,7 @@ export default function Cart() {
                 </h3>
                 <button
                     className="checkout-button"
-                    onClick={checkout}
+                    onClick={cartCheckout}
                     data-testid="checkout-button"
                 >
                     Checkout
