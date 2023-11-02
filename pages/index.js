@@ -6,15 +6,17 @@ import { collection, getDocs } from "firebase/firestore";
 import { db } from "../data/firebase/firebase.config"
 import Footer from "../components/Footer";
 import PageTitle from "../components/PageTitle";
+import fetchPaintingData from "../data/fetchPaintingData";
+import paintingIds from "../data/paintingIds.json";
 
-export default function ProductList({ paintings }) {
+export default function ProductList({ paintingsData, paintingsStocks }) {
   const { addToCart, setProducts, loaderProp } = useProductContext()
   const [loading, setLoading] = useState(true);
 
+  console.log(paintingsData, paintingsStocks);
+
   useEffect(() => {
-    setProducts(paintings)
-    setTimeout(() => setLoading(false), 1500)
-  }, [paintings])
+  }, [paintingsData])
 
   return(
     <>
@@ -24,8 +26,8 @@ export default function ProductList({ paintings }) {
           <div className="container">
               <div className="painting-list">
                   { !loading ? (
-                      paintings && paintings.length ?
-                        paintings.map((product, index) => (
+                      paintingsData && paintingsData.length ?
+                        paintingsData.map((product, index) => (
                             <ProductItem
                                 product={product}
                                 key={index}
@@ -54,15 +56,26 @@ export default function ProductList({ paintings }) {
 }
 
 export async function getServerSideProps() {
+  const paintingsData = [];
+  for (const painting of paintingIds) {
+    try {
+      const response = await fetchPaintingData(painting.id);
+      paintingsData.push(response);
+    } catch (err) {
+      console.error("Error at gssp fetchPaintingData" + err);
+    }
+  };
+
+  const paintingsStocks = [];
   const paintingsRef = collection(db, 'paintings');
-  const paintings = [];
   const snapshot = await getDocs(paintingsRef);
   snapshot.forEach((doc) => {
-      paintings.push({ ...doc.data() })
-      })
+    paintingsStocks.push({ ...doc.data() })
+    })
   return {
-      props: {
-          paintings: paintings
-      }
+    props: {
+      paintingsData: paintingsData,
+      paintingsStocks: paintingsStocks
+    }
   };
 };
