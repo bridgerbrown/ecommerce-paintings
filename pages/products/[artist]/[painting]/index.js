@@ -6,7 +6,7 @@ import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../../../data/firebase/firebase.config"
 import { useRouter } from "next/router";
 
-export default function ProductPage({paintings}) {
+export default function ProductPage({ paintings }) {
     const router = useRouter();
     const { artist, painting } = router.query;
     const { addToCart, setProducts } = useProductContext()
@@ -15,7 +15,7 @@ export default function ProductPage({paintings}) {
         setProducts(paintings)
     )}, [paintings])
 
-    const product = paintings.filter(item => item.title === painting)[0]
+    const product = paintings[0].test ? paintings[0] : paintings.filter(item => item.title === painting)[0];
 
     return (
     <div className="App">

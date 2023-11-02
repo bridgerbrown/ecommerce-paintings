@@ -5,6 +5,7 @@ import mockRouter from "next-router-mock";
 import Navbar from "../components/Navbar/Navbar";
 import ProductList from "../pages/index";
 import { ProductProvider } from "../data/context/ProductContext";
+import { mockProducts } from "./mockProducts";
 
 jest.mock('next/router', () => jest.requireActual('next-router-mock'));
 
@@ -46,63 +47,6 @@ describe('ProductList page', () => {
   beforeEach(() => {
     mockRouterSetup();
   });
-
-  const mockProducts = [
-    {
-      artist: "Vincent van Gogh",
-      date: 1887,
-      description: "In 1886 Vincent...",
-      fsid: 0,
-      height: 493,
-      id: 0,
-      img: "/AIC.jpg",
-      img_full: "https://www.artic.edu",
-      link: "https://www.artic.edu",
-      medium: "Oil on artist's board",
-      place: "Paris",
-      price: "$72,000,000",
-      route: "vincent-van-gogh/self-portrait",
-      stock: 60,
-      title: "Self-Portrait",
-      width: 388,
-    },
-    {
-      artist: "Leonardo da Vinci",
-      date: 1503,
-      description: "Mona Lisa is a famous portrait...",
-      fsid: 1,
-      height: 770,
-      id: 1,
-      img: "/AIC.jpg",
-      img_full: "https://www.artic.edu",
-      link: "https://www.artic.edu",
-      medium: "Oil on poplar wood",
-      place: "Florence",
-      price: "$860,000,000",
-      route: "leonardo-da-vinci/mona-lisa",
-      stock: 45,
-      title: "Mona Lisa",
-      width: 530,
-    },
-    {
-      artist: "Pablo Picasso",
-      date: 1937,
-      description: "Guernica is a powerful anti-war mural...",
-      fsid: 2,
-      height: 349,
-      id: 2,
-      img: "/AIC.jpg",
-      img_full: "https://www.artic.edu",
-      link: "https://www.artic.edu",
-      medium: "Oil on canvas",
-      place: "Paris",
-      price: "$200,000,000",
-      route: "pablo-picasso/guernica",
-      stock: 30,
-      title: "Guernica",
-      width: 776,
-    },
-  ];
 
   it('should render ProductItem components for each product', async () => {
     const renderedComponent = render(

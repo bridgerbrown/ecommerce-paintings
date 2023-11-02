@@ -4,18 +4,8 @@ import { useProductContext } from "../data/context/ProductContext";
 import { updateDoc, doc } from "firebase/firestore"
 import { db } from "../data/firebase/firebase.config";
 
-export default function Details({product}) {
+export default function Details({ product }) {
     const { loaderProp, addToCart } = useProductContext()
-    const productRef = doc(db, "paintings", `${product.fsid}`)
-
-    async function addToCartStockUpdate() {
-        if(product.stock > 0) {
-            await updateDoc(productRef, {
-                stock: product.stock - 1
-            })    
-        } 
-    }
-
 
     return (
         <div className="info-container">
@@ -27,22 +17,45 @@ export default function Details({product}) {
                     height={product.height}
                     loader={loaderProp}
                     className="info-image"
+                    data-testid="details-image"
                 />
             </div>
             <div className="info">
                 <div className="info-text">
-                    <h1 className="info-title">
+                    <h1 
+                      className="info-title"
+                      data-testid="details-title"
+                    >
                         {product.title}
                     </h1>
-                    <h2 className="info-artist">{product.artist}</h2>
-                    <h4>{product.date}</h4>
-                    <h4>{product.medium}</h4>
-                    <h4>{product.place}</h4>
-                    <p>{product.description}</p>
+                    <h2 
+                      className="info-artist"
+                      data-testid="details-artist"
+                    >
+                      {product.artist}
+                    </h2>
+                    <h4 data-testid="details-date">
+                      {product.date}
+                    </h4>
+                    <h4 data-testid="details-medium">
+                      {product.medium}
+                    </h4>
+                    <h4 data-testid="details-place">{product.place}</h4>
+                    <p data-testid="details-description">{product.description}</p>
                     <div className="info-stock-price">
-                        <h2 className="info-price">{product.price}</h2>
+                        <h2 
+                          className="info-price"
+                          data-testid="details-price"
+                        >
+                          {product.price}
+                        </h2>
                         {product.stock > 0 ? (
-                        <small className="info-stock">{product.stock + " Available"}</small>
+                        <small 
+                          className="info-stock"
+                          data-testid="details-stock"
+                        >
+                          {product.stock + " Available"}
+                        </small>
                         ) : (
                         <small className="out-of-stock">Out Of Stock</small>
                         )}
