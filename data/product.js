@@ -16,7 +16,7 @@ export default function productData(painting, id, productsStock) {
     artist: artist,
     price: paintingsMetaDeta[metaDataIndex].price,
     stock: productsStock,
-    route: `/${artist}/${title}`,
+    route: `${artist}/${title}`,
     fsid: paintingsMetaDeta[metaDataIndex].fsid,
     width: paintingsMetaDeta[metaDataIndex].width,
     height: paintingsMetaDeta[metaDataIndex].height,

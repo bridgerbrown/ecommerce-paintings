@@ -22,6 +22,7 @@ export default function ProductPage({ paintingsData, productsStock }) {
   useEffect(() => {
     setProducts(paintingsData)
     setStock(productsStock)
+    console.log(productsStock)
   }, [paintingsData])
 
   return (
@@ -51,7 +52,7 @@ export async function getServerSideProps() {
   const snapshot = await getDocs(stockRef);
   snapshot.forEach((doc) => {
     productsStock.push({ ...doc.data() })
-    })
+  })
   return {
     props: {
       paintingsData: paintingsData,

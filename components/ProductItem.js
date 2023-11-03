@@ -2,10 +2,11 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import productData from "../data/product";
-import stockUpdate from "../data/firebase/stockUpdate";
+import { useProductContext } from "../data/context/ProductContext";
 
-export default function ProductItem({ painting, id, addToCart, productsStock }) {
+export default function ProductItem({ painting, id, productsStock }) {
   const product = productData(painting, id, productsStock);
+  const { addToCart } = useProductContext();
 
   return(
     <div 
@@ -37,12 +38,12 @@ export default function ProductItem({ painting, id, addToCart, productsStock }) 
           </div>
           <div className="painting-action">
             <span className="painting-price">{product.price}</span>
-            { product.stock > 0 ? (
+            { productsStock > 0 ? (
               <small 
                 className="painting-stock"
                 data-testid={`productItem-${product.id}-stock`}
               >
-                {product.stock + " Available"}
+                {productsStock + " Available"}
               </small>
               ) : (
               <small className="out-of-stock">Out Of Stock</small>
@@ -50,10 +51,7 @@ export default function ProductItem({ painting, id, addToCart, productsStock }) 
             <div className="painting-buttons">
               <button
                 className="add-to-cart"
-                onClick={() => {
-                  stockUpdate(product, productsStock)
-                  addToCart(product);
-                  }}
+                onClick={() => addToCart(product)}
                 data-testid={`productItem-${product.id}-addToCart`}
                 >
                   Add to Cart

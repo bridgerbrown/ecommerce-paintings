@@ -1,12 +1,13 @@
 import React from 'react'
 import { createContext, useContext, useState } from 'react'
+import { addToCartStockUpdate, removeFromCartStockUpdate } from '../firebase/stockUpdate';
 
 export const ProductContext = createContext();
 
 export function ProductProvider({ children }) {
   const [cart, setCart] = useState([]);
   const [products, setProducts] = useState([]);
-  const [stock, setStock] = useState([]);
+  const [stock, setStock] = useState();
   const [total, setTotal] = useState(0);
   const [numberOfItems, setNumberOfItems] = useState(0);
 
@@ -32,6 +33,7 @@ export function ProductProvider({ children }) {
       setTotal(newTotal);
       setNumberOfItems(numberOfItems + 1);
     }
+    // addToCartStockUpdate(product, stock[product.id].stock);
   };
 
   const removeFromCart = (product) => {
@@ -56,6 +58,7 @@ export function ProductProvider({ children }) {
 
       console.log(newTotal)
       setTotal(newTotal)
+    // removeFromCartStockUpdate(product);
   };
 
   const loaderProp =({ src }) => {

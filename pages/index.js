@@ -10,7 +10,7 @@ import fetchPaintingData from "../data/fetchPaintingData";
 import paintingsMetadata from "../data/paintingsMetadata.json";
 
 export default function ProductList({ paintingsData, productsStock }) {
-  const { addToCart, setProducts, setStock } = useProductContext()
+  const { setProducts, setStock } = useProductContext()
 
   useEffect(() => {
     setProducts(paintingsData);
@@ -30,7 +30,6 @@ export default function ProductList({ paintingsData, productsStock }) {
                   painting={painting}
                   id={index}
                   key={index}
-                  addToCart={addToCart}
                   productsStock={productsStock[index].stock}
                 />
               ))
