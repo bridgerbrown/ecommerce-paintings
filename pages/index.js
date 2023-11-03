@@ -7,57 +7,51 @@ import { db } from "../data/firebase/firebase.config"
 import Footer from "../components/Footer";
 import PageTitle from "../components/PageTitle";
 import fetchPaintingData from "../data/fetchPaintingData";
-import paintingIds from "../data/paintingIds.json";
+import paintingsMetadata from "../data/paintingsMetadata.json";
 
-export default function ProductList({ paintingsData, paintingsStocks }) {
+export default function ProductList({ paintingsData, productsStock }) {
   const { addToCart, setProducts, loaderProp } = useProductContext()
-  const [loading, setLoading] = useState(true);
-
-  console.log(paintingsData, paintingsStocks);
 
   useEffect(() => {
   }, [paintingsData])
 
-  return(
-    <>
-      <div className="App">
-          <Navbar />
-          <PageTitle title={"Products"} />     
-          <div className="container">
-              <div className="painting-list">
-                  { !loading ? (
-                      paintingsData && paintingsData.length ?
-                        paintingsData.map((product, index) => (
-                            <ProductItem
-                                product={product}
-                                key={index}
-                                addToCart={addToCart}
-                                loaderProp={loaderProp}
-                            />
-                        ))
-                        :
-                        <span></span>
-                  ) : (
-                      <div className="loading-container">
-                          <span 
-                            className="loading"
-                            data-testid="productList-loading" 
-                          >
-                              Loading API data...
-                          </span>
-                      </div>
-                  )}
-              </div>
-          </div>
-          <Footer/>
+  return (
+    <div className="App">
+      <Navbar />
+      <PageTitle title={"Products"} />     
+      <div className="container">
+        <div className="painting-list">
+          { 
+            paintingsData && paintingsData.length ?
+              paintingsData.map((painting, index) => (
+                <ProductItem
+                  painting={painting}
+                  id={index}
+                  key={index}
+                  addToCart={addToCart}
+                  productsStock={productsStock[index].stock}
+                />
+              ))
+            : (
+            <div className="loading-container">
+                <span 
+                  className="loading"
+                  data-testid="productList-loading" 
+                >
+                    Loading API data...
+                </span>
+            </div>
+          )}
+        </div>
       </div>
-  </>
+      <Footer/>
+    </div>
   )
-}
+};
 
 export async function getServerSideProps() {
   const paintingsData = [];
-  for (const painting of paintingIds) {
+  for (const painting of paintingsMetadata) {
     try {
       const response = await fetchPaintingData(painting.id);
       paintingsData.push(response);
@@ -66,16 +60,16 @@ export async function getServerSideProps() {
     }
   };
 
-  const paintingsStocks = [];
+  const productsStock = [];
   const paintingsRef = collection(db, 'paintings');
   const snapshot = await getDocs(paintingsRef);
   snapshot.forEach((doc) => {
-    paintingsStocks.push({ ...doc.data() })
+    productsStock.push({ ...doc.data() })
     })
   return {
     props: {
       paintingsData: paintingsData,
-      paintingsStocks: paintingsStocks
+      productsStock: productsStock, 
     }
   };
 };
