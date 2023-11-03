@@ -4,59 +4,34 @@ import { createContext, useContext, useState } from 'react'
 export const ProductContext = createContext();
 
 export function ProductProvider({ children }) {
-  const [cart, setCart] = useState([])
-  const [products, setProducts] = useState()
-  const [total, setTotal] = useState(0)
-  const [numberOfItems, setNumberOfItems] = useState(0)
+  const [cart, setCart] = useState([]);
+  const [products, setProducts] = useState([]);
+  const [stock, setStock] = useState([]);
+  const [total, setTotal] = useState(0);
+  const [numberOfItems, setNumberOfItems] = useState(0);
 
   const addToCart = (product) => {
-      let newCart = [];
-      let updatedProducts = [];
-      let indexProd = products.findIndex((prod) => {
-        return prod.id === product.id;
+    let newCart = [];
+    const correctNumber = product.price.replace(/,/g,'').replace(/\$/g,'');
+    const newTotal = Number(total) + Number(correctNumber);
+
+    if (stock[product.id].stock > 0) {
+      let productCartIndex = cart.findIndex((item) => {
+        return item.id === product.id;
       });
 
-      let correctNumber = product.price.replace(/,/g,'').replace(/\$/g,'')
-      let newTotal = Number(total) + Number(correctNumber)
-
-      if (products[indexProd].stock > 0) {
-        let indexCart = cart.findIndex((item) => {
-          return item.id === product.id;
-        });
-
-        if (indexCart === -1) {
-          setCart(
-            cart.concat([
-              {
-                id: product.id,
-                title: product.title,
-                img: product.img,
-                link: product.link,
-                description: product.description,
-                medium: product.medium,
-                artist: product.artist,
-                quantity: 1,
-                price: product.price,
-                route: product.route,
-                fsid: product.fsid,
-                stock: product.stock,
-              }
-            ])
-          )
-          setTotal(newTotal)
-        } else {
-          newCart = cart;
-          newCart[indexCart].quantity = newCart[indexCart].quantity + 1;
-          setCart(newCart)
-          setTotal(newTotal)
-        }
-
-        updatedProducts = products;
-        updatedProducts[indexProd].stock--;
-        setProducts(updatedProducts)
-        setTotal(newTotal)
-        setNumberOfItems(numberOfItems + 1)
+      if (productCartIndex === -1) {
+        setCart(cart.concat([{...product, quantity: 1}]));
+      } else {
+        newCart = cart;
+        newCart[productCartIndex].quantity += 1;
+        setCart(newCart);
       }
+
+      stock[product.id].stock--;
+      setTotal(newTotal);
+      setNumberOfItems(numberOfItems + 1);
+    }
   };
 
   const removeFromCart = (product) => {
@@ -94,6 +69,8 @@ export function ProductProvider({ children }) {
         cart: cart,
         setCart: setCart,
         setProducts: setProducts,
+        stock: stock,
+        setStock: setStock,
         total: total,
         numberOfItems: numberOfItems,
         addToCart: addToCart,

@@ -5,39 +5,57 @@ import { useProductContext } from "../../../../data/context/ProductContext";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../../../data/firebase/firebase.config"
 import { useRouter } from "next/router";
+import fetchPaintingData from "../../../../data/fetchPaintingData";
+import paintingsMetadata from "../../../../data/paintingsMetadata.json"
+import productData from "../../../../data/product";
 
-export default function ProductPage({ paintings }) {
-    const router = useRouter();
-    const { artist, painting } = router.query;
-    const { addToCart, setProducts } = useProductContext()
+export default function ProductPage({ paintingsData, productsStock }) {
+  const router = useRouter();
+  const { artist, painting } = router.query;
+  const { addToCart, setProducts, setStock } = useProductContext()
 
-    useEffect(() => {(
-        setProducts(paintings)
-    )}, [paintings])
+  const paintingindex = paintingsData.findIndex((item) => item.label == decodeURIComponent(painting));
+  const foundPainting =  paintingsData.filter((item) => item.label === painting)[0];
+  const foundStock = productsStock[paintingindex].stock;
+  const product = productData(foundPainting, paintingindex, foundStock);
 
-    const product = paintings[0].test ? paintings[0] : paintings.filter(item => item.title === painting)[0];
+  useEffect(() => {
+    setProducts(paintingsData)
+    setStock(productsStock)
+  }, [paintingsData])
 
-    return (
-    <div className="App">
-        <Navbar />
-        <Details 
-            product={product} 
-            addToCart={addToCart}
-        />
-    </div>
-    )
+  return (
+  <div className="App">
+    <Navbar />
+    <Details 
+      product={product} 
+      addToCart={addToCart}
+    />
+  </div>
+  )
 }
 
 export async function getServerSideProps() {
-    const paintingsRef = collection(db, 'paintings')
-    const paintings = []
-    const snapshot = await getDocs(paintingsRef)
-    snapshot.forEach((doc) => {
-        paintings.push({ ...doc.data() })
-        })
-    return {
-        props: {
-            paintings: paintings,
-        }
+  const paintingsData = [];
+  for (const painting of paintingsMetadata) {
+    try {
+      const response = await fetchPaintingData(painting.id);
+      paintingsData.push(response);
+    } catch (err) {
+      console.error("Error at gssp fetchPaintingData" + err);
     }
-}
+  };
+
+  const productsStock = [];
+  const stockRef = collection(db, 'paintings');
+  const snapshot = await getDocs(stockRef);
+  snapshot.forEach((doc) => {
+    productsStock.push({ ...doc.data() })
+    })
+  return {
+    props: {
+      paintingsData: paintingsData,
+      productsStock: productsStock, 
+    }
+  };
+};

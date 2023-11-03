@@ -1,101 +1,72 @@
-import React from "react"
-import Link from "next/link"
-import Image from "next/image"
-import { updateDoc, doc } from "firebase/firestore"
-import { db } from "../data/firebase/firebase.config"
-import productData from "../data/product"
+import React from "react";
+import Link from "next/link";
+import Image from "next/image";
+import productData from "../data/product";
+import stockUpdate from "../data/firebase/stockUpdate";
 
 export default function ProductItem({ painting, id, addToCart, productsStock }) {
   const product = productData(painting, id, productsStock);
-  const productRef = doc(db, "paintings", `${product.fsid}`);
-
-  async function addToCartStockUpdate() {
-      if(product.stock > 0) {
-          await updateDoc(productRef, {
-              stock: product.stock - 1
-          })    
-      } 
-      else if(product.stock <= 0 ) {
-          await updateDoc(productRef, {
-              stock: 10
-          })    
-      }
-  }
 
   return(
-      <div 
-        className="painting-container"
-        data-testid={`productItem-${product.id}`}
-      >
-          <div className="painting-image">
-              <div className="painting-image-container">
-                  <Link href={`/products/${product.route}`}>
-                      <Image
-                          src={product.img}
-                          alt={product.title}
-                          sizes="(max-width: 19rem, max-height: 15rem),
-                          (max-width: 14rem, max-height: 9rem) 50vw,
-                          "
-                          width={product.width}
-                          height={product.height}
-                          className="product-item-image"
-                      />  
-                  </Link>
+    <div 
+      className="painting-container"
+      data-testid={`productItem-${product.id}`}
+    >
+      <div className="painting-image">
+        <div className="painting-image-container">
+          <Link href={`/products/${product.route}`}>
+            <Image
+                src={product.img}
+                alt={product.title}
+                sizes="(max-width: 19rem, max-height: 15rem),
+                (max-width: 14rem, max-height: 9rem) 50vw,
+                "
+                width={product.width}
+                height={product.height}
+                className="product-item-image"
+            />  
+          </Link>
+        </div>
+      </div>
+      <div className="painting-text">
+          <div className="painting-titling">
+              <h1 className="painting-title">
+                  {product.title}
+              </h1>
+              <h2 className="painting-artist">{product.artist}</h2>
+          </div>
+          <div className="painting-action">
+            <span className="painting-price">{product.price}</span>
+            { product.stock > 0 ? (
+              <small 
+                className="painting-stock"
+                data-testid={`productItem-${product.id}-stock`}
+              >
+                {product.stock + " Available"}
+              </small>
+              ) : (
+              <small className="out-of-stock">Out Of Stock</small>
+            )}
+            <div className="painting-buttons">
+              <button
+                className="add-to-cart"
+                onClick={() => {
+                  stockUpdate(product, productsStock)
+                  addToCart(product);
+                  }}
+                data-testid={`productItem-${product.id}-addToCart`}
+                >
+                  Add to Cart
+                </button>
+                <Link href={`/products/${product.artist}/${product.title}`}>
+                  <button
+                      className="more-info"
+                  >
+                      More Info
+                  </button>
+                </Link>
               </div>
           </div>
-              <div className="painting-text">
-                  <div className="painting-titling">
-                      <h1 className="painting-title">
-                          {product.title}
-                      </h1>
-                      <h2 className="painting-artist">{product.artist}</h2>
-                  </div>
-                  <div className="painting-action">
-                      <span className="painting-price">{product.price}</span>
-                      {product.stock > 0 ? (
-                      <small 
-                        className="painting-stock"
-                        data-testid={`productItem-${product.id}-stock`}
-                      >
-                        {product.stock + " Available"}
-                      </small>
-                      ) : (
-                      <small className="out-of-stock">Out Of Stock</small>
-                      )}
-                      <div className="painting-buttons">
-                          <button
-                              className="add-to-cart"
-                              onClick={() => {
-                                  addToCartStockUpdate()
-                                  addToCart({
-                                      id: product.id,
-                                      title: product.title,
-                                      img: product.img,
-                                      link: product.link,
-                                      description: product.description,
-                                      medium: product.medium,
-                                      artist: product.artist,
-                                      stock: product.stock,
-                                      price: product.price,
-                                      route: product.route,
-                                      fsid: product.fsid,
-                                      quantity: 1,
-                                  })
-                              }}
-                            data-testid={`productItem-${product.id}-addToCart`}
-                          >
-                              Add to Cart
-                          </button>
-                          <Link href={`/products/${product.artist}/${product.title}`}>
-                              <button
-                                  className="more-info"
-                              >
-                                  More Info
-                              </button>
-                          </Link>
-                      </div>
-                  </div>
-              </div>
-      </div>
-  )
-}
+        </div>
+    </div>
+)};

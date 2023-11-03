@@ -10,9 +10,11 @@ import fetchPaintingData from "../data/fetchPaintingData";
 import paintingsMetadata from "../data/paintingsMetadata.json";
 
 export default function ProductList({ paintingsData, productsStock }) {
-  const { addToCart, setProducts, loaderProp } = useProductContext()
+  const { addToCart, setProducts, setStock } = useProductContext()
 
   useEffect(() => {
+    setProducts(paintingsData);
+    setStock(productsStock);
   }, [paintingsData])
 
   return (
@@ -61,8 +63,8 @@ export async function getServerSideProps() {
   };
 
   const productsStock = [];
-  const paintingsRef = collection(db, 'paintings');
-  const snapshot = await getDocs(paintingsRef);
+  const stockRef = collection(db, 'paintings');
+  const snapshot = await getDocs(stockRef);
   snapshot.forEach((doc) => {
     productsStock.push({ ...doc.data() })
     })
