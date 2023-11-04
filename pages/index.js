@@ -9,7 +9,7 @@ import PageTitle from "../components/PageTitle";
 import fetchPaintingData from "../data/fetchPaintingData";
 import paintingsMetadata from "../data/paintingsMetadata.json";
 
-export default function ProductList({ paintingsData, productsStock }) {
+export default function ProductList({ paintingsData, productsStock, apiFetchDuration }) {
   const { setProducts, setStock } = useProductContext()
 
   useEffect(() => {
@@ -17,10 +17,12 @@ export default function ProductList({ paintingsData, productsStock }) {
     setStock(productsStock);
   }, [paintingsData])
 
+  console.log(apiFetchDuration)
+
   return (
     <div className="App">
       <Navbar />
-      <PageTitle title={"Products"} />     
+      <PageTitle title={"Products"} apiFetchDuration={apiFetchDuration} />     
       <div className="container">
         <div className="painting-list">
           { 
@@ -51,6 +53,8 @@ export default function ProductList({ paintingsData, productsStock }) {
 };
 
 export async function getServerSideProps() {
+  const startTime = new Date();
+
   const paintingsData = [];
   for (const painting of paintingsMetadata) {
     try {
@@ -60,6 +64,9 @@ export async function getServerSideProps() {
       console.error("Error at gssp fetchPaintingData" + err);
     }
   };
+
+  const endTime = new Date();
+  const duration = endTime - startTime;
 
   const productsStock = [];
   const stockRef = collection(db, 'paintings');
@@ -71,6 +78,7 @@ export async function getServerSideProps() {
     props: {
       paintingsData: paintingsData,
       productsStock: productsStock, 
+      apiFetchDuration: duration,
     }
   };
 };
