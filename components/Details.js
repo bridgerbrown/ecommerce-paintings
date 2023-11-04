@@ -12,7 +12,7 @@ export default function Details({ product }) {
         <div className="info-container">
             <div className="info-image-container">
                 <Image
-                    src={product.img_full}
+                    src={product.img}
                     alt={product.shortDesc}
                     width={product.width}
                     height={product.height}

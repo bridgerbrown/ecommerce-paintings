@@ -221,6 +221,7 @@ button:active {
 }
 
 .cartitem-image img {
+  width: fit-content;
   max-width: 13rem;
   max-height: 11rem;
   margin-right: 1rem;
@@ -738,6 +739,7 @@ button:active {
   color: white;
   border: none;
   border-radius: 5px;
+  cursor: pointer;
 }
 
 .submit-line {
