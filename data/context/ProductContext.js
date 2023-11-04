@@ -1,6 +1,5 @@
 import React from 'react'
 import { createContext, useContext, useState } from 'react'
-import { addToCartStockUpdate, removeFromCartStockUpdate } from '../firebase/stockUpdate';
 
 export const ProductContext = createContext();
 
@@ -33,38 +32,18 @@ export function ProductProvider({ children }) {
       setTotal(newTotal);
       setNumberOfItems(numberOfItems + 1);
     }
-    // addToCartStockUpdate(product, stock[product.id].stock);
   };
 
   const removeFromCart = (product) => {
-      let newCart = cart;
-      setCart(newCart.filter((item) => item.id !== product.id))
+    let newCart = cart;
+    const cartIndex = cart.findIndex((item) => item.id === product.id);
+    setCart(newCart.filter((item) => item.id !== product.id));
+    setNumberOfItems(numberOfItems - cart[cartIndex].quantity);
 
-      let indexProd = products.findIndex((prod) => {
-        return prod.id === product.id;
-      });
-
-      let updatedProducts = products;
-
-      let correctNumber = updatedProducts[indexProd].price.replace(/,/g,'').replace(/\$/g,'')
-
-      let newTotal = total - (correctNumber * product.quantity)
-
-      updatedProducts[indexProd].stock =
-        updatedProducts[indexProd].stock + parseInt(product.quantity);
-
-      setProducts(updatedProducts)
-      setNumberOfItems(0)
-
-      console.log(newTotal)
-      setTotal(newTotal)
-    // removeFromCartStockUpdate(product);
+    const correctNumber = product.price.replace(/,/g,'').replace(/\$/g,'');
+    const newTotal = total - (correctNumber * product.quantity);
+    setTotal(newTotal);
   };
-
-  const loaderProp =({ src }) => {
-    return src;
-  }
-
 
   return (
     <ProductContext.Provider
@@ -75,10 +54,11 @@ export function ProductProvider({ children }) {
         stock: stock,
         setStock: setStock,
         total: total,
+        setTotal: setTotal,
         numberOfItems: numberOfItems,
+        setNumberOfItems: setNumberOfItems,
         addToCart: addToCart,
         removeFromCart: removeFromCart,
-        loaderProp: loaderProp
       }}
     >
       {children}

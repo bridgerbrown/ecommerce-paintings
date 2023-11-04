@@ -4,21 +4,17 @@ import { useProductContext } from "../data/context/ProductContext";
 import Navbar from "../components/Navbar/Navbar";
 import Footer from "../components/Footer";
 import PageTitle from "../components/PageTitle";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../data/firebase/firebase.config"
 
-export default function Cart() {
+export default function Cart({ productsStock }) {
   const { cart, numberOfItems, total, removeFromCart, setNumberOfItems, setCart, setTotal } = useProductContext()
   const [checkedOut, setCheckedOut] = useState(false);
 
-  function numberWithCommas(x) {
-    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-  };
+  function numberWithCommas(x) { return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");}
 
   function multipleItemCheck() {
-    if (numberOfItems) {
-      return numberOfItems === 1 ? " item" : " items";
-    } else {
-      return 0;
-    };
+    return numberOfItems ? numberOfItems === 1 ? " item" : " items" : 0;
   };
 
   useEffect(() => {
@@ -46,9 +42,10 @@ export default function Cart() {
           { cart && cart.length ? (
             cart.map((product, index) =>
               <CartItem
-                  product={product}
-                  key={index}
-                  removeFromCart={removeFromCart}
+                product={product}
+                key={index}
+                removeFromCart={removeFromCart}
+                productsStock={productsStock[index].stock}
               />
             )) 
             : 
@@ -83,3 +80,17 @@ export default function Cart() {
       <Footer />
     </div>
 )};
+
+export async function getServerSideProps() {
+  const productsStock = [];
+  const stockRef = collection(db, 'paintings');
+  const snapshot = await getDocs(stockRef);
+  snapshot.forEach((doc) => {
+    productsStock.push({ ...doc.data() })
+    })
+  return {
+    props: {
+      productsStock: productsStock, 
+    }
+  };
+};

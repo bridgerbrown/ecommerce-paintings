@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import productData from "../data/product";
 import { useProductContext } from "../data/context/ProductContext";
+import { addToCartStockUpdate } from "../data/firebase/stockUpdate";
 
 export default function ProductItem({ painting, id, productsStock }) {
   const product = productData(painting, id, productsStock);
@@ -51,7 +52,10 @@ export default function ProductItem({ painting, id, productsStock }) {
             <div className="painting-buttons">
               <button
                 className="add-to-cart"
-                onClick={() => addToCart(product)}
+                onClick={() => {
+                  addToCart(product)
+                  addToCartStockUpdate(product, productsStock);
+                }}
                 data-testid={`productItem-${product.id}-addToCart`}
                 >
                   Add to Cart

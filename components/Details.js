@@ -3,6 +3,7 @@ import Image from "next/image";
 import { useProductContext } from "../data/context/ProductContext";
 import { updateDoc, doc } from "firebase/firestore"
 import { db } from "../data/firebase/firebase.config";
+import { addToCartStockUpdate } from "../data/firebase/stockUpdate";
 
 export default function Details({ product }) {
     const { loaderProp, addToCart } = useProductContext()
@@ -65,22 +66,8 @@ export default function Details({ product }) {
                     <button
                         className="add-to-cart"
                         onClick={() => {
-                            addToCartStockUpdate()
-                            addToCart({
-                                id: product.id,
-                                title: product.title,
-                                img: product.img,
-                                img_full: product.img_full,
-                                link: product.link,
-                                description: product.description,
-                                medium: product.medium,
-                                artist: product.artist,
-                                quantity: 1,
-                                stock: product.stock,
-                                price: product.price,
-                                route: product.route,
-                                fsid: product.fsid
-                            })
+                          addToCart(product)
+                          addToCartStockUpdate(product, product.stock)
                         }}
                     >
                         Add to Cart

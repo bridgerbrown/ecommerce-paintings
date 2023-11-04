@@ -16,12 +16,9 @@ export async function addToCartStockUpdate(product, productsStock) {
   };
 };
 
-export async function removeFromCartStockUpdate(product) {
+export async function removeFromCartStockUpdate(product, stock) {
   const stockRef = doc(db, "paintings", `${product.fsid}`);
-  const { cart } = useProductContext();
-  const productInCart = cart.filter((item) => item.id == product.id);
-  const originalStock = productInCart[0].stock;
   await updateDoc(stockRef, {
-    stock: originalStock
+    stock: product.quantity + stock
   });
 };

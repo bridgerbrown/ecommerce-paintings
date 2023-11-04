@@ -1,8 +1,9 @@
 import React from "react";
 import Link from 'next/link'
 import Image from "next/image";
+import { removeFromCartStockUpdate } from "../data/firebase/stockUpdate";
 
-export default function CartItem({ product, removeFromCart }) {
+export default function CartItem({ product, removeFromCart, productsStock }) {
   return (
     <div 
       className="cartitem-container"
@@ -31,7 +32,10 @@ export default function CartItem({ product, removeFromCart }) {
             <div className="cartitem-buttons">
               <button
                 className="remove-cart"
-                onClick={() => removeFromCart(product)}
+                onClick={() => {
+                  removeFromCart(product)
+                  removeFromCartStockUpdate(product, productsStock)
+                }}
               >
                 Remove
               </button>

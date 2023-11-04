@@ -130,6 +130,13 @@ button:active {
   color: white;
 }
 
+.add-to-cart:hover,
+.remove-cart:hover,
+.more-info:hover,
+.checkout-button:hover {
+  cursor: pointer;
+}
+
 .more-info {
   background-color: rgb(170, 170, 170);
   color: white;
